@@ -1,5 +1,5 @@
 function openNewTicket(ticket) {
-	window.open("http://" + ticket + ".com", "_blank", "", false);
+	window.open("http://" + ticket + ".co", "_blank", "", false);
 }
 
 document.addEventListener('keydown', function(key) {
