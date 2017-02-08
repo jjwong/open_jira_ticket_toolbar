@@ -21,7 +21,7 @@ function save_options() {
 function restore_options() {
   chrome.storage.sync.get({
     useURL: "http://jiraland.issues.com",
-    useDefaultProject: "STACK"
+    useDefaultProject: "DEF"
   }, function(items) {
     document.getElementById('useURL').value = items.useURL;
     document.getElementById('inputDefaultProject').value = items.useDefaultProject;
