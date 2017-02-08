@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  min-width: 400px;
+  min-height: 400px;
+}
+
+/* Include the padding and border in an element's total width and height */
+* {
+  box-sizing: border-box;
+}
+
+/* Style the close button */
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Style the usessl */
+.default {
+  background-color: #14892c;
+  font-size: 20px;
+}
+
+/* Style the URL */
+.url {
+  background-color: #3572b0;
+  font-size: 20px;
+}
+
+.save {
+  background-color: #ebf2f9;
+  font-size: 20px;
+}
+
+/* Style the header */
+.header {
+  padding: 30px 10px;
+  color: white;
+  text-align: center;
+}
+
+/* Clear floats */
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#inputURL {
+  width: 100%;
+  text-align: center;
+}
+
+#inputDefaultProject {
+  width: 100%;
+  text-align: center;
+}
+
+#status {
+  background-color: #f5f5f5;
+  color: #d04437;
+  font-size: 20px;
+}
