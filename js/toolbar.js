@@ -3,6 +3,7 @@ function sanitizeInput(string) {
 }
 
 function openNewTicket(ticket) {
+  addHistory(ticket);
 
 	chrome.storage.sync.get(function(items) {
 		var url = items.useURL;
@@ -21,3 +22,30 @@ document.addEventListener('keydown', function(key) {
 		openNewTicket(user_input);
 	}
 });
+
+window.addEventListener('load', function() {
+  retrieveHistory();
+});
+
+function retrieveHistory() {
+  // Set default useHistory if undefined
+  chrome.storage.sync.get({"useHistory": []}, function(items) {
+    var historyStorage = items.useHistory;
+    var historyList = document.getElementById("historyList");
+    // Build history list
+    historyStorage.forEach(function (item) {
+      var li = document.createElement("li");
+      li.textContent = item;
+      historyList.appendChild(li);
+    }); //end foreach
+  }); //end sync
+} //end retrieveHistory
+
+function addHistory(searchString) {
+    chrome.storage.sync.get({"useHistory": []}, function (result) {
+        var useHistory = result.useHistory;
+        useHistory.push(searchString);
+        chrome.storage.sync.set({useHistory: useHistory}, function () { 
+        });
+    });
+};
