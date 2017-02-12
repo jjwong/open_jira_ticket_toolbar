@@ -1,7 +1,7 @@
 // Saves options to chrome.storage.sync.
 function save_options() {
   var input_url = document.getElementById('inputURL').value;
-  var input_default_project = document.getElementById('inputDefaultProject').checked;
+  var input_default_project = document.getElementById('inputDefaultProject').value;
   chrome.storage.sync.set({
     useURL: input_url,
     useDefaultProject: input_default_project
@@ -21,9 +21,9 @@ function save_options() {
 function restore_options() {
   chrome.storage.sync.get({
     useURL: "http://jiraland.issues.com",
-    useDefaultProject: "DEF"
+    useDefaultProject: "STACK"
   }, function(items) {
-    document.getElementById('useURL').value = items.useURL;
+    document.getElementById('inputURL').value = items.useURL;
     document.getElementById('inputDefaultProject').value = items.useDefaultProject;
   });
 }

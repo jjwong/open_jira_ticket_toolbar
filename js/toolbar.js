@@ -1,5 +1,17 @@
+function sanitizeInput(string) {
+  console.log("test");
+}
+
 function openNewTicket(ticket) {
-	window.open("http://" + ticket + ".com", "_blank", "", false);
+
+	chrome.storage.sync.get(function(items) {
+		var url = items.useURL;
+		var defaultProject = items.useDefaultProject;
+
+    window.open(url + "/" + defaultProject + "-" + ticket, "_blank", "", false);	
+		
+	});
+
 }
 
 document.addEventListener('keydown', function(key) {
