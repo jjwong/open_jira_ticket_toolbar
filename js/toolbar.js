@@ -44,8 +44,13 @@ function retrieveHistory() {
 function addHistory(searchString) {
     chrome.storage.sync.get({"useHistory": []}, function (result) {
         var useHistory = result.useHistory;
-        useHistory.push(searchString);
-        chrome.storage.sync.set({useHistory: useHistory}, function () { 
-        });
+        // We only want the last 5 results
+        while (useHistory.length >= 5) {
+          useHistory.pop();
+          chrome.storage.sync.set({useHistory: useHistory}, function () { });
+        }
+        // Add 1 to the top of the list
+        useHistory.unshift(searchString);
+        chrome.storage.sync.set({useHistory: useHistory}, function () {});      
     });
 };
