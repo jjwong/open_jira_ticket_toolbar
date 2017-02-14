@@ -1,5 +1,29 @@
-function sanitizeInput(string) {
-  console.log("test");
+function formCustomProject(string) {
+  // Default ticket pattern
+  var regex = new RegExp('([a-z]{2,}-\\d+)', 'i');
+  var text_found = string.match(regex);
+
+  if (text_found) {
+      return text_found;
+  }
+
+  // TODO:Ticket pattern, but missing the -
+  var regex = new RegExp('([a-z]{2,}\\d+)', 'i');
+  var text_found = string.match(regex);  
+
+}
+
+function isDefaultProject(string) {
+  // TODO: Only Numbers - use default
+  var regex = new RegExp('(^\\d+)', 'i');
+  var isDefault = string.match(regex);  
+
+  if (isDefault) {
+      return true;
+  } else {
+      return false;
+  }
+
 }
 
 function openNewTicket(ticket) {
@@ -9,23 +33,16 @@ function openNewTicket(ticket) {
 		var url = items.useURL;
 		var defaultProject = items.useDefaultProject;
 
-    window.open(url + "/" + defaultProject + "-" + ticket, "_blank", "", false);	
-		
+    if(isDefaultProject(ticket)) {
+      window.open(url + "/" + defaultProject + "-" + ticket, "_blank", "", false);        
+    } else {
+      // TODO: Form custom url ^^
+      window.open(url + "/b" + defaultProject + "-" + ticket, "_blank", "", false);    
+    }
+
 	});
 
 }
-
-document.addEventListener('keydown', function(key) {
-	// Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
-	if (key.keyCode == 13) {
-		var user_input = document.getElementById("ticket").value;
-		openNewTicket(user_input);
-	}
-});
-
-window.addEventListener('load', function() {
-  retrieveHistory();
-});
 
 function retrieveHistory() {
   // Set default useHistory if undefined
@@ -54,3 +71,15 @@ function addHistory(searchString) {
         chrome.storage.sync.set({useHistory: useHistory}, function () {});      
     });
 };
+
+document.addEventListener('keydown', function(key) {
+  // Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
+  if (key.keyCode == 13) {
+    var user_input = document.getElementById("ticket").value;
+    openNewTicket(user_input.trim());
+  }
+});
+
+window.addEventListener('load', function() {
+  retrieveHistory();
+});
