@@ -55,9 +55,9 @@ function openNewTicket(ticket) {
     var sanitizedTicket = sanitizeTicket(ticket);
 
     if(isDefaultProject(ticket)) {
-      window.open(url + "/" + defaultProject + "-" + sanitizedTicket, "_blank", "", false);        
+      window.open(url + "/browse/" + defaultProject + "-" + sanitizedTicket, "_blank", "", false);        
     } else {
-      window.open(url + "/" + sanitizedTicket, "_blank", "", false);
+      window.open(url + "/browse/" + sanitizedTicket, "_blank", "", false);
     }
 
 	});
