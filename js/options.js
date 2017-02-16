@@ -6,10 +6,17 @@ function sanitizeURL() {
   return sanitized_url;
 }
 
+function sanitizeProject() {
+  var input_default_project = document.getElementById('inputDefaultProject').value;
+  var only_text_regex = new RegExp('[a-z]+', 'i');
+  var sanitized_project = input_default_project.match(only_text_regex);
+  return sanitized_project[0];
+}
+
 // Saves options to chrome.storage.sync.
 function save_options() {
   var input_url = sanitizeURL();
-  var input_default_project = document.getElementById('inputDefaultProject').value;
+  var input_default_project = sanitizeProject();
   chrome.storage.sync.set({
     useURL: input_url,
     useDefaultProject: input_default_project
