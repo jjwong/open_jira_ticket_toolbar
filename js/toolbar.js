@@ -1,20 +1,8 @@
-function formCustomProject(string) {
-  // Default ticket pattern
-  var regex = new RegExp('([a-z]{2,}-\\d+)', 'i');
-  var text_found = string.match(regex);
-
-  if (text_found) {
-      return text_found;
-  }
-
-  // TODO:Ticket pattern, but missing the -
-  var regex = new RegExp('([a-z]{2,}\\d+)', 'i');
-  var text_found = string.match(regex);  
-
-}
-
 function isDefaultProject(string) {
-  // TODO: Only Numbers - use default
+  // If there are only numbers at the beginning, we can assume this is a default project
+  // There is a chance someone could type in 123BAD, but it will default to STACK-123
+  // I think this is okay, since 123BAD is considered invalid. 
+  // We can add more error handling if needed
   var regex = new RegExp('(^\\d+)', 'i');
   var isDefault = string.match(regex);  
 
@@ -26,18 +14,50 @@ function isDefaultProject(string) {
 
 }
 
+function sanitizeTicket(userInput) {
+  // JIRA tickets only takes [a-z], -, d+
+  var fullTicketRegex = new RegExp('([a-z]{1,}-\\d+)', 'i');
+  var semiTicketRegex = new RegExp('([a-z]{1,}\\d+)', 'i');
+  var numbersOnlyRegex = new RegExp('(\\d+)', 'i');
+  
+  var fullTicketText = userInput.match(fullTicketRegex);
+
+  if (fullTicketText) {
+      return fullTicketText[0];
+  } else if (userInput.match(semiTicketRegex)) {
+    // TODO: cleanup this mess
+      var jprojectRegex = new RegExp('([a-z]{1,})', 'i');
+      var jprojectText = userInput.match(jprojectRegex);
+      var jprojectNumber = userInput.match(numbersOnlyRegex);
+      //Form ticket 
+      var ticketID = jprojectText[0].concat("-", jprojectNumber[0]);
+      return ticketID;
+  } else if (userInput.match(numbersOnlyRegex)) {
+      var defaultTicket = userInput.match(numbersOnlyRegex);
+      return defaultTicket[0];
+  } else {
+      return "invalid ticket"
+  }
+
+}
+
 function openNewTicket(ticket) {
   addHistory(ticket);
+
+  var sanitizedTicket = sanitizeTicket(ticket);
+  if (sanitizedTicket == "invalid ticket") {
+    // TODO: We should handle this before it even opens a new tab
+  }
 
 	chrome.storage.sync.get(function(items) {
 		var url = items.useURL;
 		var defaultProject = items.useDefaultProject;
+    var sanitizedTicket = sanitizeTicket(ticket);
 
     if(isDefaultProject(ticket)) {
-      window.open(url + "/" + defaultProject + "-" + ticket, "_blank", "", false);        
+      window.open(url + "/" + defaultProject + "-" + sanitizedTicket, "_blank", "", false);        
     } else {
-      // TODO: Form custom url ^^
-      window.open(url + "/b" + defaultProject + "-" + ticket, "_blank", "", false);    
+      window.open(url + "/" + sanitizedTicket, "_blank", "", false);
     }
 
 	});
@@ -62,12 +82,20 @@ function addHistory(searchString) {
     chrome.storage.sync.get({"useHistory": []}, function (result) {
         var useHistory = result.useHistory;
         // We only want the last 5 results
+        // max ?@#?
         while (useHistory.length >= 5) {
           useHistory.pop();
           chrome.storage.sync.set({useHistory: useHistory}, function () { });
         }
         // Add 1 to the top of the list
-        useHistory.unshift(searchString);
+        var sanitizedTicket = sanitizeTicket(searchString);
+        if (sanitizedTicket == "invalid ticket") {
+          var invalidMsg = "Invalid ticket: " + "'" + searchString + "'";
+          useHistory.unshift(invalidMsg);
+        } else {
+          useHistory.unshift(sanitizedTicket);  
+        }
+        
         chrome.storage.sync.set({useHistory: useHistory}, function () {});      
     });
 };
@@ -75,8 +103,8 @@ function addHistory(searchString) {
 document.addEventListener('keydown', function(key) {
   // Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
   if (key.keyCode == 13) {
-    var user_input = document.getElementById("ticket").value;
-    openNewTicket(user_input.trim());
+    var userInput = document.getElementById("ticket").value;
+    openNewTicket(userInput.trim());
   }
 });
 
@@ -84,6 +112,6 @@ window.addEventListener('load', function() {
   retrieveHistory();
 });
 
-chrome.omnibox.onInputEntered.addListener(function (user_input) {
-  openNewTicket(user_input.trim());
+chrome.omnibox.onInputEntered.addListener(function (userInput) {
+  openNewTicket(userInput.trim());
 });
