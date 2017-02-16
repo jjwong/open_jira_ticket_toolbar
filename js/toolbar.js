@@ -83,3 +83,7 @@ document.addEventListener('keydown', function(key) {
 window.addEventListener('load', function() {
   retrieveHistory();
 });
+
+chrome.omnibox.onInputEntered.addListener(function (user_input) {
+  openNewTicket(user_input.trim());
+});
