@@ -1,6 +1,14 @@
+function sanitizeURL() {
+  // We are only removing the trailing slash for now.
+  var input_url = document.getElementById('inputURL').value;
+  var trailing_regex = new RegExp('\/+$', 'ig');
+  var sanitized_url = input_url.replace(trailing_regex, "");
+  return sanitized_url;
+}
+
 // Saves options to chrome.storage.sync.
 function save_options() {
-  var input_url = document.getElementById('inputURL').value;
+  var input_url = sanitizeURL();
   var input_default_project = document.getElementById('inputDefaultProject').value;
   chrome.storage.sync.set({
     useURL: input_url,
@@ -12,6 +20,7 @@ function save_options() {
     setTimeout(function() {
       status.textContent = '';
     }, 1500);
+    restore_options();
   });
 }
 

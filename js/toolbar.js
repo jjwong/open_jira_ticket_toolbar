@@ -81,9 +81,9 @@ function retrieveHistory() {
 function addHistory(searchString) {
     chrome.storage.sync.get({"useHistory": []}, function (result) {
         var useHistory = result.useHistory;
-        // We only want the last 5 results
-        // max ?@#?
-        while (useHistory.length >= 5) {
+        // We only want the last 10 results
+        // TODO: Make this a customizable option. limit range to 20?
+        while (useHistory.length >= 10) {
           useHistory.pop();
           chrome.storage.sync.set({useHistory: useHistory}, function () { });
         }
