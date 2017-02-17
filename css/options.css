@@ -9,41 +9,12 @@ body {
   box-sizing: border-box;
 }
 
-/* Style the close button */
-.close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 12px 16px 12px 16px
-}
-
-.close:hover {
-  background-color: #f44336;
-  color: white;
-}
-
-/* Style the usessl */
-.default {
-  background-color: #14892c;
-  font-size: 20px;
-}
-
-/* Style the URL */
-.url {
-  background-color: #3572b0;
-  font-size: 20px;
-}
-
-.save {
-  background-color: #ebf2f9;
-  font-size: 20px;
-}
-
 /* Style the header */
 .header {
-  padding: 30px 10px;
-  color: white;
-  text-align: center;
+  padding: 10px 10px;
+  font: normal 20px 'Bitter', serif;
+  color: #2A88AD;
+  margin-bottom: 5px;
 }
 
 /* Clear floats */
@@ -55,17 +26,48 @@ body {
 
 #inputURL {
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 #inputDefaultProject {
   width: 100%;
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
 }
 
 #status {
-  background-color: #f5f5f5;
-  color: #d04437;
+  border-radius: 5px;
+  background-color: #dfe5e8;
+  color: #33cc33;
+  font-size: 25px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+#save {
+  background: #2A88AD;
+  padding: 8px 20px 8px 20px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+  font: normal 30px 'Bitter', serif;
+  -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+  -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+  box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+  border: 1px solid #257C9E;
   font-size: 20px;
+}
+
+#save:hover{
+    background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
+    background-color: #28739E;
 }
