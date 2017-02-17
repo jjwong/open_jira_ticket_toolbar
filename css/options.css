@@ -60,6 +60,7 @@ body {
 
 #inputDefaultProject {
   width: 100%;
+  text-transform: uppercase;
   text-align: center;
 }
 

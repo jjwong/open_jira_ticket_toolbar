@@ -41,10 +41,11 @@ function sanitizeTicket(userInput) {
 
 }
 
-function openNewTicket(ticket) {
-  addHistory(ticket);
+function openNewTicket(ticket, fromTarget) {
+  var ticket_uppercase = ticket.toUpperCase();
+  addHistory(ticket_uppercase);
 
-  var sanitizedTicket = sanitizeTicket(ticket);
+  var sanitizedTicket = sanitizeTicket(ticket_uppercase);
   if (sanitizedTicket == "invalid ticket") {
     // TODO: We should handle this before it even opens a new tab
   }
@@ -52,10 +53,11 @@ function openNewTicket(ticket) {
 	chrome.storage.sync.get(function(items) {
 		var url = items.useURL;
 		var defaultProject = items.useDefaultProject;
-    var sanitizedTicket = sanitizeTicket(ticket);
+    var sanitizedTicket = sanitizeTicket(ticket_uppercase);
+    var target = getTarget(fromTarget);
 
-    if(isDefaultProject(ticket)) {
-      window.open(url + "/browse/" + defaultProject + "-" + sanitizedTicket, "_blank", "", false);        
+    if(isDefaultProject(ticket_uppercase)) {
+      window.open(url + "/browse/" + defaultProject + "-" + sanitizedTicket, "_blank", "", false);
     } else {
       window.open(url + "/browse/" + sanitizedTicket, "_blank", "", false);
     }
@@ -79,7 +81,7 @@ function retrieveHistory() {
 } //end retrieveHistory
 
 function addHistory(searchString) {
-    chrome.storage.sync.get({"useHistory": []}, function (result) {
+    chrome.storage.sync.get({"useHistory": [], "useDefaultProject": "PL" }, function (result) {
         var useHistory = result.useHistory;
         // We only want the last 10 results
         // TODO: Make this a customizable option. limit range to 20?
@@ -93,7 +95,13 @@ function addHistory(searchString) {
           var invalidMsg = "Invalid ticket: " + "'" + searchString + "'";
           useHistory.unshift(invalidMsg);
         } else {
-          useHistory.unshift(sanitizedTicket);  
+          if (isDefaultProject(sanitizedTicket)) {
+            var fullProjectText = result.useDefaultProject + "-" + sanitizedTicket;
+            useHistory.unshift(fullProjectText);    
+          } else {
+            useHistory.unshift(sanitizedTicket);    
+          }
+          
         }
         
         chrome.storage.sync.set({useHistory: useHistory}, function () {});      

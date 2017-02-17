@@ -10,7 +10,7 @@ function sanitizeProject() {
   var input_default_project = document.getElementById('inputDefaultProject').value;
   var only_text_regex = new RegExp('[a-z]+', 'i');
   var sanitized_project = input_default_project.match(only_text_regex);
-  return sanitized_project[0];
+  return sanitized_project[0].toUpperCase();
 }
 
 // Saves options to chrome.storage.sync.
