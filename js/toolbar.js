@@ -41,7 +41,7 @@ function sanitizeTicket(userInput) {
 
 }
 
-function openNewTicket(ticket, fromTarget) {
+function openNewTicket(ticket) {
   var ticket_uppercase = ticket.toUpperCase();
   addHistory(ticket_uppercase);
 
@@ -54,7 +54,6 @@ function openNewTicket(ticket, fromTarget) {
 		var url = items.useURL;
 		var defaultProject = items.useDefaultProject;
     var sanitizedTicket = sanitizeTicket(ticket_uppercase);
-    var target = getTarget(fromTarget);
 
     if(isDefaultProject(ticket_uppercase)) {
       window.open(url + "/browse/" + defaultProject + "-" + sanitizedTicket, "_blank", "", false);
