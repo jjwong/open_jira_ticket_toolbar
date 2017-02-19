@@ -78,11 +78,21 @@ function retrieveHistory() {
       var a = document.createElement("a");
 
       if (item.includes("Invalid ticket:")) {
-        li.textContent = item;
+        if (item.length > 25) {
+          a.textContent = item.substr(0, 25) + "...'";
+          a.setAttribute("title", item);
+          a.setAttribute("class", "invalid");
+          li.appendChild(a);  
+        } else {
+          li.setAttribute("class", "invalid");
+          li.textContent = item;
+        }
+
       } else {
         var formURL = items.useURL + "/browse/" + item;
         a.textContent = item;
         a.setAttribute("href", formURL);
+        a.setAttribute("class", "valid");
         a.target = "_blank";
         li.appendChild(a);
       }
