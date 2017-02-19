@@ -56,7 +56,9 @@ function openNewTicket(ticket) {
     var sanitizedTicket = sanitizeTicket(ticket_uppercase);
 
     if(isDefaultProject(ticket_uppercase)) {
-      window.open(url + "/browse/" + defaultProject + "-" + sanitizedTicket, "_blank", "", false);
+      var formURL = url + "/browse/" + defaultProject + "-" + sanitizedTicket;
+      var formHref = "<a href='" + formURL + "'>" + defaultProject + "-" + sanitizedTicket + "</a>"
+      window.open(formURL, "_blank", "", false);
     } else {
       window.open(url + "/browse/" + sanitizedTicket, "_blank", "", false);
     }
@@ -67,14 +69,26 @@ function openNewTicket(ticket) {
 
 function retrieveHistory() {
   // Set default useHistory if undefined
-  chrome.storage.sync.get({"useHistory": []}, function(items) {
+  chrome.storage.sync.get({"useHistory": [], "useURL": "default"}, function(items) {
     var historyStorage = items.useHistory;
     var historyList = document.getElementById("historyList");
     // Build history list
     historyStorage.forEach(function (item) {
       var li = document.createElement("li");
-      li.textContent = item;
+      var a = document.createElement("a");
+
+      if (item.includes("Invalid ticket:")) {
+        li.textContent = item;
+      } else {
+        var formURL = items.useURL + "/browse/" + item;
+        a.textContent = item;
+        a.setAttribute("href", formURL);
+        a.target = "_blank";
+        li.appendChild(a);
+      }
+
       historyList.appendChild(li);
+
     }); //end foreach
   }); //end sync
 } //end retrieveHistory

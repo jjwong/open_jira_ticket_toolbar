@@ -2,7 +2,7 @@
     "name": "Open Jira Ticket",
     "description": "Open JIRA tickets using the address bar or via the toolbar",
     "manifest_version": 2,
-    "version": "0.3",
+    "version": "0.4",
 
     "omnibox": { 
         "keyword": "jira"
