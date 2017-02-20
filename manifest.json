@@ -1,8 +1,20 @@
 {
     "name": "Open JIRA Ticket",
-    "description": "Open JIRA tickets using the address bar or via the toolbar",
+    "description": "Open JIRA tickets using the address bar or via the toolbar.",
     "manifest_version": 2,
     "version": "1.0",
+
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+            // Shortcut reference: https://support.google.com/chrome/answer/157179?hl=en
+              "windows": "Ctrl+Shift+K",
+              "mac": "Command+Shift+K",
+              "chromeos": "Ctrl+Shift+K",
+              "linux": "Ctrl+Shift+K"
+            }
+        }
+    },
 
     "omnibox": { 
         "keyword": "jira"
