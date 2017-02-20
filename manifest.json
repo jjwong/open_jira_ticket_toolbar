@@ -1,5 +1,5 @@
 {
-    "name": "Open Jira Ticket",
+    "name": "Open JIRA Ticket",
     "description": "Open JIRA tickets using the address bar or via the toolbar",
     "manifest_version": 2,
     "version": "1.0",

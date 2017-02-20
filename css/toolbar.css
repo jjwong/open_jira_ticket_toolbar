@@ -40,3 +40,15 @@ li:last-child {
   background: #f6f6f6;
 }
 
+#status {
+  font-size: 16px;
+  color: #cc0000;
+}
+
+input {
+  width: 100%;
+}
+
+#displayDefaultTicket {
+  font-size: 14px;
+}

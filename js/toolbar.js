@@ -41,14 +41,21 @@ function sanitizeTicket(userInput) {
 
 }
 
-function openNewTicket(ticket) {
+function showErrorText(string) {
+  document.getElementById('status').innerText = string;
+  throw "invalid";
+}
+
+function openNewTicket(ticket, sourceType) {
   var ticket_uppercase = ticket.toUpperCase();
-  addHistory(ticket_uppercase);
 
   var sanitizedTicket = sanitizeTicket(ticket_uppercase);
-  if (sanitizedTicket == "invalid ticket") {
-    // TODO: We should handle this before it even opens a new tab
+  // Error display should only show up at the toolbar level
+  if (sanitizedTicket == "invalid ticket" && sourceType == "toolbar") {
+    showErrorText("Please enter a valid ticket!");
   }
+
+  addHistory(ticket_uppercase);
 
 	chrome.storage.sync.get(function(items) {
 		var url = items.useURL;
@@ -63,9 +70,22 @@ function openNewTicket(ticket) {
       window.open(url + "/browse/" + sanitizedTicket, "_blank", "", false);
     }
 
-	});
+	}); //end get sync
+} //end openNewTicket
 
-}
+function displayDefaultTicket() {
+  chrome.storage.sync.get(function(items) {
+    var display = document.getElementById('displayDefaultTicket');
+    if (items.useDefaultProject == undefined) {
+      display.innerText = "Please set your default project in Options!";
+      display.style.color = "red";
+      display.style.fontSize = "18px";
+      document.getElementById("ticket").setAttribute("disabled", true);
+    } else {
+      display.innerText = "Default Project: " + items.useDefaultProject;
+    }
+  });
+} //end displayDefaultTicket
 
 function retrieveHistory() {
   // Set default useHistory if undefined
@@ -78,6 +98,7 @@ function retrieveHistory() {
       var a = document.createElement("a");
 
       if (item.includes("Invalid ticket:")) {
+        // Limit the length for invalid tickets
         if (item.length > 25) {
           a.textContent = item.substr(0, 25) + "...'";
           a.setAttribute("title", item);
@@ -89,6 +110,7 @@ function retrieveHistory() {
         }
 
       } else {
+        // Only add href to valid tickets
         var formURL = items.useURL + "/browse/" + item;
         a.textContent = item;
         a.setAttribute("href", formURL);
@@ -100,14 +122,13 @@ function retrieveHistory() {
       historyList.appendChild(li);
 
     }); //end foreach
-  }); //end sync
+  }); //end get sync
 } //end retrieveHistory
 
 function addHistory(searchString) {
     chrome.storage.sync.get({"useHistory": [], "useDefaultProject": "PL" }, function (result) {
         var useHistory = result.useHistory;
-        // We only want the last 10 results
-        // TODO: Make this a customizable option. limit range to 20?
+
         while (useHistory.length >= 10) {
           useHistory.pop();
           chrome.storage.sync.set({useHistory: useHistory}, function () { });
@@ -118,6 +139,7 @@ function addHistory(searchString) {
           var invalidMsg = "Invalid ticket: " + "'" + searchString + "'";
           useHistory.unshift(invalidMsg);
         } else {
+          // Add default project to history
           if (isDefaultProject(sanitizedTicket)) {
             var fullProjectText = result.useDefaultProject + "-" + sanitizedTicket;
             useHistory.unshift(fullProjectText);    
@@ -128,21 +150,22 @@ function addHistory(searchString) {
         }
         
         chrome.storage.sync.set({useHistory: useHistory}, function () {});      
-    });
-};
+    }); //end get sync
+}; //end addHistory
 
 document.addEventListener('keydown', function(key) {
   // Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
   if (key.keyCode == 13) {
     var userInput = document.getElementById("ticket").value;
-    openNewTicket(userInput.trim());
+    openNewTicket(userInput.trim(), "toolbar");
   }
 });
 
 window.addEventListener('load', function() {
+  displayDefaultTicket();
   retrieveHistory();
 });
 
 chrome.omnibox.onInputEntered.addListener(function (userInput) {
-  openNewTicket(userInput.trim());
+  openNewTicket(userInput.trim(), "omnibox");
 });
