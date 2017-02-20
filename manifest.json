@@ -7,7 +7,6 @@
     "commands": {
         "_execute_browser_action": {
             "suggested_key": {
-            // Shortcut reference: https://support.google.com/chrome/answer/157179?hl=en
               "windows": "Ctrl+Shift+K",
               "mac": "Command+Shift+K",
               "chromeos": "Ctrl+Shift+K",
