@@ -37,7 +37,6 @@ body {
 
 #status {
   border-radius: 5px;
-  background-color: #dfe5e8;
   color: #33cc33;
   font-size: 25px;
   margin-top: 20px;
@@ -70,4 +69,10 @@ label {
 #save:hover{
     background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
     background-color: #28739E;
+}
+
+#ticketPreview {
+  margin-top: 5px;
+  color: #000;
+  font-size: 15px;
 }

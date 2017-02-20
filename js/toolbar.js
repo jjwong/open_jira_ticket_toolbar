@@ -146,9 +146,9 @@ function addHistory(searchString) {
           } else {
             useHistory.unshift(sanitizedTicket);    
           }
-          
+
         }
-        
+
         chrome.storage.sync.set({useHistory: useHistory}, function () {});      
     }); //end get sync
 }; //end addHistory
