@@ -16,11 +16,23 @@ function sanitizeURL() {
 
   if (isBlank(input_url)) {
     showErrorText("Please enter a URL!");
+  } else if (!checkHttp(input_url)) {
+    showErrorText("Please enter http:// or https:// in your URL!");
   }
 
   var trailing_regex = new RegExp('\/+$', 'ig');
   var sanitized_url = input_url.replace(trailing_regex, "");
   return sanitized_url;
+}
+
+function checkHttp(string) {
+  var http_regex = new RegExp('^https?:\/\/.*$', 'i');
+  if (string.match(http_regex)) {
+    return true;
+  } else {
+    return false;
+  }
+
 }
 
 function sanitizeProject() {
