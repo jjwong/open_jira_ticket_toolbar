@@ -25,7 +25,6 @@ function sanitizeTicket(userInput) {
   if (fullTicketText) {
       return fullTicketText[0];
   } else if (userInput.match(semiTicketRegex)) {
-    // TODO: cleanup this mess
       var jprojectRegex = new RegExp('([a-z]{1,})', 'i');
       var jprojectText = userInput.match(jprojectRegex);
       var jprojectNumber = userInput.match(numbersOnlyRegex);
@@ -49,9 +48,9 @@ function showErrorText(string) {
 function openNewTicket(ticket, sourceType) {
   var ticket_uppercase = ticket.toUpperCase();
 
-  var sanitizedTicket = sanitizeTicket(ticket_uppercase);
+  var sanitizedTicket = sanitizeTicket(ticket_uppecjira rase);
   // Error display should only show up at the toolbar level
-  if (sanitizedTicket == "invalid ticket" && sourceType == "toolbar") {
+  if (sanitizedTicket === "invalid ticket" && sourceType === "toolbar") {
     showErrorText("Please enter a valid ticket!");
   }
 
@@ -76,7 +75,7 @@ function openNewTicket(ticket, sourceType) {
 function displayDefaultTicket() {
   chrome.storage.sync.get(function(items) {
     var display = document.getElementById('displayDefaultTicket');
-    if (items.useDefaultProject == undefined) {
+    if (items.useDefaultProject === undefined) {
       display.innerText = "Please set your default project in Options!";
       display.style.color = "red";
       display.style.fontSize = "18px";
@@ -135,7 +134,7 @@ function addHistory(searchString) {
         }
         // Add 1 to the top of the list
         var sanitizedTicket = sanitizeTicket(searchString);
-        if (sanitizedTicket == "invalid ticket") {
+        if (sanitizedTicket === "invalid ticket") {
           var invalidMsg = "Invalid ticket: " + "'" + searchString + "'";
           useHistory.unshift(invalidMsg);
         } else {
@@ -151,11 +150,11 @@ function addHistory(searchString) {
 
         chrome.storage.sync.set({useHistory: useHistory}, function () {});      
     }); //end get sync
-}; //end addHistory
+} //end addHistory
 
 document.addEventListener('keydown', function(key) {
   // Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
-  if (key.keyCode == 13) {
+  if (key.keyCode === 13) {
     var userInput = document.getElementById("ticket").value;
     openNewTicket(userInput.trim(), "toolbar");
   }
