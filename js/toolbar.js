@@ -48,7 +48,7 @@ function showErrorText(string) {
 function openNewTicket(ticket, sourceType) {
   var ticket_uppercase = ticket.toUpperCase();
 
-  var sanitizedTicket = sanitizeTicket(ticket_uppecjira rase);
+  var sanitizedTicket = sanitizeTicket(ticket_uppercase);
   // Error display should only show up at the toolbar level
   if (sanitizedTicket === "invalid ticket" && sourceType === "toolbar") {
     showErrorText("Please enter a valid ticket!");

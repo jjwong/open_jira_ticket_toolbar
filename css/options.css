@@ -53,9 +53,9 @@ label {
 #save {
   background: #2A88AD;
   padding: 8px 20px 8px 20px;
-  border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+  border-radius: 5px;
   color: #fff;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
   font: normal 30px 'Bitter', serif;
