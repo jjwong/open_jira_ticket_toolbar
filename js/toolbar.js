@@ -135,7 +135,7 @@ function addHistory(searchString) {
         // Add 1 to the top of the list
         var sanitizedTicket = sanitizeTicket(searchString);
         if (sanitizedTicket === "invalid ticket") {
-          var invalidMsg = "Invalid ticket: " + "'" + searchString + "'";
+          var invalidMsg = "Invalid ticket: '" + searchString + "'";
           useHistory.unshift(invalidMsg);
         } else {
           // Add default project to history
