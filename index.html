@@ -6,17 +6,19 @@
   <link rel="stylesheet" type="text/css" href="css/toolbar.css">
 </head>
 <body>
-  <div id="displayDefaultTicket"></div>
+  <div id="divDisplayDefault"><label data-localize="default_project_text"></label>: <label id="displayDefaultTicket"></label></div>
   <div id="inputTicketID">
-    <input type="text" id="ticket" placeholder="Enter Ticket ID" autofocus>
+    <input type="text" id="ticket" data-localize="placeholder_text" placeholder="Enter Ticket ID" autofocus>
   </div>
   <div id="status"></div>
 
-  <h3><span>Last 10 Searches</span></h3>
+  <h3><span><p data-localize="history_title">Last 10 Searches</p></span></h3>
   <div id="previousSearches" style="padding: 0;">
       <ul id="historyList"></ul>
   </div>
 
   <script type="text/javascript" src="js/toolbar.js"></script>
+  <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="js/jquery.localize.min.js"></script>
 </body>
 </html>

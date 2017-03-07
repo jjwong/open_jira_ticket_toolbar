@@ -81,7 +81,7 @@ function displayDefaultTicket() {
       display.style.fontSize = "18px";
       document.getElementById("ticket").setAttribute("disabled", true);
     } else {
-      display.innerText = "Default Project: " + items.useDefaultProject;
+      display.innerText = items.useDefaultProject;
     }
   });
 } //end displayDefaultTicket
@@ -152,6 +152,10 @@ function addHistory(searchString) {
     }); //end get sync
 } //end addHistory
 
+function loadLocalization() {
+  $("[data-localize]").localize("localization/application", { language: "es" });
+}
+
 document.addEventListener('keydown', function(key) {
   // Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
   if (key.keyCode === 13) {
@@ -162,6 +166,7 @@ document.addEventListener('keydown', function(key) {
 
 window.addEventListener('load', function() {
   displayDefaultTicket();
+  loadLocalization();
   retrieveHistory();
 });
 
