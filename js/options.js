@@ -1,13 +1,41 @@
 function showErrorText(string) {
+  removeError();
+  
   var displayStatus = document.getElementById('status');
+
+  // Need to generate a new div within status for the localization to work
+  newContent = document.createElement("div");
+  var newDiv = displayStatus.appendChild(newContent);
+  newDiv.setAttribute("id", "error");
+
+  if (string == "need_url") {
+    newDiv.setAttribute("data-localize", "need_url");
+  } else if (string == "need_http") {
+    newDiv.setAttribute("data-localize", "need_http");
+  } else if (string == "need_project") {
+    newDiv.setAttribute("data-localize", "need_project");
+  }
+
   displayStatus.style.color = "red";
-  displayStatus.innerText = string;
-  setTicketPreview("Invalid options set.");
+  setPreviewError();
+  loadLocalization();
+  setTimeout(function() {
+      newDiv.remove();
+  }, 3000);
   throw "invalid";
 }
 
-function setTicketPreview(string) {
-  document.getElementById('ticketPreview').innerText = string;
+function setPreviewError() {
+  var badOptionsText = document.getElementById('badOptions');
+  badOptionsText.style.color = "red";
+  badOptionsText.style.visibility = "visible";
+  setTicketPreview("N/A", "red");
+}
+
+function setTicketPreview(string, color) {
+  var ticketPreview = document.getElementById('ticketPreview');
+  ticketPreview.style.color = color;
+  ticketPreview.innerText = string;
 }
 
 function sanitizeURL() {
@@ -15,9 +43,9 @@ function sanitizeURL() {
   var input_url = document.getElementById('inputURL').value;
 
   if (isBlank(input_url)) {
-    showErrorText("Please enter a URL!");
+    showErrorText("need_url");
   } else if (!checkHttp(input_url)) {
-    showErrorText("Please enter http:// or https:// in your URL!");
+    showErrorText("need_http");
   }
 
   var trailing_regex = new RegExp('\/+$', 'ig');
@@ -38,7 +66,7 @@ function checkHttp(string) {
 function sanitizeProject() {
   var input_default_project = document.getElementById('inputDefaultProject').value;
   if (isBlank(input_default_project)) {
-    showErrorText("Please enter a default project!");
+    showErrorText("need_project");
   }
   var only_text_regex = new RegExp('[a-z]+', 'i');
   var sanitized_project = input_default_project.match(only_text_regex);
@@ -54,9 +82,11 @@ function isBlank(string) {
 function save_options() {
   var input_url = sanitizeURL();
   var input_default_project = sanitizeProject();
+  var input_language = document.getElementById('inputLanguageOptions').value;
   chrome.storage.sync.set({
     useURL: input_url,
-    useDefaultProject: input_default_project
+    useDefaultProject: input_default_project,
+    useLanguage: input_language
   }, function() {
     // Update status to let user know options were saved.
     var status = document.getElementById('status');
@@ -73,14 +103,19 @@ function save_options() {
 // stored in chrome.storage.
 // Defined values are defaults.
 function restore_options() {
+  var badOptionsText = document.getElementById('badOptions');
+  badOptionsText.style.visibility = "hidden";
   chrome.storage.sync.get({
     useURL: "http://jiraland.issues.com",
-    useDefaultProject: "STACK"
+    useDefaultProject: "STACK",
+    useLanguage: "en"
   }, function(items) {
     document.getElementById('inputURL').value = items.useURL;
     document.getElementById('inputDefaultProject').value = items.useDefaultProject;
-    setTicketPreview(items.useURL + "/browse/" + items.useDefaultProject);
+    document.getElementById('inputLanguageOptions').value = items.useLanguage;
+    setTicketPreview(items.useURL + "/browse/" + items.useDefaultProject, "green");
   });
+  loadLocalization();
 }
 
 document.addEventListener('DOMContentLoaded', restore_options);

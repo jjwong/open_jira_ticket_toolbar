@@ -1,0 +1,17 @@
+{
+  "_comment": "Toolbar Localization",
+  "history_title": "Last 10 Searches",
+  "placeholder_text": "Enter Ticket ID",
+  "default_project_text": "Default Project",
+  "toolbar_req_project_msg": "Please set your default project in Options!",
+  "toolbar_error": "Please enter a valid ticket!",
+  "__comment": "Options Localization",
+  "lbl_language": "Language",
+  "lbl_preview": "Preview",
+  "lbl_default_project": "Default Project",
+  "bad_options": "Invalid options set.",
+  "need_url": "Please enter a URL!",
+  "need_http": "Please enter http:// or https:// in your URL!",
+  "need_project": "Please enter a default project!",
+  "btn_save": "Save"
+}

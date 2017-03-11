@@ -11,16 +11,27 @@
     <label>JIRA URL</label>
     <input type="text" id="inputURL" placeholder="http://issues.jiraland.com">
 
-    <label>Default Project</label>
-    <input type="text" id="inputDefaultProject" placeholder="STACK">
+    <label data-localize="lbl_default_project"></label>
+    <input type="text" id="inputDefaultProject" placeholder="STACK" maxlength="20">
 
-    <label>Preview:</label>
-    <div id="ticketPreview"></div>
+    <div class="preview" data-localize="lbl_preview"></div>
+    <div class="preview" id="badOptions" data-localize="bad_options"></div>
+    <div class="clear" id="ticketPreview"></div>
+
+    <label data-localize="lbl_language"></label>
+    <select id="inputLanguageOptions">
+      <option value="en">English</option>
+      <option value="es">el español</option>
+    </select>
+
     <div id="status"></div>
-    <button id="save">Save</button>
+    <button data-localize="btn_save" id="save"></button>
 
   </div>
 
   <script src="js/options.js"></script>
+  <script type="text/javascript" src="js/localization.js"></script>
+  <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="js/jquery.localize.min.js"></script>
 </body>
 </html>

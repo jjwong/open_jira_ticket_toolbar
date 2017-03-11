@@ -40,8 +40,16 @@ function sanitizeTicket(userInput) {
 
 }
 
-function showErrorText(string) {
-  document.getElementById('status').innerText = string;
+function showInvalidTicketError() {
+  removeError();
+
+  var status = document.getElementById('status');
+
+  newContent = document.createElement("div");
+  var newDiv = status.appendChild(newContent);
+  newDiv.setAttribute("data-localize", "toolbar_error");
+  newDiv.setAttribute("id", "error");
+  loadLocalization();
   throw "invalid";
 }
 
@@ -51,7 +59,7 @@ function openNewTicket(ticket, sourceType) {
   var sanitizedTicket = sanitizeTicket(ticket_uppercase);
   // Error display should only show up at the toolbar level
   if (sanitizedTicket === "invalid ticket" && sourceType === "toolbar") {
-    showErrorText("Please enter a valid ticket!");
+    showInvalidTicketError();
   }
 
   addHistory(ticket_uppercase);
@@ -72,14 +80,24 @@ function openNewTicket(ticket, sourceType) {
 	}); //end get sync
 } //end openNewTicket
 
+function removeElement(element_id) {
+  document.getElementById(element_id).remove();
+} //end hideElement
+
 function displayDefaultTicket() {
   chrome.storage.sync.get(function(items) {
     var display = document.getElementById('displayDefaultTicket');
+    // Remove unused elements and display error message
     if (items.useDefaultProject === undefined) {
-      display.innerText = "Please set your default project in Options!";
+      // Localize error message - Default will be English (unlikely to be used outside of en).
+      display.setAttribute("data-localize", "toolbar_req_project_msg");
       display.style.color = "red";
       display.style.fontSize = "18px";
       document.getElementById("ticket").setAttribute("disabled", true);
+      removeElement("default_project_text");
+      removeElement("colon");
+      removeElement("history_title");
+      loadLocalization();
     } else {
       display.innerText = items.useDefaultProject;
     }
@@ -152,10 +170,6 @@ function addHistory(searchString) {
     }); //end get sync
 } //end addHistory
 
-function loadLocalization() {
-  $("[data-localize]").localize("localization/application", { language: "es" });
-}
-
 document.addEventListener('keydown', function(key) {
   // Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
   if (key.keyCode === 13) {
@@ -166,8 +180,8 @@ document.addEventListener('keydown', function(key) {
 
 window.addEventListener('load', function() {
   displayDefaultTicket();
-  loadLocalization();
   retrieveHistory();
+  loadLocalization();
 });
 
 chrome.omnibox.onInputEntered.addListener(function (userInput) {
