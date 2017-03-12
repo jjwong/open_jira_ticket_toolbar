@@ -13,5 +13,6 @@
   "need_url": "Veuillez saisir une URL!",
   "need_http": "Entrez http: // ou https: // dans votre URL!",
   "need_project": "Veuillez entrer un projet par défaut!",
+  "options_saved": "Options sauvegardées!",
   "btn_save": "Sauvegarder"
 }

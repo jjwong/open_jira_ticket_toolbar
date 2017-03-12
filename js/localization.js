@@ -9,3 +9,9 @@ function removeError() {
     document.getElementById("error").remove();
   }
 }
+
+function removeSuccess() {
+  if (document.getElementById("success")) {
+    document.getElementById("success").remove();
+  }
+}

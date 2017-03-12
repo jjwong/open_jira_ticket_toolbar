@@ -1,6 +1,6 @@
 function showErrorText(string) {
   removeError();
-  
+
   var displayStatus = document.getElementById('status');
 
   // Need to generate a new div within status for the localization to work
@@ -8,11 +8,11 @@ function showErrorText(string) {
   var newDiv = displayStatus.appendChild(newContent);
   newDiv.setAttribute("id", "error");
 
-  if (string == "need_url") {
+  if (string === "need_url") {
     newDiv.setAttribute("data-localize", "need_url");
-  } else if (string == "need_http") {
+  } else if (string === "need_http") {
     newDiv.setAttribute("data-localize", "need_http");
-  } else if (string == "need_project") {
+  } else if (string === "need_project") {
     newDiv.setAttribute("data-localize", "need_project");
   }
 
@@ -23,6 +23,21 @@ function showErrorText(string) {
       newDiv.remove();
   }, 3000);
   throw "invalid";
+}
+
+function showSuccessText() {
+  removeSuccess();
+  // Need to generate a new div within status for the localization to work
+  var displayStatus = document.getElementById('status');
+  newContent = document.createElement("div");
+  var newDiv = displayStatus.appendChild(newContent);
+  newDiv.setAttribute("id", "success");
+  newDiv.setAttribute("data-localize", "options_saved");
+  newDiv.style.color = "#33cc33";
+  loadLocalization();
+  setTimeout(function() {
+      newDiv.remove();
+  }, 3000);
 }
 
 function setPreviewError() {
@@ -89,12 +104,7 @@ function save_options() {
     useLanguage: input_language
   }, function() {
     // Update status to let user know options were saved.
-    var status = document.getElementById('status');
-    status.style.color = "#33cc33";
-    status.textContent = 'Options saved.';
-    setTimeout(function() {
-      status.textContent = '';
-    }, 1500);
+    showSuccessText();
     restore_options();
   });
 }

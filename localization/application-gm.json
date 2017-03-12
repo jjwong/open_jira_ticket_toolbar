@@ -13,5 +13,6 @@
   "need_url": "Bitte geben Sie eine URL ein!",
   "need_http": "Bitte geben Sie http:// oder https:// in Ihre URL ein!",
   "need_project": "Bitte geben Sie ein Standardprojekt ein!",
+  "options_saved": "Optionen gespeichert!",
   "btn_save": "Sparen"
 }
