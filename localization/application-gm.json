@@ -1,0 +1,17 @@
+{
+  "_comment": "Toolbar Localization",
+  "history_title": "Letzte 10 Suchen",
+  "placeholder_text": "Ticket-ID eingeben",
+  "default_project_text": "Standardprojekt",
+  "toolbar_req_project_msg": "Bitte setzen Sie Ihr Standardprojekt in Optionen!",
+  "toolbar_error": "Bitte geben Sie ein gültiges Ticket ein!",
+  "__comment": "Options Localization",
+  "lbl_language": "Sprache",
+  "lbl_preview": "Vorschau",
+  "lbl_default_project": "Standardprojekt",
+  "bad_options": "Ungültige Optionen gesetzt.",
+  "need_url": "Bitte geben Sie eine URL ein!",
+  "need_http": "Bitte geben Sie http:// oder https:// in Ihre URL ein!",
+  "need_project": "Bitte geben Sie ein Standardprojekt ein!",
+  "btn_save": "Sparen"
+}

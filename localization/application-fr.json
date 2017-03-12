@@ -1,0 +1,17 @@
+{
+  "_comment": "Toolbar Localization",
+  "history_title": "Dernières 10 recherches",
+  "placeholder_text": "Entrer l'ID du ticket",
+  "default_project_text": "Projet par défaut",
+  "toolbar_req_project_msg": "Veuillez définir votre projet par défaut dans Options!",
+  "toolbar_error": "Veuillez saisir un ticket valide!",
+  "__comment": "Options Localization",
+  "lbl_language": "La langue",
+  "lbl_preview": "Aperçu",
+  "lbl_default_project": "Projet par défaut",
+  "bad_options": "Jeu d'options non valide.",
+  "need_url": "Veuillez saisir une URL!",
+  "need_http": "Entrez http: // ou https: // dans votre URL!",
+  "need_project": "Veuillez entrer un projet par défaut!",
+  "btn_save": "Sauvegarder"
+}
