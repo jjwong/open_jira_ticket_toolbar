@@ -15,7 +15,13 @@ function isDefaultProject(string) {
 }
 
 function sanitizeTicket(userInput) {
-  // JIRA tickets only takes [a-z], -, d+
+  /* JIRA tickets only takes [a-z], -, d+
+   JIRA can support a few different prefix styles such as R2D2 and R2_D2_D3 prefixes.
+   TODO: Add support for variants outside of standard a-z ticket prefixes
+   Potential solution - [a-z]([a-z0-9_]{0,})-\d+ , but this will break core23-23 or semiTicket only
+    detection. 
+    Supporting documentation - https://confluence.atlassian.com/adminjiraserver071/changing-the-project-key-format-802592378.html
+   */
   var fullTicketRegex = new RegExp('([a-z]{1,}-\\d+)', 'i');
   var semiTicketRegex = new RegExp('([a-z]{1,}\\d+)', 'i');
   var numbersOnlyRegex = new RegExp('(\\d+)', 'i');
