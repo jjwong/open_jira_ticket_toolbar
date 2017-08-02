@@ -93,20 +93,25 @@ function removeElement(element_id) {
 function displayDefaultTicket() {
   chrome.storage.sync.get(function(items) {
     var display = document.getElementById('displayDefaultTicket');
-    // Remove unused elements and display error message
-    if (items.useDefaultProject === undefined) {
-      // Localize error message - Default will be English (unlikely to be used outside of en).
-      display.setAttribute("data-localize", "toolbar_req_project_msg");
-      display.style.color = "red";
-      display.style.fontSize = "18px";
-      document.getElementById("ticket").setAttribute("disabled", true);
-      removeElement("default_project_text");
-      removeElement("colon");
-      removeElement("history_title");
-      loadLocalization();
+    if (display == null) {
+      console.log("ERROR: Unable to find display ticket.");
     } else {
-      display.innerText = items.useDefaultProject;
+      // Remove unused elements and display error message
+      if (items.useDefaultProject === undefined || items.useDefaultProject == null) {
+        // Localize error message - Default will be English (unlikely to be used outside of en).
+        display.setAttribute("data-localize", "toolbar_req_project_msg");
+        display.style.color = "red";
+        display.style.fontSize = "18px";
+        document.getElementById("ticket").setAttribute("disabled", true);
+        removeElement("default_project_text");
+        removeElement("colon");
+        removeElement("history_title");
+        loadLocalization();
+      } else {
+        display.innerText = items.useDefaultProject;
+      }
     }
+
   });
 } //end displayDefaultTicket
 
@@ -142,7 +147,11 @@ function retrieveHistory() {
         li.appendChild(a);
       }
 
-      historyList.appendChild(li);
+      if (historyList == null) {
+        console.log("Missing history list. Unable to append history.");
+      } else {
+        historyList.appendChild(li);
+      }
 
     }); //end foreach
   }); //end get sync
@@ -187,7 +196,11 @@ document.addEventListener('keydown', function(key) {
 window.addEventListener('load', function() {
   displayDefaultTicket();
   retrieveHistory();
-  loadLocalization();
+  try {
+    loadLocalization();
+  } catch (e) {
+    console.log("Unable to load localization. Value null");
+  }
 });
 
 chrome.omnibox.onInputEntered.addListener(function (userInput) {
