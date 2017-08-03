@@ -93,11 +93,11 @@ function removeElement(element_id) {
 function displayDefaultTicket() {
   chrome.storage.sync.get(function(items) {
     var display = document.getElementById('displayDefaultTicket');
-    if (display == null) {
+    if (display === null) {
       console.log("ERROR: Unable to find display ticket.");
     } else {
       // Remove unused elements and display error message
-      if (items.useDefaultProject === undefined || items.useDefaultProject == null) {
+      if (items.useDefaultProject === undefined || items.useDefaultProject === null) {
         // Localize error message - Default will be English (unlikely to be used outside of en).
         display.setAttribute("data-localize", "toolbar_req_project_msg");
         display.style.color = "red";
@@ -147,7 +147,7 @@ function retrieveHistory() {
         li.appendChild(a);
       }
 
-      if (historyList == null) {
+      if (historyList === null) {
         console.log("Missing history list. Unable to append history.");
       } else {
         historyList.appendChild(li);
