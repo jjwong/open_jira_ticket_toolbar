@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Open JIRA Ticket Options Panel</title>
   <link rel="stylesheet" type="text/css" href="css/options.css">
-
+  <script type="text/javascript" src="js/options.js"></script>
 </head>
 <body>
 
@@ -12,14 +12,14 @@
     <label>JIRA URL</label>
     <input type="text" id="inputURL" placeholder="http://issues.jiraland.com">
 
-    <label data-localize="lbl_default_project"></label>
+    <label>Default Project</label>
     <input type="text" id="inputDefaultProject" placeholder="STACK" maxlength="20">
 
-    <div class="preview" data-localize="lbl_preview"></div>
-    <div class="preview" id="badOptions" data-localize="bad_options"></div>
+    <div class="preview">Preview</div>
+    <div class="preview" id="badOptions">Invalid options set.</div>
     <div class="clear" id="ticketPreview"></div>
 
-    <label data-localize="lbl_language"></label>
+    <label>Language</label>
     <select id="inputLanguageOptions">
       <option value="gm">Deutsche</option>
       <option value="en">English</option>
@@ -29,13 +29,9 @@
     </select>
 
     <div id="status"></div>
-    <button data-localize="btn_save" id="save"></button>
+    <button id="save">Save</button>
 
   </div>
-  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="js/jquery.localize.min.js"></script>
-  <script type="text/javascript" src="js/localization.js"></script>
-  <script type="text/javascript" src="js/options.js"></script>
-  
+  <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 </body>
 </html>

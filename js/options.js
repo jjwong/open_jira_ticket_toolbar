@@ -3,22 +3,20 @@ function showErrorText(string) {
 
   var displayStatus = document.getElementById('status');
 
-  // Need to generate a new div within status for the localization to work
   newContent = document.createElement("div");
   var newDiv = displayStatus.appendChild(newContent);
   newDiv.setAttribute("id", "error");
 
   if (string === "need_url") {
-    newDiv.setAttribute("data-localize", "need_url");
+    newDiv.textContent = "Please enter a URL!";
   } else if (string === "need_http") {
-    newDiv.setAttribute("data-localize", "need_http");
+    newDiv.textContent = "Please enter http:// or https:// in your URL!";
   } else if (string === "need_project") {
-    newDiv.setAttribute("data-localize", "need_project");
+    newDiv.textContent = "Please enter a valid default project!";
   }
 
   displayStatus.style.color = "red";
   setPreviewError();
-  loadLocalization();
   setTimeout(function() {
       newDiv.remove();
   }, 3000);
@@ -31,13 +29,23 @@ function showSuccessText() {
   var displayStatus = document.getElementById('status');
   newContent = document.createElement("div");
   var newDiv = displayStatus.appendChild(newContent);
-  newDiv.setAttribute("id", "success");
-  newDiv.setAttribute("data-localize", "options_saved");
   newDiv.style.color = "#33cc33";
-  loadLocalization();
+  newDiv.textContent = "Success!";
   setTimeout(function() {
       newDiv.remove();
   }, 3000);
+}
+
+function removeError() {
+  if (document.getElementById("error")) {
+    document.getElementById("error").remove();
+  }
+}
+
+function removeSuccess() {
+  if (document.getElementById("success")) {
+    document.getElementById("success").remove();
+  }
 }
 
 function setPreviewError() {
@@ -125,8 +133,9 @@ function restore_options() {
     document.getElementById('inputLanguageOptions').value = items.useLanguage;
     setTicketPreview(items.useURL + "/browse/" + items.useDefaultProject, "green");
   });
-  loadLocalization();
 }
 
 document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click', save_options);
+window.onload=function() {
+  document.getElementById('save').addEventListener('click', save_options);
+}
