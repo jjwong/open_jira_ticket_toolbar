@@ -2,7 +2,7 @@
     "name": "Open JIRA Ticket",
     "description": "Open JIRA tickets using the address bar or via the toolbar.",
     "manifest_version": 2,
-    "version": "1.16",
+    "version": "1.17",
 
     "commands": {
         "_execute_browser_action": {

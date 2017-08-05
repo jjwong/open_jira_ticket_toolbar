@@ -160,25 +160,36 @@ function retrieveHistory() {
 function addHistory(searchString) {
     chrome.storage.sync.get({"useHistory": [], "useDefaultProject": "PL" }, function (result) {
         var useHistory = result.useHistory;
-
-        while (useHistory.length >= 10) {
-          useHistory.pop();
-          chrome.storage.sync.set({useHistory: useHistory}, function () { });
-        }
-        // Add 1 to the top of the list
+        var appendHistoryItem;
         var sanitizedTicket = sanitizeTicket(searchString);
+
+         // Add 1 to the top of the list
         if (sanitizedTicket === "invalid ticket") {
           var invalidMsg = "Invalid ticket: '" + searchString + "'";
-          useHistory.unshift(invalidMsg);
+          appendHistoryItem = invalidMsg;
         } else {
           // Add default project to history
           if (isDefaultProject(sanitizedTicket)) {
             var fullProjectText = result.useDefaultProject + "-" + sanitizedTicket;
-            useHistory.unshift(fullProjectText);    
+            appendHistoryItem = fullProjectText;    
           } else {
-            useHistory.unshift(sanitizedTicket);    
+            appendHistoryItem = sanitizedTicket;
           }
+        }
+        
+        var checkTicketIndex = useHistory.indexOf(appendHistoryItem);
+        // Check if string is in index, if so. Remove it first, then add it back in later.
+        if (checkTicketIndex > -1 ) {
+          // Remove only 1 instance in the array
+          useHistory.splice(checkTicketIndex, 1);
+        }
 
+        //Add ticket to the top of the list.
+        useHistory.unshift(appendHistoryItem);
+
+        // Pop the last item in the list
+        while (useHistory.length > 10) {
+          useHistory.pop();
         }
 
         chrome.storage.sync.set({useHistory: useHistory}, function () {});      
