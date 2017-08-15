@@ -143,6 +143,8 @@ function retrieveHistory() {
         a.textContent = item;
         a.setAttribute("href", formURL);
         a.setAttribute("class", "valid");
+        li.setAttribute("id", item);
+        li.setAttribute("class", "unmarked");
         a.target = "_blank";
         li.appendChild(a);
       }
@@ -207,12 +209,45 @@ document.addEventListener('keydown', function(key) {
 window.addEventListener('load', function() {
   displayDefaultTicket();
   retrieveHistory();
+
+  // register click event listener
+  document.querySelector('#historyList').addEventListener('click', function(e) {
+
+    chrome.storage.sync.get({"favoritesList": []}, function(items) {
+      var id = e.target.id;
+      var item = e.target;
+      var index = items.favoritesList.indexOf(id);
+      //TODO: Figure out the index to match the history in the list, then pass that onto the favoritesList.
+      //TODO: Also, make sure to id valid list items only under a separate class so we only favorite valid items.
+      console.log("id:" + id + " index:" + index + " item:" + item + " e:" + e);
+        // return if target doesn't have an id (shouldn't happen)
+        // if (!id) return;
+        // item is not favorite
+        if (index == -1) {
+          items.favoritesList.push(id);
+          item.className = 'fav';
+          console.log("fav");
+        // item is already favorite
+        } else {
+          items.favoritesList.splice(index, 1);
+          item.className = 'unmarked';
+          console.log("null");
+        }
+
+        console.log(items);
+        chrome.storage.sync.set({favoritesList: items.favoritesList}, function () {});      
+
+    }); //chrome sync get end
+    
+  }); //addListender end
+
   try {
     loadLocalization();
   } catch (e) {
     console.log("Unable to load localization. Value null");
   }
-});
+
+}); //load eventlistener end
 
 chrome.omnibox.onInputEntered.addListener(function (userInput) {
   openNewTicket(userInput.trim(), "omnibox");

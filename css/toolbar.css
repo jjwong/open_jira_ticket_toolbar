@@ -12,10 +12,20 @@ ul {
 li {
   font: 200 18px/1.5 Helvetica, Verdana, sans-serif;
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
 }
 
 li:last-child {
   border: none;
+}
+
+li.unmarked:hover:after,
+li.fav:after {
+  content: ' \2605';
+  color: rgb(255, 203, 0);
+}
+li.fav:hover:after {
+  content: ' \2606';
 }
 
 .invalid {
@@ -31,8 +41,8 @@ li:last-child {
   -o-transition: font-size 0.3s ease, background-color 0.3s ease;
   -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
   transition: font-size 0.3s ease, background-color 0.3s ease;
-  display: block;
-  width: 200px;
+  display: inline-block;
+  width: 180px;
 }
 
 .valid:hover {
