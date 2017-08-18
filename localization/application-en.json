@@ -5,6 +5,7 @@
   "default_project_text": "Default Project",
   "toolbar_req_project_msg": "Please set your default project in Options!",
   "toolbar_error": "Please enter a valid ticket!",
+  "max_favorite_error": "You can only favorite 5 tickets!",
   "__comment": "Options Localization",
   "lbl_language": "Language",
   "lbl_preview": "Preview",

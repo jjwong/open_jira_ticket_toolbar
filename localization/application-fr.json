@@ -5,6 +5,7 @@
   "default_project_text": "Projet par défaut",
   "toolbar_req_project_msg": "Veuillez définir votre projet par défaut dans Options!",
   "toolbar_error": "Veuillez saisir un ticket valide!",
+  "max_favorite_error": "Vous ne pouvez que 5 billets préférés!",
   "__comment": "Options Localization",
   "lbl_language": "La langue",
   "lbl_preview": "Aperçu",

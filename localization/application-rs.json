@@ -5,6 +5,7 @@
   "default_project_text": "Проект по умолчанию",
   "toolbar_req_project_msg": "Задайте свой проект по умолчанию в настройках!",
   "toolbar_error": "Введите действительный билет!",
+  "max_favorite_error": "Вы можете любить только 5 билетов!",
   "__comment": "Options Localization",
   "lbl_language": "Язык",
   "lbl_preview": "Предпросмотр",

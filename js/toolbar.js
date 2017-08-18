@@ -46,17 +46,27 @@ function sanitizeTicket(userInput) {
 
 }
 
-function showInvalidTicketError() {
+function displayError(error_type) {
+  // Prevent dups
   removeError();
 
-  var status = document.getElementById('status');
-
+  var status = document.getElementById("status");
   newContent = document.createElement("div");
-  var newDiv = status.appendChild(newContent);
-  newDiv.setAttribute("data-localize", "toolbar_error");
+  var newDiv = status.appendChild(newContent);  
+
+  newDiv.setAttribute("data-localize", error_type);
   newDiv.setAttribute("id", "error");
+
+  // Make things nicer by fading out the error message after 5 seconds
+  setTimeout(function() {
+    $(newDiv).fadeOut().empty();
+  }, 5000);
+
   loadLocalization();
+
+  // Prevent from searching invalid tickets
   throw "invalid";
+
 }
 
 function openNewTicket(ticket, sourceType) {
@@ -65,7 +75,7 @@ function openNewTicket(ticket, sourceType) {
   var sanitizedTicket = sanitizeTicket(ticket_uppercase);
   // Error display should only show up at the toolbar level
   if (sanitizedTicket === "invalid ticket" && sourceType === "toolbar") {
-    showInvalidTicketError();
+    displayError("toolbar_error");
   }
 
   addHistory(ticket_uppercase);
@@ -117,9 +127,12 @@ function displayDefaultTicket() {
 
 function retrieveHistory() {
   // Set default useHistory if undefined
-  chrome.storage.sync.get({"useHistory": [], "useURL": "default"}, function(items) {
+  chrome.storage.sync.get({"useHistory": [], "useURL": "default", "favoritesList": []}, function(items) {
     var historyStorage = items.useHistory;
+    var favoritesList = items.favoritesList;
+
     var historyList = document.getElementById("historyList");
+
     // Build history list
     historyStorage.forEach(function (item) {
       var li = document.createElement("li");
@@ -140,11 +153,19 @@ function retrieveHistory() {
       } else {
         // Only add href to valid tickets
         var formURL = items.useURL + "/browse/" + item;
+
         a.textContent = item;
         a.setAttribute("href", formURL);
         a.setAttribute("class", "valid");
+
         li.setAttribute("id", item);
-        li.setAttribute("class", "unmarked");
+
+        if (favoritesList.indexOf(item) > -1) {
+          li.setAttribute("class", "fav");
+        } else {
+          li.setAttribute("class", "unmarked");
+        }
+        
         a.target = "_blank";
         li.appendChild(a);
       }
@@ -159,8 +180,22 @@ function retrieveHistory() {
   }); //end get sync
 } //end retrieveHistory
 
+function compareTicketValues(a, b) {
+  tmpA = Number(a.match(/\d+/g)[0]);
+  tmpB = Number(b.match(/\d+/g)[0]);
+
+  if (tmpA < tmpB) {
+    return -1;
+  } else if (tmpA > tmpB) {
+    return 1;
+  } else {
+    return 0;
+  }
+
+}
+
 function addHistory(searchString) {
-    chrome.storage.sync.get({"useHistory": [], "useDefaultProject": "PL" }, function (result) {
+    chrome.storage.sync.get({"useHistory": [], "useDefaultProject": "PL", "favoritesList": [] }, function (result) {
         var useHistory = result.useHistory;
         var appendHistoryItem;
         var sanitizedTicket = sanitizeTicket(searchString);
@@ -186,8 +221,30 @@ function addHistory(searchString) {
           useHistory.splice(checkTicketIndex, 1);
         }
 
-        //Add ticket to the top of the list.
+        //Add ticket to the top of the list. We intend for these items to be after favorites.
         useHistory.unshift(appendHistoryItem);
+
+        var tmpFavorites = [];
+
+        // Push the favorites to the top - do this at the end, we can sort by ascending in the favorites
+        for (var i = 0; i < result.favoritesList.length; i++) {
+          ticket = useHistory.indexOf(result.favoritesList[i]);
+          if (ticket) {
+            // Add items to a temporary favorites list
+            tmpFavorites.push(result.favoritesList[i]);
+            // Remove item from primary list
+            useHistory.splice(ticket, 1);
+          }
+        }
+
+        // Reorder the favorites to be in ascending order, then add them into the primary list
+        if (tmpFavorites) {
+          tmpFavorites.sort(compareTicketValues);
+          tmpFavorites.reverse();
+          for (var i = 0; i < tmpFavorites.length; i++) {
+            useHistory.unshift(tmpFavorites[i]);
+          }
+        }
 
         // Pop the last item in the list
         while (useHistory.length > 10) {
@@ -214,27 +271,35 @@ window.addEventListener('load', function() {
   document.querySelector('#historyList').addEventListener('click', function(e) {
 
     chrome.storage.sync.get({"favoritesList": []}, function(items) {
+      // get list id, if its not in the list add it on click
       var id = e.target.id;
       var item = e.target;
       var index = items.favoritesList.indexOf(id);
-      //TODO: Figure out the index to match the history in the list, then pass that onto the favoritesList.
-      //TODO: Also, make sure to id valid list items only under a separate class so we only favorite valid items.
+
+      //TODO: On refresh, move newly favorited item to the top of the list. (keep favorited at the top)
+      //TODO: hmm if you add a favorited item, it goes last despite sort
+      //TODO: Fix spaces between ticket and number core 303 needs to be fixed.
       console.log("id:" + id + " index:" + index + " item:" + item + " e:" + e);
-        // return if target doesn't have an id (shouldn't happen)
-        // if (!id) return;
-        // item is not favorite
+
+        // return if target doesn't have an id - this prevents invalid ids from being saved
+        if (!id) return;
+        
+        // favorite item if not in stored list, but only accept a maximum of 5
         if (index == -1) {
-          items.favoritesList.push(id);
-          item.className = 'fav';
-          console.log("fav");
-        // item is already favorite
+          if (items.favoritesList.length < 5) {
+            items.favoritesList.push(id);
+            item.className = 'fav';
+          } else {
+            displayError("max_favorite_error")
+          }
+        // unmark favorited item
         } else {
           items.favoritesList.splice(index, 1);
           item.className = 'unmarked';
-          console.log("null");
         }
 
         console.log(items);
+        //store the latest list
         chrome.storage.sync.set({favoritesList: items.favoritesList}, function () {});      
 
     }); //chrome sync get end

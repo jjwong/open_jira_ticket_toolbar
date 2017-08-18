@@ -5,6 +5,7 @@
   "default_project_text": "Proyecto Predeterminado",
   "toolbar_req_project_msg": "¡Defina su proyecto predeterminado en Opciones!",
   "toolbar_error": "¡Por favor ingrese un ticket válido!",
+  "max_favorite_error": "¡Sólo puedes comprar 5 entradas!",
   "__comment": "Options Localization",
   "lbl_language": "Idioma",
   "lbl_preview": "Avance",

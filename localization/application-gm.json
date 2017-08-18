@@ -5,6 +5,7 @@
   "default_project_text": "Standardprojekt",
   "toolbar_req_project_msg": "Bitte setzen Sie Ihr Standardprojekt in Optionen!",
   "toolbar_error": "Bitte geben Sie ein gültiges Ticket ein!",
+  "max_favorite_error": "Du kannst nur 5 Tickets kaufen!",
   "__comment": "Options Localization",
   "lbl_language": "Sprache",
   "lbl_preview": "Vorschau",
