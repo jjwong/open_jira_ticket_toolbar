@@ -28,6 +28,10 @@ li.fav:hover:after {
   content: ' \2606';
 }
 
+.fav {
+  background-color: #f7faff;
+}
+
 .invalid {
 	font-size: 14px;
 }

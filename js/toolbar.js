@@ -18,6 +18,7 @@ function sanitizeTicket(userInput) {
   /* JIRA tickets only takes [a-z], -, d+
    JIRA can support a few different prefix styles such as R2D2 and R2_D2_D3 prefixes.
    TODO: Add support for variants outside of standard a-z ticket prefixes
+   TODO: Fix spaces between ticket and number core 303 needs to be fixed.
    Potential solution - [a-z]([a-z0-9_]{0,})-\d+ , but this will break core23-23 or semiTicket only
     detection. 
     Supporting documentation - https://confluence.atlassian.com/adminjiraserver071/changing-the-project-key-format-802592378.html
@@ -133,6 +134,31 @@ function retrieveHistory() {
 
     var historyList = document.getElementById("historyList");
 
+    var tmpFavorites = [];
+
+      // Push the favorites to the top - do this at the end, we can sort by ascending in the favorites
+      for (var i = 0; i < favoritesList.length; i++) {
+        ticket = historyStorage.indexOf(favoritesList[i]);
+        if (ticket >= 0) {
+          // Add items to a temporary favorites list
+          tmpFavorites.push(favoritesList[i]);
+          // Remove item from primary list
+          historyStorage.splice(ticket, 1);
+        }
+      }
+
+      // Reorder the favorites to be in ascending order, then add them into the primary list
+      if (tmpFavorites) {
+        tmpFavorites.sort(compareTicketValues);
+        tmpFavorites.reverse();
+        for (var i = 0; i < tmpFavorites.length; i++) {
+          historyStorage.unshift(tmpFavorites[i]);
+        }
+      }
+
+      // Update the list after reordering favorites. This prevents unfavorited items from ending up in random spots.
+      chrome.storage.sync.set({useHistory: historyStorage}, function () {});      
+
     // Build history list
     historyStorage.forEach(function (item) {
       var li = document.createElement("li");
@@ -192,10 +218,10 @@ function compareTicketValues(a, b) {
     return 0;
   }
 
-}
+} //end compareTicketValues
 
 function addHistory(searchString) {
-    chrome.storage.sync.get({"useHistory": [], "useDefaultProject": "PL", "favoritesList": [] }, function (result) {
+    chrome.storage.sync.get({"useHistory": [], "useDefaultProject": "PL"}, function (result) {
         var useHistory = result.useHistory;
         var appendHistoryItem;
         var sanitizedTicket = sanitizeTicket(searchString);
@@ -224,34 +250,12 @@ function addHistory(searchString) {
         //Add ticket to the top of the list. We intend for these items to be after favorites.
         useHistory.unshift(appendHistoryItem);
 
-        var tmpFavorites = [];
-
-        // Push the favorites to the top - do this at the end, we can sort by ascending in the favorites
-        for (var i = 0; i < result.favoritesList.length; i++) {
-          ticket = useHistory.indexOf(result.favoritesList[i]);
-          if (ticket) {
-            // Add items to a temporary favorites list
-            tmpFavorites.push(result.favoritesList[i]);
-            // Remove item from primary list
-            useHistory.splice(ticket, 1);
-          }
-        }
-
-        // Reorder the favorites to be in ascending order, then add them into the primary list
-        if (tmpFavorites) {
-          tmpFavorites.sort(compareTicketValues);
-          tmpFavorites.reverse();
-          for (var i = 0; i < tmpFavorites.length; i++) {
-            useHistory.unshift(tmpFavorites[i]);
-          }
-        }
-
         // Pop the last item in the list
         while (useHistory.length > 10) {
           useHistory.pop();
         }
 
-        chrome.storage.sync.set({useHistory: useHistory}, function () {});      
+        chrome.storage.sync.set({useHistory: useHistory}, function () {});
     }); //end get sync
 } //end addHistory
 
@@ -276,11 +280,6 @@ window.addEventListener('load', function() {
       var item = e.target;
       var index = items.favoritesList.indexOf(id);
 
-      //TODO: On refresh, move newly favorited item to the top of the list. (keep favorited at the top)
-      //TODO: hmm if you add a favorited item, it goes last despite sort
-      //TODO: Fix spaces between ticket and number core 303 needs to be fixed.
-      console.log("id:" + id + " index:" + index + " item:" + item + " e:" + e);
-
         // return if target doesn't have an id - this prevents invalid ids from being saved
         if (!id) return;
         
@@ -298,7 +297,6 @@ window.addEventListener('load', function() {
           item.className = 'unmarked';
         }
 
-        console.log(items);
         //store the latest list
         chrome.storage.sync.set({favoritesList: items.favoritesList}, function () {});      
 

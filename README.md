@@ -10,6 +10,8 @@
 Simple Chrome extension that will allow a user to search for JIRA tickets via the address bar or the provided toolbar.
 
 # Changelog
+* 1.2
+	* Add top 5 favorites feature
 * 1.1
 	* Add localization for English, Spanish, French, German and Russian
 * 1.0 
