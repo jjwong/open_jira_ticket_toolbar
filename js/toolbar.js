@@ -1,10 +1,10 @@
 function isDefaultProject(string) {
   // If there are only numbers at the beginning, we can assume this is a default project
   // There is a chance someone could type in 123BAD, but it will default to STACK-123
-  // I think this is okay, since 123BAD is considered invalid. 
+  // I think this is okay, since 123BAD is considered invalid.
   // We can add more error handling if needed
   var regex = new RegExp('(^\\d+)', 'i');
-  var isDefault = string.match(regex);  
+  var isDefault = string.match(regex);
 
   if (isDefault) {
       return true;
@@ -20,13 +20,13 @@ function sanitizeTicket(userInput) {
    TODO: Add support for variants outside of standard a-z ticket prefixes
    TODO: Fix spaces between ticket and number core 303 needs to be fixed.
    Potential solution - [a-z]([a-z0-9_]{0,})-\d+ , but this will break core23-23 or semiTicket only
-    detection. 
+    detection.
     Supporting documentation - https://confluence.atlassian.com/adminjiraserver071/changing-the-project-key-format-802592378.html
    */
   var fullTicketRegex = new RegExp('([a-z]{1,}-\\d+)', 'i');
   var semiTicketRegex = new RegExp('([a-z]{1,}\\d+)', 'i');
   var numbersOnlyRegex = new RegExp('(\\d+)', 'i');
-  
+
   var fullTicketText = userInput.match(fullTicketRegex);
 
   if (fullTicketText) {
@@ -35,7 +35,7 @@ function sanitizeTicket(userInput) {
       var jprojectRegex = new RegExp('([a-z]{1,})', 'i');
       var jprojectText = userInput.match(jprojectRegex);
       var jprojectNumber = userInput.match(numbersOnlyRegex);
-      //Form ticket 
+      //Form ticket
       var ticketID = jprojectText[0].concat("-", jprojectNumber[0]);
       return ticketID;
   } else if (userInput.match(numbersOnlyRegex)) {
@@ -53,7 +53,7 @@ function displayError(error_type) {
 
   var status = document.getElementById("status");
   newContent = document.createElement("div");
-  var newDiv = status.appendChild(newContent);  
+  var newDiv = status.appendChild(newContent);
 
   newDiv.setAttribute("data-localize", error_type);
   newDiv.setAttribute("id", "error");
@@ -157,7 +157,7 @@ function retrieveHistory() {
       }
 
       // Update the list after reordering favorites. This prevents unfavorited items from ending up in random spots.
-      chrome.storage.sync.set({useHistory: historyStorage}, function () {});      
+      chrome.storage.sync.set({useHistory: historyStorage}, function () {});
 
     // Build history list
     historyStorage.forEach(function (item) {
@@ -170,7 +170,7 @@ function retrieveHistory() {
           a.textContent = item.substr(0, 25) + "...'";
           a.setAttribute("title", item);
           a.setAttribute("class", "invalid");
-          li.appendChild(a);  
+          li.appendChild(a);
         } else {
           li.setAttribute("class", "invalid");
           li.textContent = item;
@@ -191,7 +191,7 @@ function retrieveHistory() {
         } else {
           li.setAttribute("class", "unmarked");
         }
-        
+
         a.target = "_blank";
         li.appendChild(a);
       }
@@ -234,12 +234,12 @@ function addHistory(searchString) {
           // Add default project to history
           if (isDefaultProject(sanitizedTicket)) {
             var fullProjectText = result.useDefaultProject + "-" + sanitizedTicket;
-            appendHistoryItem = fullProjectText;    
+            appendHistoryItem = fullProjectText;
           } else {
             appendHistoryItem = sanitizedTicket;
           }
         }
-        
+
         var checkTicketIndex = useHistory.indexOf(appendHistoryItem);
         // Check if string is in index, if so. Remove it first, then add it back in later.
         if (checkTicketIndex > -1 ) {
@@ -282,7 +282,7 @@ window.addEventListener('load', function() {
 
         // return if target doesn't have an id - this prevents invalid ids from being saved
         if (!id) return;
-        
+
         // favorite item if not in stored list, but only accept a maximum of 5
         if (index == -1) {
           if (items.favoritesList.length < 5) {
@@ -298,10 +298,10 @@ window.addEventListener('load', function() {
         }
 
         //store the latest list
-        chrome.storage.sync.set({favoritesList: items.favoritesList}, function () {});      
+        chrome.storage.sync.set({favoritesList: items.favoritesList}, function () {});
 
     }); //chrome sync get end
-    
+
   }); //addListender end
 
   try {

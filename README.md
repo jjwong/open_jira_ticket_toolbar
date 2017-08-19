@@ -14,8 +14,8 @@ Simple Chrome extension that will allow a user to search for JIRA tickets via th
 	* Add top 5 favorites feature
 * 1.1
 	* Add localization for English, Spanish, French, German and Russian
-* 1.0 
-	* Full release of Chrome Extension. 
+* 1.0
+	* Full release of Chrome Extension.
 		* Default Project
 		* Selectable History
 		* Omnibox support
