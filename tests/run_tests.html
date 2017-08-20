@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Unit Test Functions</title>
+
+  <link rel="stylesheet" href="qunit-2.4.0.css">
+  <script src="qunit-2.4.0.js"></script>
+  <script src="../js/toolbar.js"></script>
+
+  <script>
+  QUnit.test("prettydate basics", function( assert ) {
+    function sanitize(then, expected) {
+      assert.equal(sanitizeTicket(then), expected);
+    }
+    sanitize("core-123", "core-123");
+    sanitize("core123", "core-123");
+    sanitize("123", "123");
+  });
+  </script>
+</head>
+<body>
+
+<div id="qunit"></div>
+
+</body>
+</html>

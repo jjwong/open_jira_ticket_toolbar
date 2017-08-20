@@ -123,7 +123,7 @@ function displayDefaultTicket() {
       }
     }
 
-  });
+  }); //end sync
 } //end displayDefaultTicket
 
 function retrieveHistory() {
@@ -226,6 +226,7 @@ function addHistory(searchString) {
         var appendHistoryItem;
         var sanitizedTicket = sanitizeTicket(searchString);
 
+
          // Add 1 to the top of the list
         if (sanitizedTicket === "invalid ticket") {
           var invalidMsg = "Invalid ticket: '" + searchString + "'";
@@ -259,18 +260,7 @@ function addHistory(searchString) {
     }); //end get sync
 } //end addHistory
 
-document.addEventListener('keydown', function(key) {
-  // Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
-  if (key.keyCode === 13) {
-    var userInput = document.getElementById("ticket").value;
-    openNewTicket(userInput.trim(), "toolbar");
-  }
-});
-
-window.addEventListener('load', function() {
-  displayDefaultTicket();
-  retrieveHistory();
-
+function favoritesListener() {
   // register click event listener
   document.querySelector('#historyList').addEventListener('click', function(e) {
 
@@ -303,15 +293,32 @@ window.addEventListener('load', function() {
     }); //chrome sync get end
 
   }); //addListender end
+} //end favoritesListener
 
+document.addEventListener('keydown', function(key) {
+  // Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
+  if (key.keyCode === 13) {
+    var userInput = document.getElementById("ticket").value;
+    openNewTicket(userInput.trim(), "toolbar");
+  }
+});
+
+window.addEventListener('load', function() {
   try {
+    displayDefaultTicket();
+    retrieveHistory();
+    favoritesListener();
     loadLocalization();
   } catch (e) {
-    console.log("Unable to load localization. Value null");
+    console.log("qunit - ignore global exception");
   }
 
 }); //load eventlistener end
 
-chrome.omnibox.onInputEntered.addListener(function (userInput) {
-  openNewTicket(userInput.trim(), "omnibox");
-});
+try {
+  chrome.omnibox.onInputEntered.addListener(function (userInput) {
+    openNewTicket(userInput.trim(), "omnibox");
+  }); //end listener
+} catch (e) {
+  console.log("qunit - ignore global exception");
+}
