@@ -15,31 +15,41 @@ function isDefaultProject(string) {
 }
 
 function sanitizeTicket(userInput) {
-  /* JIRA tickets only takes [a-z], -, d+
+  /* JIRA tickets only takes [a-z], -, _, d+
+   We currently only - configurations
    JIRA can support a few different prefix styles such as R2D2 and R2_D2_D3 prefixes.
    TODO: Add support for variants outside of standard a-z ticket prefixes
-   TODO: Fix spaces between ticket and number core 303 needs to be fixed.
    Potential solution - [a-z]([a-z0-9_]{0,})-\d+ , but this will break core23-23 or semiTicket only
     detection.
     Supporting documentation - https://confluence.atlassian.com/adminjiraserver071/changing-the-project-key-format-802592378.html
    */
+
+  // User input should be trimmed before it gets to this stage. We trim it again anyways.
+  var cleanUserInput = userInput.trim();
+
   var fullTicketRegex = new RegExp('([a-z]{1,}-\\d+)', 'i');
   var semiTicketRegex = new RegExp('([a-z]{1,}\\d+)', 'i');
+
+  var spaceTicketRegex = new RegExp('([a-z]{1,}(\\s+)\\d+)', 'i');
+
   var numbersOnlyRegex = new RegExp('(\\d+)', 'i');
 
-  var fullTicketText = userInput.match(fullTicketRegex);
+  var fullTicketText = cleanUserInput.match(fullTicketRegex);
 
   if (fullTicketText) {
       return fullTicketText[0];
-  } else if (userInput.match(semiTicketRegex)) {
+  } else if (cleanUserInput.match(semiTicketRegex)) {
+      var semiTicket = cleanUserInput.match(semiTicketRegex)[0];
       var jprojectRegex = new RegExp('([a-z]{1,})', 'i');
-      var jprojectText = userInput.match(jprojectRegex);
-      var jprojectNumber = userInput.match(numbersOnlyRegex);
+      var jprojectText = semiTicket.match(jprojectRegex);
+      var jprojectNumber = semiTicket.match(numbersOnlyRegex);
       //Form ticket
       var ticketID = jprojectText[0].concat("-", jprojectNumber[0]);
       return ticketID;
-  } else if (userInput.match(numbersOnlyRegex)) {
-      var defaultTicket = userInput.match(numbersOnlyRegex);
+  } else if (cleanUserInput.match(spaceTicketRegex)) {
+      return cleanUserInput.replace(/\s+/g, '-');
+  } else if (cleanUserInput.match(numbersOnlyRegex)) {
+      var defaultTicket = cleanUserInput.match(numbersOnlyRegex);
       return defaultTicket[0];
   } else {
       return "invalid ticket"
