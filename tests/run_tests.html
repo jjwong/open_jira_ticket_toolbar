@@ -9,13 +9,23 @@
   <script src="../js/toolbar.js"></script>
 
   <script>
-  QUnit.test("prettydate basics", function( assert ) {
+  QUnit.test("sanitizeTicket function expectations", function( assert ) {
     function sanitize(then, expected) {
       assert.equal(sanitizeTicket(then), expected);
     }
+    sanitize("core-1", "core-1");
+    sanitize("core-12", "core-12");
     sanitize("core-123", "core-123");
+    sanitize("core-1234", "core-1234");
+    sanitize("core1", "core-1");
+    sanitize("core12", "core-12");
     sanitize("core123", "core-123");
+    sanitize("core1234", "core-1234");
     sanitize("123", "123");
+    sanitize("core 123", "core-123");
+    sanitize("core", "invalid ticket");
+    sanitize("null", "invalid ticket");
+    sanitize("http://qunitjs.com/intro/core-123", "core-123");
   });
   </script>
 </head>
