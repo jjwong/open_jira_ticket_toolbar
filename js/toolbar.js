@@ -161,8 +161,8 @@ function retrieveHistory() {
       if (tmpFavorites) {
         tmpFavorites.sort(compareTicketValues);
         tmpFavorites.reverse();
-        for (var i = 0; i < tmpFavorites.length; i++) {
-          historyStorage.unshift(tmpFavorites[i]);
+        for (var k = 0; k < tmpFavorites.length; k++) {
+          historyStorage.unshift(tmpFavorites[k]);
         }
       }
 
@@ -284,7 +284,7 @@ function favoritesListener() {
         if (!id) return;
 
         // favorite item if not in stored list, but only accept a maximum of 5
-        if (index == -1) {
+        if (index === -1) {
           if (items.favoritesList.length < 5) {
             items.favoritesList.push(id);
             item.className = 'fav';

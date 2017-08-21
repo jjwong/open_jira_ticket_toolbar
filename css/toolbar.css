@@ -19,7 +19,7 @@ li:last-child {
   border: none;
 }
 
-li.unmarked:hover:after,
+.unmarked:hover:after,
 li.fav:after {
   content: ' \2605';
   color: rgb(255, 203, 0);
