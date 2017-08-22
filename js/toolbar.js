@@ -297,8 +297,11 @@ function favoritesListener() {
           item.className = 'unmarked';
         }
 
+        // prevent overpopulating list - this can occur during initial load
+        var savedFavoritesList = items.favoritesList.slice(0, 5);
+
         //store the latest list
-        chrome.storage.sync.set({favoritesList: items.favoritesList}, function () {});
+        chrome.storage.sync.set({favoritesList: savedFavoritesList}, function () {});
 
     }); //chrome sync get end
 
