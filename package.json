@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "test": "eslint . && qunit test/node-index.js && karma start",
+    "test": "qunit test/node-index.js && karma start",
     "karma-debug": "karma start --no-single-run --browsers Chrome --logLevel DEBUG"
   },
   "eslintIgnore": [
