@@ -31,7 +31,7 @@
 
     "background": {
         "persistent": false,
-        "scripts": ["js/toolbar.js"]
+        "scripts": ["src/toolbar.js"]
     },
 
     "options_ui": {
