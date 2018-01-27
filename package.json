@@ -5,7 +5,8 @@
     "karma-debug": "karma start --no-single-run --browsers Chrome --logLevel DEBUG"
   },
   "eslintIgnore": [
-    "/coverage"
+    "/coverage",
+    "/js/*.min.js"
   ],
   "dependencies": {},
   "devDependencies": {

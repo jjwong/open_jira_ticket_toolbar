@@ -11,7 +11,7 @@ module.exports = function (config) {
 		autoWatch: false,
 		singleRun: true,
 		preprocessors: {
-			'js/toolbar.js': [ 'coverage' ]
+			'js/*.js': [ 'coverage' ]
 		},
 		reporters: [ 'dots', 'coverage' ],
 		coverageReporter: {
