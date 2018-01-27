@@ -5,13 +5,13 @@ module.exports = function (config) {
 		browsers: [ 'ChromeHeadless' ],
 		frameworks: [ 'qunit' ],
 		files: [
-			'src/toolbar.js',
+			'js/toolbar.js',
 			'test/toolbar.test.js'
 		],
 		autoWatch: false,
 		singleRun: true,
 		preprocessors: {
-			'src/*.js': [ 'coverage' ]
+			'js/*.js': [ 'coverage' ]
 		},
 		reporters: [ 'dots', 'coverage' ],
 		coverageReporter: {

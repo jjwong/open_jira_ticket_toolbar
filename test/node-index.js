@@ -1,2 +1,2 @@
-global.toolbar = require('../src/toolbar.js');
+global.toolbar = require('../js/toolbar.js');
 require('./toolbar.test.js');
