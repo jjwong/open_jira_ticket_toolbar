@@ -1,15 +1,8 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Unit Test Functions</title>
+/* eslint-env qunit */
+/* global MyLib */
+QUnit.module('General');
 
-  <link rel="stylesheet" href="qunit-2.4.0.css">
-  <script src="qunit-2.4.0.js"></script>
-  <script src="../js/toolbar.js"></script>
-
-  <script>
-  // Combining into only 1 function for all of the tests is fine,
+// Combining into only 1 function for all of the tests is fine,
   // but split out since its easier to define the scenarios
   QUnit.test("sanitizeTicket function - basic positive", function( assert ) {
     function sanitize(then, expected) {
@@ -84,12 +77,3 @@
     sanitize("32a 32 test342", "test-342");
     sanitize("32a 32 test-355", "test-355");
   });
-
-  </script>
-</head>
-<body>
-
-<div id="qunit"></div>
-
-</body>
-</html>
