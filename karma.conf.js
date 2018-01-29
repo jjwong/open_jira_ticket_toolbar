@@ -13,6 +13,9 @@ module.exports = function (config) {
 		preprocessors: {
 			'js/*.js': [ 'coverage' ]
 		},
+		exclude: [
+		    'js/jquery*',
+		],
 		reporters: [ 'dots', 'coverage' ],
 		coverageReporter: {
 			reporters: [
