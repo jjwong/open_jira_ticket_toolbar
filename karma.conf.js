@@ -10,12 +10,13 @@ module.exports = function (config) {
 		],
 		autoWatch: false,
 		singleRun: true,
+		exclude: [
+		    'js/jquery.localize.min.js',
+		    'js/jquery-2.1.4.min.js',
+		],
 		preprocessors: {
 			'js/*.js': [ 'coverage' ]
 		},
-		exclude: [
-		    'js/jquery*',
-		],
 		reporters: [ 'dots', 'coverage' ],
 		coverageReporter: {
 			reporters: [
