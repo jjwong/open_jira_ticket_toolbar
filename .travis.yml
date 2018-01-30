@@ -10,5 +10,5 @@ addons:
 
 install:
   - npm install -g codecov
-script:
+after_script:
   - codecov
