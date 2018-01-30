@@ -44,27 +44,27 @@ QUnit.test("sanitizeTicket function - links", function( assert ) {
   }
   sanitize("http://qunitjs.com/intro/core-123", "core-123");
 })
-QUnit.test("sanitizeTicket function - underscore", function( assert ) {
-  function sanitize(then, expected) {
-    assert.equal(sanitizeTicket(then), expected);
-  }
-  sanitize("core_1", "core_1");
-  sanitize("core_12", "core_12");
-  sanitize("core_123", "core_123");
-  sanitize("core_1234", "core_1234");
-})
-QUnit.test("sanitizeTicket function - special", function( assert ) {
-  function sanitize(then, expected) {
-    assert.equal(sanitizeTicket(then), expected);
-  }
-  // Reference for accepted JIRA patterns
-  // https://confluence.atlassian.com/adminjiraserver071/changing-the-project-key-format-802592378.html
-  sanitize("core 123", "core-123");
-  sanitize("ACAT_51-1", "ACAT_51-1");
-  sanitize("AAA5-1330", "AAA5-1330");
-  sanitize("A_20_A091-15", "A_20_A091-15");
-  sanitize("TQ09-01", "TQ09-01");
-  sanitize("TQ09-02", "TQ09-02");
-  sanitize("32a 32 test342", "test-342");
-  sanitize("32a 32 test-355", "test-355");
+//QUnit.test("sanitizeTicket function - underscore", function( assert ) {
+//  function sanitize(then, expected) {
+//    assert.equal(sanitizeTicket(then), expected);
+//  }
+//  sanitize("core_1", "core_1");
+//  sanitize("core_12", "core_12");
+//  sanitize("core_123", "core_123");
+//  sanitize("core_1234", "core_1234");
+//})
+//QUnit.test("sanitizeTicket function - special", function( assert ) {
+//  function sanitize(then, expected) {
+//    assert.equal(sanitizeTicket(then), expected);
+//  }
+//  // Reference for accepted JIRA patterns
+//  // https://confluence.atlassian.com/adminjiraserver071/changing-the-project-key-format-802592378.html
+//  sanitize("core 123", "core-123");
+//  sanitize("ACAT_51-1", "ACAT_51-1");
+//  sanitize("AAA5-1330", "AAA5-1330");
+//  sanitize("A_20_A091-15", "A_20_A091-15");
+//  sanitize("TQ09-01", "TQ09-01");
+//  sanitize("TQ09-02", "TQ09-02");
+//  sanitize("32a 32 test342", "test-342");
+//  sanitize("32a 32 test-355", "test-355");
 });
