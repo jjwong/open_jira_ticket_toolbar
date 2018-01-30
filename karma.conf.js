@@ -25,10 +25,10 @@ module.exports = function (config) {
 				{ type: 'lcovonly', dir: 'coverage/' },
 			],
 			check: { global: {
-				functions: 10,
-				statements: 10,
-				branches: 10,
-				lines: 10
+				functions: 90,
+				statements: 50,
+				branches: 50,
+				lines: 50
 			} }
 		}
 	});
