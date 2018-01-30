@@ -67,4 +67,4 @@ QUnit.test("sanitizeTicket function - links", function( assert ) {
 //  sanitize("TQ09-02", "TQ09-02");
 //  sanitize("32a 32 test342", "test-342");
 //  sanitize("32a 32 test-355", "test-355");
-});
+//});
