@@ -1,6 +1,7 @@
 # Open JIRA Ticket Extension
 [![Code Climate](https://codeclimate.com/github/jjwong/open_jira_ticket_toolbar/badges/gpa.svg)](https://codeclimate.com/github/jjwong/open_jira_ticket_toolbar)
 [![Issue Count](https://codeclimate.com/github/jjwong/open_jira_ticket_toolbar/badges/issue_count.svg)](https://codeclimate.com/github/jjwong/open_jira_ticket_toolbar)
+[![Build Status](https://travis-ci.org/jjwong/open_jira_ticket_toolbar.svg?branch=master)](https://travis-ci.org/jjwong/open_jira_ticket_toolbar)
 [![codecov](https://codecov.io/gh/jjwong/open_jira_ticket_toolbar/branch/master/graph/badge.svg)](https://codecov.io/gh/jjwong/open_jira_ticket_toolbar)
 
 # Download Extension
