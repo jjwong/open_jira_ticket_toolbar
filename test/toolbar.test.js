@@ -1,5 +1,13 @@
 QUnit.module('General');
 
+QUnit.test("isDefaultProject - true", function( assert ) {
+  assert.ok(isDefaultProject("123"), "Failed to return true for a default number only value.")
+})
+
+QUnit.test("isDefaultProject - false", function( assert ) {
+  assert.notOk(isDefaultProject("BANANAS-123"), "Failed to return false for a non-default project.")
+})
+
 // Combining into only 1 function for all of the tests is fine,
 // but split out since its easier to define the scenarios
 QUnit.test("sanitizeTicket function - basic positive", function( assert ) {
