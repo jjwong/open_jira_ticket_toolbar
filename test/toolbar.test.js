@@ -8,6 +8,12 @@ QUnit.test("isDefaultProject - false", function( assert ) {
   assert.notOk(isDefaultProject("BANANAS-123"), "Failed to return false for a non-default project.")
 })
 
+QUnit.test("displayError - toolbar - english", function( assert ) {
+    displayError("toolbar_error");
+    var elem = $("[data-localize]");
+    assert.equal(elem.val(), "Please enter a valid ticket!", "English - valid ticket error message")
+})
+
 // Combining into only 1 function for all of the tests is fine,
 // but split out since its easier to define the scenarios
 QUnit.test("sanitizeTicket function - basic positive", function( assert ) {
@@ -17,7 +23,7 @@ QUnit.test("sanitizeTicket function - basic positive", function( assert ) {
   sanitize("core-1", "core-1");
   sanitize("core-12", "core-12");
   sanitize("core-123", "core-123");
-  sanitize("core-1234", "core-1234")
+  sanitize("core-1234", "core-1234");
 })
 QUnit.test("sanitizeTicket function - missing dash", function( assert ) {
   function sanitize(then, expected) {
