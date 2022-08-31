@@ -171,62 +171,8 @@ async function retrieveHistory() {
     function (items) {
       let historyStorage = items.userHistory;
       let url = items.useURL;
-      // var favoritesList = items.favoritesList;
-      console.log(historyStorage);
-
       let historyList = document.getElementById("historyList");
 
-      // var tmpFavorites = [];
-
-      // // Push the favorites to the top - do this at the end, we can sort by ascending in the favorites
-      // for (var i = 0; i < favoritesList.length; i++) {
-      //   ticket = historyStorage.indexOf(favoritesList[i]);
-      //   if (ticket >= 0) {
-      //     // Add items to a temporary favorites list
-      //     tmpFavorites.push(favoritesList[i]);
-      //     // Remove item from primary list
-      //     historyStorage.splice(ticket, 1);
-      //   }
-      // }
-
-      // // Reorder the favorites to be in ascending order, then add them into the primary list
-      // if (tmpFavorites) {
-      //   tmpFavorites.sort(compareTicketValues);
-      //   tmpFavorites.reverse();
-      //   for (var k = 0; k < tmpFavorites.length; k++) {
-      //     historyStorage.unshift(tmpFavorites[k]);
-      //   }
-      // }
-
-      // historyStorage.push("test-3131");
-      // historyStorage.push("test-22");
-
-      // console.log(historyStorage);
-
-      // Update the list after reordering favorites. This prevents regular items from ending up in random spots.
-      // chrome.storage.sync.set({ userHistory: historyStorage }, function () {});
-
-      // let langs = ['TypeScript','HTML','CSS'];
-
-      // let nodes = langs.map(lang => {
-      //   let li = document.createElement('li');
-      //   let a = document.createElement('a');
-      //   a.setAttribute('href', 'https://www.google.com/');
-      //   a.target = "_blank";
-      //   a.textContent = lang;
-      //   li.appendChild(a)
-      //   return li;
-      // });
-
-      // console.log(formURL("test-123"));
-
-          // var formURL = items.useURL + "/browse/" + item;
-
-          // a.textContent = item;
-          // a.setAttribute("href", formURL);
-          // a.setAttribute("class", "valid");
-
-      // historyList.append(...nodes);
       let rows = historyStorage.map((ticketID) => {
         let ticketURL = formURL(url, ticketID)
         let li = document.createElement("li");
@@ -237,61 +183,9 @@ async function retrieveHistory() {
         li.appendChild(a);
         return li;
       });
-      console.log(historyStorage);
-      console.log(historyList);
 
       historyList.append(...rows);
 
-      // async () => {
-      //   await JHistoryService.savePage("yoJira", "url");
-
-      //   let b = await JHistoryService.getPages();
-      //   console.log("test jira service");
-      //   console.log(b);
-      // };
-
-      // Build history list
-      // historyStorage.forEach(function (item) {
-      //   var li = document.createElement("li");
-      //   var a = document.createElement("a");
-
-      //   if (item.includes("Invalid ticket:")) {
-      //     // Limit the length for invalid tickets
-      //     if (item.length > 25) {
-      //       a.textContent = item.substr(0, 25) + "...'";
-      //       a.setAttribute("title", item);
-      //       a.setAttribute("class", "invalid");
-      //       li.appendChild(a);
-      //     } else {
-      //       li.setAttribute("class", "invalid");
-      //       li.textContent = item;
-      //     }
-      //   } else {
-      //     // Only add href to valid tickets
-      //     var formURL = items.useURL + "/browse/" + item;
-
-      //     a.textContent = item;
-      //     a.setAttribute("href", formURL);
-      //     a.setAttribute("class", "valid");
-
-      //     li.setAttribute("id", item);
-
-      //     if (favoritesList.indexOf(item) > -1) {
-      //       li.setAttribute("class", "fav");
-      //     } else {
-      //       li.setAttribute("class", "unmarked");
-      //     }
-
-      //     a.target = "_blank";
-      //     li.appendChild(a);
-      //   }
-
-      //   if (historyList === null) {
-      //     console.log("Missing history list. Unable to append history.");
-      //   } else {
-      //     historyList.appendChild(li);
-      //   }
-      // }); //end foreach
     }
   ); //end get sync
 } //end retrieveHistory
