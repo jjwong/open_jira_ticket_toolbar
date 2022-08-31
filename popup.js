@@ -170,22 +170,9 @@ async function retrieveHistory() {
     { userHistory: [], useURL: "default", favoritesList: [] },
     function (items) {
       let historyStorage = items.userHistory;
-      let url = items.useURL;
-      let historyList = document.getElementById("historyList");
+      let userURL = items.useURL;
 
-      let rows = historyStorage.map((ticketID) => {
-        let ticketURL = formURL(url, ticketID)
-        let li = document.createElement("li");
-        let a = document.createElement("a");
-        a.setAttribute("href", ticketURL);
-        a.target = "_blank";
-        a.textContent = ticketID;
-        li.appendChild(a);
-        return li;
-      });
-
-      historyList.append(...rows);
-
+      buildHistoryList(userURL, ...historyStorage)
     }
   ); //end get sync
 } //end retrieveHistory
@@ -362,4 +349,21 @@ function clearStatusMessage() {
 function formURL(url, ticket) {
   //TODO - verify ticket is valid
   return url + "/browse/" + ticket;
+}
+
+function buildHistoryList(userURL, ...tickets) {
+  let historyList = document.getElementById("historyList");
+
+  let rows = tickets.map((ticketID) => {
+    let ticketURL = formURL(userURL, ticketID)
+    let li = document.createElement("li");
+    let a = document.createElement("a");
+    a.setAttribute("href", ticketURL);
+    a.target = "_blank";
+    a.textContent = ticketID;
+    li.appendChild(a);
+    return li;
+  });
+
+  historyList.append(...rows);
 }
