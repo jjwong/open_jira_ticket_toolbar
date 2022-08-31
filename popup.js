@@ -169,13 +169,14 @@ async function retrieveHistory() {
   chrome.storage.sync.get(
     { userHistory: [], useURL: "default", favoritesList: [] },
     function (items) {
-      var historyStorage = items.userHistory;
+      let historyStorage = items.userHistory;
+      let url = items.useURL;
       // var favoritesList = items.favoritesList;
       console.log(historyStorage);
 
-      var historyList = document.getElementById("historyList");
+      let historyList = document.getElementById("historyList");
 
-      var tmpFavorites = [];
+      // var tmpFavorites = [];
 
       // // Push the favorites to the top - do this at the end, we can sort by ascending in the favorites
       // for (var i = 0; i < favoritesList.length; i++) {
@@ -200,10 +201,10 @@ async function retrieveHistory() {
       // historyStorage.push("test-3131");
       // historyStorage.push("test-22");
 
-      console.log(historyStorage);
+      // console.log(historyStorage);
 
       // Update the list after reordering favorites. This prevents regular items from ending up in random spots.
-      chrome.storage.sync.set({ userHistory: historyStorage }, function () {});
+      // chrome.storage.sync.set({ userHistory: historyStorage }, function () {});
 
       // let langs = ['TypeScript','HTML','CSS'];
 
@@ -217,15 +218,22 @@ async function retrieveHistory() {
       //   return li;
       // });
 
-      console.log(formURL("test-123"));
+      // console.log(formURL("test-123"));
+
+          // var formURL = items.useURL + "/browse/" + item;
+
+          // a.textContent = item;
+          // a.setAttribute("href", formURL);
+          // a.setAttribute("class", "valid");
 
       // historyList.append(...nodes);
-      let rows = historyStorage.map((row) => {
+      let rows = historyStorage.map((ticketID) => {
+        let ticketURL = formURL(url, ticketID)
         let li = document.createElement("li");
         let a = document.createElement("a");
-        a.setAttribute("href", "https://www.google.com/");
+        a.setAttribute("href", ticketURL);
         a.target = "_blank";
-        a.textContent = row;
+        a.textContent = ticketID;
         li.appendChild(a);
         return li;
       });
@@ -457,11 +465,7 @@ function clearStatusMessage() {
   statusMessage.textContent = "";
 }
 
-function formURL(ticket) {
-  let url
-  chrome.storage.sync.get(function (items) {
-    // TODO - add isValidTicket function
-    let url = items.useURL + "/browse" + ticket;
-    return url;
-  }); //end get sync
+function formURL(url, ticket) {
+  //TODO - verify ticket is valid
+  return url + "/browse/" + ticket;
 }
