@@ -1,6 +1,14 @@
 function loadLocalization() {
-  chrome.storage.sync.get({"useLanguage": "en" }, function (result) {
-    $("[data-localize]").localize("localization/application", { language: result.useLanguage });
+  chrome.storage.sync.get({ useLanguage: "en" }, function (result) {
+    $("[data-localize]").localize("localization/application", {
+      language: result.useLanguage,
+    });
+
+    const elements = Array.from(document.querySelectorAll("[data-localize]"));
+    for (const e of elements) {
+      const text = e.dataset.i18n;
+      e.textContent = translate(text);
+    }
   });
 }
 
@@ -15,3 +23,5 @@ function removeSuccess() {
     document.getElementById("success").remove();
   }
 }
+
+document.addEventListener("DOMContentLoaded", loadLocalization);

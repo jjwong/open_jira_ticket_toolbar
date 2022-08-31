@@ -11,6 +11,13 @@
 Simple Chrome extension that will allow a user to search for JIRA tickets via the address bar or the provided toolbar.
 
 # Changelog
+* 3.0
+	* Upgrade to manifest v3
+	* Refactor and clean up code
+	* Add unit testing to logic
+	* Remove jquery implementation of i18n
+	* Remove favorites feature
+	* Minor UI updates
 * 2.0
 	* Add top 5 favorites feature
 * 1.1

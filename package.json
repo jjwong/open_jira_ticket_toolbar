@@ -4,7 +4,9 @@
     "test": "karma start",
     "karma-debug": "karma start --no-single-run --browsers Chrome --logLevel DEBUG"
   },
-  "dependencies": {},
+  "dependencies": {
+    "jsdom": "^19.0.0"
+  },
   "devDependencies": {
     "karma": "1.7.0",
     "karma-chrome-launcher": "2.2.0",

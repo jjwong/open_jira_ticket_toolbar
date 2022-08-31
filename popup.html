@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Open JIRA Ticket Toolbar</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/popup.css" />
+    <!-- <script type="module" src="js/localization.js"></script> -->
+    <script type="module" src="popup.js"></script>
+    <!-- <script src='jhistory.service.js'></script> -->
+  </head>
+  <body>
+    <form id="ticket-form">
+      <div class="input-container">
+        <input type="text" id="ticket" placeholder="" autofocus required />
+        <label id="displayDefaultTicket">Default ID</label>
+      </div>
+    </form>
+    <!-- <div id="divDisplayDefault">
+      <label
+        id="default_project_text"
+        data-localize="default_project_text"
+      ></label>
+      <label id="colon">:</label>
+      <label id="displayDefaultTicket"></label>
+    </div> -->
+    <span id="status" hidden></span>
+    <h3>
+      <span><p id="history_title" data-localize="history_title"></p></span>
+    </h3>
+    <div id="previousSearches" style="padding: 0">
+      <ul id="historyList"></ul>
+    </div>
+  </body>
+</html>

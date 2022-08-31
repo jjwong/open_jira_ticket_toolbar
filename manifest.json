@@ -1,45 +1,34 @@
 {
     "name": "Open JIRA Ticket",
     "description": "Open JIRA tickets using the address bar or via the toolbar.",
-    "manifest_version": 2,
-    "version": "2.1",
-
+    "manifest_version": 3,
+    "version": "3.0",
     "commands": {
-        "_execute_browser_action": {
+        "_execute_action": {
             "suggested_key": {
-              "windows": "Ctrl+Shift+K",
-              "mac": "Command+Shift+K",
-              "chromeos": "Ctrl+Shift+K",
-              "linux": "Ctrl+Shift+K"
+                "windows": "Ctrl+Shift+K",
+                "mac": "Command+Shift+K",
+                "chromeos": "Ctrl+Shift+K",
+                "linux": "Ctrl+Shift+K"
             }
         }
     },
-
     "omnibox": {
         "keyword": "jira"
     },
-
     "icons": {
         "16": "icons/32-toolbar.png",
         "48": "icons/48-options.png",
         "128": "icons/128-large.png"
     },
-
-    "browser_action": {
-        "default_popup": "index.html"
+    "action": {
+        "default_popup": "popup.html"
     },
-
-    "background": {
-        "persistent": false,
-        "scripts": ["js/toolbar.js"]
-    },
-
-    "options_ui": {
-        "page": "options.html",
-        "chrome_style": true
-    },
-
+    "options_page": "options.html",
     "permissions": [
-        "storage"
+        "storage",
+        "activeTab",
+        "tabs",
+        "scripting"
     ]
 }
