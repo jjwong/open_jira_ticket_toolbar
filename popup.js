@@ -92,44 +92,30 @@ function displayError(error_type) {
 }
 
 function openNewTicket(ticket, sourceType) {
-  var ticket_uppercase = ticket.toUpperCase();
+  const TICKET_UPPERCASE = ticket.toUpperCase();
+  const SANITIZED_TICKET = sanitizeTicket(TICKET_UPPERCASE);
 
-  var sanitizedTicket = sanitizeTicket(ticket_uppercase);
   // Error display should only show up at the toolbar level
-  if (sanitizedTicket === "invalid ticket" && sourceType === "toolbar") {
+  if (SANITIZED_TICKET === "invalid ticket" && sourceType === "toolbar") {
     displayError(ERROR_INVALID);
   }
 
   chrome.storage.sync.get(function (items) {
-    var url = items.useURL;
-    var defaultProject = items.useDefaultProject;
-    var sanitizedTicket = sanitizeTicket(ticket_uppercase);
+    const USER_HOST_URL = items.useURL;
+    const DEFAULT_PROJECT = items.useDefaultProject;
+    let fullTicketID;
 
-    if (isDefaultProject(ticket_uppercase)) {
-      var formURL = url + "/browse/" + defaultProject + "-" + sanitizedTicket;
-      var formHref =
-        "<a href='" +
-        formURL +
-        "'>" +
-        defaultProject +
-        "-" +
-        sanitizedTicket +
-        "</a>";
-      console.log(formURL);
-
-      saveHistory(sanitizedTicket);
-      chrome.tabs.create({ url: formURL });
-
+    if (isDefaultProject(TICKET_UPPERCASE)) {
+      fullTicketID = DEFAULT_PROJECT + "-" + SANITIZED_TICKET;
     } else {
-      var ticketURL = url + "/browse/" + sanitizedTicket;
-
-      saveHistory(sanitizedTicket);
-      chrome.tabs.create({ url: ticketURL });
-
-
+      fullTicketID = SANITIZED_TICKET;
     }
-  }); //end get sync
 
+    let formURL = formTicketURL(USER_HOST_URL, fullTicketID)
+
+    saveHistory(SANITIZED_TICKET);
+    chrome.tabs.create({ url: formURL });
+  }); //end get sync
 } //end openNewTicket
 
 function removeElement(element_id) {
@@ -170,9 +156,9 @@ async function retrieveHistory() {
     { userHistory: [], useURL: "default", favoritesList: [] },
     function (items) {
       let historyStorage = items.userHistory;
-      let userURL = items.useURL;
+      let userHostURL = items.useURL;
 
-      buildHistoryList(userURL, ...historyStorage)
+      buildHistoryList(userHostURL, ...historyStorage)
     }
   ); //end get sync
 } //end retrieveHistory
@@ -346,16 +332,16 @@ function clearStatusMessage() {
   statusMessage.textContent = "";
 }
 
-function formURL(url, ticket) {
+function formTicketURL(url, ticket) {
   //TODO - verify ticket is valid
   return url + "/browse/" + ticket;
 }
 
-function buildHistoryList(userURL, ...tickets) {
+function buildHistoryList(userHostURL, ...tickets) {
   let historyList = document.getElementById("historyList");
 
   let rows = tickets.map((ticketID) => {
-    let ticketURL = formURL(userURL, ticketID)
+    let ticketURL = formTicketURL(userHostURL, ticketID)
     let li = document.createElement("li");
     let a = document.createElement("a");
     a.setAttribute("href", ticketURL);
