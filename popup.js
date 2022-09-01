@@ -80,8 +80,7 @@ function sanitizeTicket(userInput) {
 }
 
 function displayError(error_type) {
-  if (error_type === ERROR_INVALID)
-  {
+  if (error_type === ERROR_INVALID) {
     showStatusMessage("Invalid ticket entered.");
   } else {
     showStatusMessage("Unhelpful error.");
@@ -111,7 +110,7 @@ function openNewTicket(ticket, sourceType) {
       fullTicketID = SANITIZED_TICKET;
     }
 
-    let formURL = formTicketURL(USER_HOST_URL, fullTicketID)
+    let formURL = formTicketURL(USER_HOST_URL, fullTicketID);
 
     saveHistory(SANITIZED_TICKET);
     chrome.tabs.create({ url: formURL });
@@ -158,7 +157,7 @@ async function retrieveHistory() {
       let historyStorage = items.userHistory;
       let userHostURL = items.useURL;
 
-      buildHistoryList(userHostURL, ...historyStorage)
+      buildHistoryList(userHostURL, ...historyStorage);
     }
   ); //end get sync
 } //end retrieveHistory
@@ -181,7 +180,7 @@ function saveHistory(userStringInput) {
     { userHistory: [], useDefaultProject: "PL" },
     function (result) {
       let userHistory = result.userHistory;
-      let defaultProject = result.useDefaultProject
+      let defaultProject = result.useDefaultProject;
       let historyText;
 
       historyText = getFullJiraID(defaultProject, userStringInput);
@@ -341,7 +340,7 @@ function buildHistoryList(userHostURL, ...tickets) {
   let historyList = document.getElementById("historyList");
 
   let rows = tickets.map((ticketID) => {
-    let ticketURL = formTicketURL(userHostURL, ticketID)
+    let ticketURL = formTicketURL(userHostURL, ticketID);
     let li = document.createElement("li");
     let a = document.createElement("a");
     a.setAttribute("href", ticketURL);
