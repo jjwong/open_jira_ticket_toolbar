@@ -8,18 +8,7 @@ form.addEventListener("submit", handleFormSubmit);
 async function handleFormSubmit(event) {
   event.preventDefault();
 
-  clearStatusMessage();
-
   openNewTicket(inputTicket.value, "toolbar");
-
-  // let url = stringToUrl(input.value);
-  // if (!url) {
-  //   setMessage("Invalid URL");
-  //   return;
-  // }
-
-  // let message = await deleteDomainCookies(url.hostname);
-  // setMessage(message);
 }
 
 function isDefaultProject(string) {
@@ -102,13 +91,8 @@ function openNewTicket(ticket, sourceType) {
   chrome.storage.sync.get(function (items) {
     const USER_HOST_URL = items.useURL;
     const DEFAULT_PROJECT = items.useDefaultProject;
-    let fullTicketID;
 
-    if (isDefaultProject(TICKET_UPPERCASE)) {
-      fullTicketID = DEFAULT_PROJECT + "-" + SANITIZED_TICKET;
-    } else {
-      fullTicketID = SANITIZED_TICKET;
-    }
+    let fullTicketID = getFullJiraID(DEFAULT_PROJECT, TICKET_UPPERCASE)
 
     let formURL = formTicketURL(USER_HOST_URL, fullTicketID);
 
@@ -181,23 +165,23 @@ function saveHistory(userStringInput) {
     function (result) {
       let userHistory = result.userHistory;
       let defaultProject = result.useDefaultProject;
-      let historyText;
+      let jiraTicketID;
 
-      historyText = getFullJiraID(defaultProject, userStringInput);
+      jiraTicketID = getFullJiraID(defaultProject, userStringInput);
 
-      if (historyText === false) {
+      if (jiraTicketID === false) {
         return "Invalid ticket: '" + userStringInput + "'";
       }
 
-      let checkTicketIndex = userHistory.indexOf(historyText);
+      let checkTicketIndex = userHistory.indexOf(jiraTicketID);
       // Check if string is in index, if so. Remove it first, then add it back in later.
       if (checkTicketIndex > -1) {
         // Remove only 1 instance in the array
         userHistory.splice(checkTicketIndex, 1);
       }
 
-      //Add ticket to the top of the list. We intend for these items to be after favorites.
-      userHistory.unshift(historyText);
+      //Add ticket to the top of the list.
+      userHistory.unshift(jiraTicketID);
 
       // Pop the last item in the list
       while (userHistory.length > 10) {
@@ -217,53 +201,13 @@ function getFullJiraID(defaultProject, ticket) {
   } else {
     // Add default project to history
     if (isDefaultProject(sanitizedTicket)) {
-      let fullProjectText = defaultProject + "-" + sanitizedTicket;
-      return fullProjectText;
+      let defaultTicket = defaultProject + "-" + sanitizedTicket;
+      return defaultTicket;
     } else {
       return sanitizedTicket;
     }
   }
 }
-
-function favoritesListener() {
-  // register click event listener
-  document
-    .querySelector("#historyList")
-    .addEventListener("click", function (e) {
-      chrome.storage.sync.get({ favoritesList: [] }, function (items) {
-        // get list id, if its not in the list add it on click
-        var id = e.target.id;
-        var item = e.target;
-        var index = items.favoritesList.indexOf(id);
-
-        // return if target doesn't have an id - this prevents invalid ids from being saved
-        if (!id) return;
-
-        // favorite item if not in stored list, but only accept a maximum of 5
-        if (index === -1) {
-          if (items.favoritesList.length < 5) {
-            items.favoritesList.push(id);
-            item.className = "fav";
-          } else {
-            displayError("max_favorite_error");
-          }
-          // unmark favorited item
-        } else {
-          items.favoritesList.splice(index, 1);
-          item.className = "unmarked";
-        }
-
-        // prevent overpopulating list - this can occur during initial load
-        var savedFavoritesList = items.favoritesList.slice(0, 5);
-
-        //store the latest list
-        chrome.storage.sync.set(
-          { favoritesList: savedFavoritesList },
-          function () {}
-        );
-      }); //chrome sync get end
-    }); //addListender end
-} //end favoritesListener
 
 // document.addEventListener("keydown", function (key) {
 //   // Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
@@ -277,7 +221,6 @@ chrome.runtime.onConnect.addListener(() => {
   try {
     displayDefaultTicket();
     retrieveHistory();
-    // favoritesListener();
     // loadLocalization();
   } catch (e) {
     console.log("qunit - ignore global exception");
@@ -288,7 +231,6 @@ window.addEventListener("load", function () {
   try {
     displayDefaultTicket();
     retrieveHistory();
-    // favoritesListener();
     // loadLocalization();
   } catch (e) {
     console.log("qunit - ignore global exception");
