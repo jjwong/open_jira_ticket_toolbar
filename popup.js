@@ -2,6 +2,8 @@ const form = document.getElementById("ticket-form");
 const inputTicket = document.getElementById("ticket");
 const statusMessage = document.getElementById("status");
 const ERROR_INVALID = "INVALID";
+const ERROR_NO_DEFAULT_SET = "NO_DEFAULT";
+const ERROR_MISSING = "MISSING";
 
 form.addEventListener("submit", handleFormSubmit);
 
@@ -71,6 +73,10 @@ function sanitizeTicket(userInput) {
 function displayError(error_type) {
   if (error_type === ERROR_INVALID) {
     showStatusMessage("Invalid ticket entered.");
+  } else if (error_type === ERROR_MISSING) {
+    showStatusMessage("Unable to find display ticket.");
+  } else if (error_type === ERROR_NO_DEFAULT_SET) {
+    showStatusMessage("No default project set in options.");
   } else {
     showStatusMessage("Unhelpful error.");
   }
@@ -92,7 +98,7 @@ function openNewTicket(ticket, sourceType) {
     const USER_HOST_URL = items.useURL;
     const DEFAULT_PROJECT = items.useDefaultProject;
 
-    let fullTicketID = getFullJiraID(DEFAULT_PROJECT, TICKET_UPPERCASE)
+    let fullTicketID = getFullJiraID(DEFAULT_PROJECT, TICKET_UPPERCASE);
 
     let formURL = formTicketURL(USER_HOST_URL, fullTicketID);
 
@@ -107,24 +113,17 @@ function removeElement(element_id) {
 
 function displayDefaultTicket() {
   chrome.storage.sync.get(function (items) {
-    var display = document.getElementById("displayDefaultTicket");
+    let display = document.getElementById("displayDefaultTicket");
     if (display === null) {
       console.log("ERROR: Unable to find display ticket.");
+      displayError(ERROR_MISSING);
     } else {
-      // Remove unused elements and display error message
       if (
         items.useDefaultProject === undefined ||
         items.useDefaultProject === null
       ) {
-        // Localize error message - Default will be English (unlikely to be used outside of en).
-        display.setAttribute("data-localize", "toolbar_req_project_msg");
-        display.style.color = "red";
-        display.style.fontSize = "18px";
         document.getElementById("ticket").setAttribute("disabled", true);
-        removeElement("default_project_text");
-        removeElement("colon");
-        removeElement("history_title");
-        // loadLocalization();
+        displayError(ERROR_NO_DEFAULT_SET);
       } else {
         display.innerText = items.useDefaultProject;
         display.placeholder = items.useDefaultProject;
@@ -169,10 +168,6 @@ function saveHistory(userStringInput) {
 
       jiraTicketID = getFullJiraID(defaultProject, userStringInput);
 
-      if (jiraTicketID === false) {
-        return "Invalid ticket: '" + userStringInput + "'";
-      }
-
       let checkTicketIndex = userHistory.indexOf(jiraTicketID);
       // Check if string is in index, if so. Remove it first, then add it back in later.
       if (checkTicketIndex > -1) {
@@ -197,7 +192,7 @@ function getFullJiraID(defaultProject, ticket) {
   let sanitizedTicket = sanitizeTicket(ticket);
 
   if (ticket === "invalid ticket") {
-    return false;
+    displayError(ERROR_INVALID);
   } else {
     // Add default project to history
     if (isDefaultProject(sanitizedTicket)) {
@@ -221,7 +216,6 @@ chrome.runtime.onConnect.addListener(() => {
   try {
     displayDefaultTicket();
     retrieveHistory();
-    // loadLocalization();
   } catch (e) {
     console.log("qunit - ignore global exception");
   }
@@ -231,7 +225,6 @@ window.addEventListener("load", function () {
   try {
     displayDefaultTicket();
     retrieveHistory();
-    // loadLocalization();
   } catch (e) {
     console.log("qunit - ignore global exception");
   }
