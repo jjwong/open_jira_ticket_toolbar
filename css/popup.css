@@ -10,26 +10,30 @@ ul {
 }
 
 li {
-  font: 200 18px/1.5 Helvetica, Verdana, sans-serif;
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
   border-bottom: 1px solid #ccc;
-  cursor: pointer;
 }
 
 li:last-child {
   border: none;
 }
 
-.unmarked:hover:after,
-li.fav:after {
-  content: ' \2605';
-  color: rgb(255, 203, 0);
-}
-li.fav:hover:after {
-  content: ' \2606';
+li a {
+  text-decoration: none;
+  color: #000;
+
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+  display: block;
+  width: 200px;
 }
 
-.fav {
-  background-color: #f7faff;
+li a:hover {
+  font-size: 30px;
+  background: #f6f6f6;
 }
 
 .invalid {
