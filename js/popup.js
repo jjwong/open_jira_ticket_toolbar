@@ -5,8 +5,6 @@ const ERROR_INVALID = "INVALID";
 const ERROR_NO_DEFAULT_SET = "NO_DEFAULT";
 const ERROR_MISSING = "MISSING";
 
-form.addEventListener("submit", handleFormSubmit);
-
 async function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -39,12 +37,12 @@ function sanitizeTicket(userInput) {
    */
 
   // User input should be trimmed before it gets to this stage. We trim it again anyways.
-  var cleanUserInput = userInput.trim();
+  let cleanUserInput = userInput.toUpperCase().trim();
 
-  var fullTicketRegex = new RegExp("([a-z]{1,}-\\d+)", "i");
-  var semiTicketRegex = new RegExp("([a-z]{1,}\\d+)", "i");
+  var fullTicketRegex = new RegExp("([A-Z]{1,}-\\d+)", "i");
+  var semiTicketRegex = new RegExp("([A-Z]{1,}\\d+)", "i");
 
-  var spaceTicketRegex = new RegExp("([a-z]{1,}(\\s+)\\d+)", "i");
+  var spaceTicketRegex = new RegExp("([A-Z]{1,}(\\s+)\\d+)", "i");
 
   var numbersOnlyRegex = new RegExp("(\\d+)", "i");
 
@@ -54,7 +52,7 @@ function sanitizeTicket(userInput) {
     return fullTicketText[0];
   } else if (cleanUserInput.match(semiTicketRegex)) {
     var semiTicket = cleanUserInput.match(semiTicketRegex)[0];
-    var jprojectRegex = new RegExp("([a-z]{1,})", "i");
+    var jprojectRegex = new RegExp("([A-Z]{1,})", "i");
     var jprojectText = semiTicket.match(jprojectRegex);
     var jprojectNumber = semiTicket.match(numbersOnlyRegex);
     //Form ticket
@@ -212,43 +210,6 @@ function getFullJiraID(defaultProject, ticket) {
 //   }
 // });
 
-chrome.runtime.onConnect.addListener(() => {
-  try {
-    displayDefaultTicket();
-    retrieveHistory();
-  } catch (e) {
-    console.log("qunit - ignore global exception");
-  }
-});
-
-window.addEventListener("load", function () {
-  try {
-    displayDefaultTicket();
-    retrieveHistory();
-  } catch (e) {
-    console.log("qunit - ignore global exception");
-  }
-}); //load eventlistener end
-
-function reddenPage() {
-  document.body.style.backgroundColor = "white";
-}
-
-chrome.action.onClicked.addListener((tab) => {
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: reddenPage,
-  });
-});
-
-try {
-  chrome.omnibox.onInputEntered.addListener(function (userInput) {
-    openNewTicket(userInput.trim(), "omnibox");
-  }); //end listener
-} catch (e) {
-  console.log("qunit - ignore global exception");
-}
-
 function showStatusMessage(str) {
   setStatusMessage(str);
   setTimeout(function () {
@@ -286,4 +247,42 @@ function buildHistoryList(userHostURL, ...tickets) {
   });
 
   historyList.append(...rows);
+}
+
+function reddenPage() {
+  document.body.style.backgroundColor = "white";
+}
+
+chrome.runtime.onConnect.addListener(() => {
+  try {
+    displayDefaultTicket();
+    retrieveHistory();
+  } catch (e) {
+    console.log("qunit - ignore global exception");
+  }
+});
+
+window.addEventListener("load", function () {
+  try {
+    form.addEventListener("submit", handleFormSubmit);
+    displayDefaultTicket();
+    retrieveHistory();
+  } catch (e) {
+    console.log("qunit - ignore global exception");
+  }
+}); //load eventlistener end
+
+chrome.action.onClicked.addListener((tab) => {
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: reddenPage,
+  });
+});
+
+try {
+  chrome.omnibox.onInputEntered.addListener(function (userInput) {
+    openNewTicket(userInput.trim(), "omnibox");
+  }); //end listener
+} catch (e) {
+  console.log("qunit - ignore global exception");
 }

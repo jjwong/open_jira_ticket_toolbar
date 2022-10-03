@@ -1,18 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "test": "karma start",
-    "karma-debug": "karma start --no-single-run --browsers Chrome --logLevel DEBUG"
+    "test": "jasmine-browser-runner runSpecs"
   },
-  "dependencies": {
-    "jsdom": "^19.0.0"
-  },
-  "devDependencies": {
-    "karma": "1.7.0",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-cli": "^1.0.1",
-    "karma-coverage": "1.1.1",
-    "karma-qunit": "1.2.1",
-    "qunitjs": "2.4.0"
-  }
+  "name": "open_jira_ticket_toolbar"
 }
