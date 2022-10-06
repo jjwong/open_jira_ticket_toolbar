@@ -3,17 +3,14 @@ module.exports = function (config) {
 	config.set({
 		// To debug, run `npm run karma-debug` and press the "Debug" button in the browser window
 		browsers: [ 'ChromeHeadless' ],
-		frameworks: [ 'qunit' ],
+		frameworks: [ 'jasmine' ],
 		files: [
-			'js/toolbar.js',
-			'test/toolbar.test.js'
+			'js/popup.js',
+			'js/jasmine/spec/PopupSpec.js'
 		],
 		autoWatch: false,
 		singleRun: true,
-		exclude: [
-		    'js/jquery.localize.min.js',
-		    'js/jquery-2.1.4.min.js',
-		],
+		exclude: [],
 		preprocessors: {
 			'js/*.js': [ 'coverage' ]
 		},
