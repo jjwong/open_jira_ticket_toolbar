@@ -8,7 +8,7 @@ on:
     paths:
       - src/*
       - '*.json'
-      - package-lock.lock
+      - package-lock.json
   pull_request:
     paths:
       - '!*.MD'
