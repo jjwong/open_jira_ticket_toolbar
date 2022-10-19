@@ -1,10 +1,29 @@
+// const chrome = require('sinon-chrome/apps');
+// const { Popup } = require("../../popup")
+
 describe("Popup.js", function () {
   let app;
+
+//   before(function () {
+//     global.chrome = chrome;
+
+//     // Popup();
+//   });
+
+
+//   beforeEach(function () {
+//     chrome.runtime.sendMessage.flush();
+//   });
 
   //This will be called before running each spec
   //   beforeEach(function () {
   // app = initializeApp();
   //   });
+
+  //   beforeEach(() => {
+  //     spyOn(chrome.runtime, 'onConnect').and.callThrough();
+
+  //   })
 
   describe("when we sanitize user input", () => {
     // JIRA valid ticket documentation
@@ -47,4 +66,13 @@ describe("Popup.js", function () {
       expect(isDefaultProject("BANANAS-123")).toEqual(false);
     });
   });
+
+//   after(function () {
+//     spyOn(chrome, "onConnect").and.callFake(function () {
+//         return jasmineHelpers.deferredSuccess();
+//     });
+
+//     chrome.flush();
+//     delete global.chrome;
+//   });
 });

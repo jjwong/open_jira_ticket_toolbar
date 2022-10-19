@@ -254,22 +254,14 @@ function reddenPage() {
 }
 
 chrome.runtime.onConnect.addListener(() => {
-  try {
-    displayDefaultTicket();
-    retrieveHistory();
-  } catch (e) {
-    console.log("qunit - ignore global exception");
-  }
+  displayDefaultTicket();
+  retrieveHistory();
 });
 
 window.addEventListener("load", function () {
-  try {
-    form.addEventListener("submit", handleFormSubmit);
-    displayDefaultTicket();
-    retrieveHistory();
-  } catch (e) {
-    console.log("qunit - ignore global exception");
-  }
+  window.addEventListener("submit", handleFormSubmit);
+  displayDefaultTicket();
+  retrieveHistory();
 }); //load eventlistener end
 
 chrome.action.onClicked.addListener((tab) => {
@@ -279,10 +271,6 @@ chrome.action.onClicked.addListener((tab) => {
   });
 });
 
-try {
-  chrome.omnibox.onInputEntered.addListener(function (userInput) {
-    openNewTicket(userInput.trim(), "omnibox");
-  }); //end listener
-} catch (e) {
-  console.log("qunit - ignore global exception");
-}
+chrome.omnibox.onInputEntered.addListener(function (userInput) {
+  openNewTicket(userInput.trim(), "omnibox");
+}); //end listener
