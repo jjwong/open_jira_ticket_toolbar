@@ -2,17 +2,18 @@
 module.exports = function (config) {
 	config.set({
 		// To debug, run `npm run karma-debug` and press the "Debug" button in the browser window
-		browsers: [ 'ChromeHeadless' ],
+		browsers: [ 'Chrome' ],
 		frameworks: [ 'jasmine' ],
 		files: [
 			'js/popup.js',
-			'js/jasmine/spec/PopupSpec.js'
+			'js/jasmine/spec/PopupSpec.js',
+			{ pattern: 'js/jasmine/spec/*.js', included: true }
 		],
 		autoWatch: false,
 		singleRun: true,
 		exclude: [],
 		preprocessors: {
-			'js/*.js': [ 'coverage' ]
+			'js/**/*.js': [ 'coverage' ]
 		},
 		reporters: [ 'dots', 'coverage' ],
 		coverageReporter: {
