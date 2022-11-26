@@ -84,7 +84,7 @@ function displayError(error_type) {
 }
 
 function openNewTicket(ticket, sourceType) {
-  const TICKET_UPPERCASE = ticket.toUpperCase();
+  const TICKET_UPPERCASE = ticket.toUpperCase().trim();
   const SANITIZED_TICKET = sanitizeTicket(TICKET_UPPERCASE);
 
   // Error display should only show up at the toolbar level
@@ -253,10 +253,10 @@ function reddenPage() {
   document.body.style.backgroundColor = "white";
 }
 
-chrome.runtime.onConnect.addListener(() => {
-  displayDefaultTicket();
-  retrieveHistory();
-});
+// chrome.runtime.onConnect.addListener(() => {
+//   displayDefaultTicket();
+//   retrieveHistory();
+// });
 
 window.addEventListener("load", function () {
   window.addEventListener("submit", handleFormSubmit);
@@ -264,13 +264,13 @@ window.addEventListener("load", function () {
   retrieveHistory();
 }); //load eventlistener end
 
-chrome.action.onClicked.addListener((tab) => {
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: reddenPage,
-  });
-});
+// chrome.action.onClicked.addListener((tab) => {
+//   chrome.scripting.executeScript({
+//     target: { tabId: tab.id },
+//     function: reddenPage,
+//   });
+// });
 
-chrome.omnibox.onInputEntered.addListener(function (userInput) {
-  openNewTicket(userInput.trim(), "omnibox");
-}); //end listener
+// chrome.omnibox.onInputEntered.addListener(function (userInput) {
+//   openNewTicket(userInput.trim(), "omnibox");
+// }); //end listener
