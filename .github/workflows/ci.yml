@@ -19,11 +19,11 @@ jobs:
         node-version: '15'
     - run: npm install
     - run: npm run coverage
-    - uses: paambaati/codeclimate-action@v3.1.1
+    - uses: paambaati/codeclimate-action@v3.2.0
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
         coverageCommand: npm run coverage
         coverageLocations: |
-          ${{github.workspace}}/coverage/**/*.lcov.info
+          ${{github.workspace}}/coverage/**/lcov.info:lcov
         debug: true
