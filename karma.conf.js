@@ -20,7 +20,7 @@ module.exports = function (config) {
 			reporters: [
 				{ type: 'text-summary' },
 				{ type: 'html', dir:'coverage/' },
-				{ type: 'lcovonly', dir: 'coverage/' },
+				{ type: 'lcovonly' },
 			],
 			check: { global: {
 				functions: 0,
