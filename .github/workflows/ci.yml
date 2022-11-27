@@ -25,5 +25,5 @@ jobs:
       with:
         coverageCommand: npm run coverage
         coverageLocations: |
-          ${{github.workspace}}/*.lcov:lcov
+          ${{github.workspace}}/coverage/*.lcov:lcov
         debug: true
