@@ -2,7 +2,7 @@
 module.exports = function (config) {
 	config.set({
 		// To debug, run `npm run karma-debug` and press the "Debug" button in the browser window
-		browsers: [ 'Chrome' ],
+		browsers: [ 'ChromeHeadless' ],
 		frameworks: [ 'jasmine' ],
 		files: [
 			'js/popup.js',
