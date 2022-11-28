@@ -11,7 +11,9 @@ module.exports = function (config) {
 		],
 		autoWatch: false,
 		singleRun: true,
-		exclude: [],
+		exclude: [
+			'js/jasmine/spec/mockChrome.js'
+		],
 		preprocessors: {
 			'js/**/*.js': [ 'coverage' ]
 		},
