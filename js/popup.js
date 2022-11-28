@@ -253,16 +253,16 @@ function reddenPage() {
   document.body.style.backgroundColor = "white";
 }
 
-// chrome.runtime.onConnect.addListener(() => {
-//   displayDefaultTicket();
-//   retrieveHistory();
-// });
-
 window.addEventListener("load", function () {
   window.addEventListener("submit", handleFormSubmit);
   displayDefaultTicket();
   retrieveHistory();
 }); //load eventlistener end
+
+// chrome.runtime.onConnect.addListener(() => {
+//   displayDefaultTicket();
+//   retrieveHistory();
+// });
 
 // chrome.action.onClicked.addListener((tab) => {
 //   chrome.scripting.executeScript({
