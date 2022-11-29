@@ -2,10 +2,15 @@
 engines:
   csslint:
     enabled: true
+    # ... CONFIG CONTENT ...
+    exclude_fingerprints:
+    - 505439f4f09c6a5156d996f0346df20e
+    - 5adb4fa36610f8f065619d7cb76fe3a5
   duplication:
     enabled: true
     config:
       languages:
+      - ruby
       - javascript
       - python
       - php
