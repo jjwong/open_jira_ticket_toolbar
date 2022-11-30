@@ -57,4 +57,4 @@ exclude_patterns:
   - "**/tests/"
   - "**/vendor/"
   - "**/*.d.ts"
-  - "jasmine/lib/"
+  - "**/jasmine/"
