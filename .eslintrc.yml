@@ -3,4 +3,5 @@ parserOptions:
   ecmaVersion: 5
 env:
   browser: true
+  webextensions: true
   node: true
