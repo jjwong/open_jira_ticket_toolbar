@@ -8,6 +8,7 @@ env:
   es6: true
   jquery: true
   node: true
+  webextensions: true
 
 # http://eslint.org/docs/rules/
 rules:
