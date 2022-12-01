@@ -1,6 +1,6 @@
 {
     "name": "Open JIRA Ticket",
-    "description": "Open JIRA tickets using the address bar or via the toolbar.",
+    "description": "Open JIRA tickets easily using the toolbar.",
     "manifest_version": 3,
     "version": "3.0",
     "commands": {

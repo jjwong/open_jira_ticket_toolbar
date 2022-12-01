@@ -1,3 +1,4 @@
+/*eslint-env es6*/
 const form = document.getElementById("ticket-form");
 const inputTicket = document.getElementById("ticket");
 const statusMessage = document.getElementById("status");
