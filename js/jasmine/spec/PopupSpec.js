@@ -31,6 +31,10 @@ describe("Popup.js", function () {
         "CORE-123"
       );
     });
+
+    // it("should accept numbers and use default project", () => {
+    //     expect(sanitizeTicket("123")).toEqual("123");
+    // })
   });
 
   describe("verify default project", () => {

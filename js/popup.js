@@ -37,17 +37,17 @@ function sanitizeTicket(userInput) {
     Supporting documentation - https://confluence.atlassian.com/adminjiraserver071/changing-the-project-key-format-802592378.html
    */
 
-  // User input should be trimmed before it gets to this stage. We trim it again anyways.
+  // Trim and uppercase user input
   let cleanUserInput = userInput.toUpperCase().trim();
 
-  var fullTicketRegex = new RegExp("([A-Z]{1,}-\\d+)", "i");
-  var semiTicketRegex = new RegExp("([A-Z]{1,}\\d+)", "i");
+  const fullTicketRegex = new RegExp("([A-Z]{1,}-\\d+)", "i");
+  const semiTicketRegex = new RegExp("([A-Z]{1,}\\d+)", "i");
 
-  var spaceTicketRegex = new RegExp("([A-Z]{1,}(\\s+)\\d+)", "i");
+  const spaceTicketRegex = new RegExp("([A-Z]{1,}(\\s+)\\d+)", "i");
 
-  var numbersOnlyRegex = new RegExp("(\\d+)", "i");
+  const numbersOnlyRegex = new RegExp("(\\d+)", "i");
 
-  var fullTicketText = cleanUserInput.match(fullTicketRegex);
+  const fullTicketText = cleanUserInput.match(fullTicketRegex);
 
   if (fullTicketText) {
     return fullTicketText[0];
@@ -85,8 +85,7 @@ function displayError(error_type) {
 }
 
 function openNewTicket(ticket, sourceType) {
-  const TICKET_UPPERCASE = ticket.toUpperCase().trim();
-  const SANITIZED_TICKET = sanitizeTicket(TICKET_UPPERCASE);
+  const SANITIZED_TICKET = sanitizeTicket(ticket);
 
   // Error display should only show up at the toolbar level
   if (SANITIZED_TICKET === "invalid ticket" && sourceType === "toolbar") {
@@ -97,11 +96,11 @@ function openNewTicket(ticket, sourceType) {
     const USER_HOST_URL = items.useURL;
     const DEFAULT_PROJECT = items.useDefaultProject;
 
-    let fullTicketID = getFullJiraID(DEFAULT_PROJECT, TICKET_UPPERCASE);
+    const fullTicketID = getFullJiraID(DEFAULT_PROJECT, SANITIZED_TICKET);
 
     let formURL = formTicketURL(USER_HOST_URL, fullTicketID);
 
-    saveHistory(SANITIZED_TICKET);
+    saveHistory(fullTicketID);
     chrome.tabs.create({ url: formURL });
   }); //end get sync
 } //end openNewTicket
@@ -143,19 +142,6 @@ async function retrieveHistory() {
     }
   ); //end get sync
 } //end retrieveHistory
-
-function compareTicketValues(a, b) {
-  tmpA = Number(a.match(/\d+/g)[0]);
-  tmpB = Number(b.match(/\d+/g)[0]);
-
-  if (tmpA < tmpB) {
-    return -1;
-  } else if (tmpA > tmpB) {
-    return 1;
-  } else {
-    return 0;
-  }
-} //end compareTicketValues
 
 function saveHistory(userStringInput) {
   chrome.storage.sync.get(
