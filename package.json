@@ -5,6 +5,7 @@
     "karma-debug": "karma start --no-single-run --browsers Chrome --logLevel DEBUG"
   },
   "devDependencies": {
+    "engine.io": ">=6.2.1",
     "karma": "6.4.1",
     "karma-browserify": "^8.1.0",
     "karma-chrome-launcher": "3.1.1",

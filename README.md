@@ -20,7 +20,7 @@ All pushes to the master branch will sync the coverage data to code climate.
 * 3.0
 	* Upgrade to manifest v3
 	* Remove travis and codecov
-	* Move to from qunit to jasmine and update unit tests
+	* Move from qunit to jasmine and update unit tests
 	* Remove jquery implementation of i18n
 	* Remove favorites feature
 	* Simplify, update and remove cruft
