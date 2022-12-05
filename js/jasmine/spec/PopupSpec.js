@@ -4,6 +4,17 @@ describe("Popup.js", function () {
   describe("when we sanitize user input", () => {
     // JIRA valid ticket documentation
     // https://confluence.atlassian.com/adminjiraserver071/changing-the-project-key-format-802592378.html
+    // TODO - refactor to better support regex rules
+    // it("should allow supported JIRA key format per documentation", () => {
+    //     expect(sanitizeTicket("PRODUCT_2013")).toEqual("PRODUCT_2013");
+    //     expect(sanitizeTicket("R2D2")).toEqual("R2D2");
+    //     expect(sanitizeTicket("MY_EXAMPLE_PROJECT")).toEqual("MY_EXAMPLE_PROJECT");
+    // });
+
+    it("should return invalid for unsupported JIRA key format per documentation", () => {
+        expect(sanitizeTicket("2013PROJECT")).toEqual("2013");
+    });
+
     it("should add a dash between the project key and project id number", () => {
       expect(sanitizeTicket("fake1")).toEqual("FAKE-1");
       expect(sanitizeTicket("fake12")).toEqual("FAKE-12");
@@ -17,6 +28,18 @@ describe("Popup.js", function () {
       expect(sanitizeTicket("core-123")).toEqual("CORE-123");
       expect(sanitizeTicket("core-1234")).toEqual("CORE-1234");
     });
+
+    it("should accept input with spaces and return default project", () => {
+      expect(sanitizeTicket("core- 1")).toEqual("1");
+      expect(sanitizeTicket("core -12")).toEqual("12");
+    });
+
+    it("should accept input with spaces and combine initial text to form JIRA ID", () => {
+        expect(sanitizeTicket("core- 1")).toEqual("1");
+        expect(sanitizeTicket("core -12")).toEqual("12");
+        expect(sanitizeTicket("core  123")).toEqual("CORE-123");
+        expect(sanitizeTicket("core12  34")).toEqual("CORE-12");
+      });
 
     it("should return error for invalid cases", () => {
       expect(sanitizeTicket("core")).toEqual("invalid ticket");
@@ -32,9 +55,12 @@ describe("Popup.js", function () {
       );
     });
 
-    // it("should accept numbers and use default project", () => {
-    //     expect(sanitizeTicket("123")).toEqual("123");
-    // })
+    it("should accept numbers only", () => {
+        expect(sanitizeTicket("123")).toEqual("123");
+        expect(sanitizeTicket("0123")).toEqual("0123");
+        expect(sanitizeTicket("-12")).toEqual("12");
+        expect(sanitizeTicket("+88")).toEqual("88");
+    })
   });
 
   describe("verify default project", () => {
