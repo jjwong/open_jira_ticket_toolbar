@@ -189,14 +189,6 @@ function getFullJiraID(defaultProject, ticket) {
   }
 }
 
-// document.addEventListener("keydown", function (key) {
-//   // Keycode 13 is Enter - Reference: https://css-tricks.com/snippets/javascript/javascript-keycodes/
-//   if (key.keyCode === 13) {
-//     var userInput = document.getElementById("ticket").value;
-//     openNewTicket(userInput.trim(), "toolbar");
-//   }
-// });
-
 function showStatusMessage(str) {
   setStatusMessage(str);
   setTimeout(function () {
