@@ -72,4 +72,5 @@ describe("Popup.js", function () {
       expect(isDefaultProject("BANANAS-123")).toEqual(false);
     });
   });
+
 });

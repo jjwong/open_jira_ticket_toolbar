@@ -1,0 +1,22 @@
+{
+    "errorInvalid": {
+        "message": "Invalid ticket entered.",
+        "description": "Invalid error message"
+    },
+    "errorMissingTicket": {
+        "message": "Unable to find display ticket.",
+        "description": "Missing ticket error message"
+    },
+    "errorMissingDefault": {
+        "message": "No default project set in options.",
+        "description": "Missing default error message"
+    },
+    "errorUnknown": {
+        "message": "Unhelpful error.",
+        "description": "Unknown error message"
+    },
+    "enterTicketID": {
+        "message": "Enter Ticket ID",
+        "description": "Placeholder text for primary input box"
+    }
+}

@@ -71,13 +71,13 @@ function sanitizeTicket(userInput) {
 
 function displayError(error_type) {
   if (error_type === ERROR_INVALID) {
-    showStatusMessage("Invalid ticket entered.");
+    showStatusMessage(chrome.i18n.getMessage("errorInvalid"));
   } else if (error_type === ERROR_MISSING) {
-    showStatusMessage("Unable to find display ticket.");
+    showStatusMessage(chrome.i18n.getMessage("errorMissingTicket"));
   } else if (error_type === ERROR_NO_DEFAULT_SET) {
-    showStatusMessage("No default project set in options.");
+    showStatusMessage(chrome.i18n.getMessage("errorMissingDefault"));
   } else {
-    showStatusMessage("Unhelpful error.");
+    showStatusMessage(chrome.i18n.getMessage("errorUnknown"));
   }
 
   // Prevent from searching invalid tickets
@@ -213,6 +213,7 @@ function formTicketURL(url, ticket) {
 
 function buildHistoryList(userHostURL, ...tickets) {
   let historyList = document.getElementById("historyList");
+  let r = 1
 
   let rows = tickets.map((ticketID) => {
     let ticketURL = formTicketURL(userHostURL, ticketID);
@@ -222,6 +223,8 @@ function buildHistoryList(userHostURL, ...tickets) {
     a.target = "_blank";
     a.textContent = ticketID;
     li.appendChild(a);
+    li.setAttribute("tabindex", r);
+    r++;
     return li;
   });
 
@@ -237,6 +240,80 @@ window.addEventListener("load", function () {
   displayDefaultTicket();
   retrieveHistory();
 }); //load eventlistener end
+
+// Add keyboard arrow support
+var ul = document.getElementById('historyList');
+var liSelected;
+var index = -1;
+var next;
+
+document.addEventListener('keydown', function(event) {
+  var len = ul.getElementsByTagName('li').length - 1;
+
+  //down key
+  if (event.which === 40) {
+    index++;
+
+    if (liSelected) {
+      removeClass(liSelected, 'selected');
+      next = ul.getElementsByTagName('li')[index];
+
+      if (typeof next !== undefined && index <= len) {
+        liSelected = next;
+      } else {
+        index = 0;
+        liSelected = ul.getElementsByTagName('li')[0];
+      }
+      addClass(liSelected, 'selected');
+    } else {
+      index = 0;
+
+      liSelected = ul.getElementsByTagName('li')[0];
+      addClass(liSelected, 'selected');
+    }
+  //up key
+  } else if (event.which === 38) {
+    if (liSelected) {
+      removeClass(liSelected, 'selected');
+      index--;
+      next = ul.getElementsByTagName('li')[index];
+      if (typeof next !== undefined && index >= 0) {
+        liSelected = next;
+      } else {
+        index = len;
+        liSelected = ul.getElementsByTagName('li')[len];
+      }
+      addClass(liSelected, 'selected');
+    } else {
+      index = 0;
+      liSelected = ul.getElementsByTagName('li')[len];
+      addClass(liSelected, 'selected');
+    }
+    // tabbing doubles the focus, removing selected since tab works natively okay.
+  } else if (event.keyCode == 9 || (event.shiftKey && event.keyCode == 9)) {
+    if(document.querySelector('.selected') !== null) {
+      removeClass(liSelected, 'selected');
+      index = 0;
+    }
+  }
+}, false);
+
+function removeClass(el, className) {
+  if (el.classList) {
+    el.classList.remove(className);
+  } else {
+    el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+  }
+};
+
+function addClass(el, className) {
+  if (el.classList) {
+    el.classList.add(className);
+  } else {
+    el.className += ' ' + className;
+  }
+  document.querySelector('.selected > a').focus();
+};
 
 // chrome.runtime.onConnect.addListener(() => {
 //   displayDefaultTicket();

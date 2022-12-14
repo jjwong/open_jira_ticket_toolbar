@@ -24,6 +24,8 @@ All pushes to the master branch will sync the coverage data to code climate.
 	* Remove jquery implementation of i18n
 	* Remove favorites feature
 	* Disable omnibox support (unable to get it to work in v3 yet)
+	* Add keyboard support for history navigation
+	* Add chrome i18n
 	* Simplify, update and remove cruft
 * 2.0
 	* Add top 5 favorites feature

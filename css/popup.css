@@ -36,6 +36,10 @@ li a:hover {
   background: #f6f6f6;
 }
 
+li.selected {
+  background: #6fb7d3
+}
+
 .invalid {
 	font-size: 14px;
 }
