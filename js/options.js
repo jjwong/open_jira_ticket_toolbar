@@ -1,3 +1,7 @@
+const OPTIONS_NEED_URL = "OPTIONS_NEED_URL"
+const OPTIONS_NEED_HTTP = "OPTIONS_NEED_HTTP"
+const OPTIONS_NEED_KEY = "OPTIONS_NEED_KEY"
+
 function showErrorText(string) {
   removeError();
 
@@ -7,12 +11,12 @@ function showErrorText(string) {
   var newDiv = displayStatus.appendChild(newContent);
   newDiv.setAttribute("id", "error");
 
-  if (string === "need_url") {
-    newDiv.textContent = "Please enter a URL!";
-  } else if (string === "need_http") {
-    newDiv.textContent = "Please enter http:// or https:// in your URL!";
-  } else if (string === "need_project") {
-    newDiv.textContent = "Please enter a valid default project!";
+  if (string === OPTIONS_NEED_URL) {
+    newDiv.textContent = chrome.i18n.getMessage("errorOptionsUrl");
+  } else if (string === OPTIONS_NEED_HTTP) {
+    newDiv.textContent = chrome.i18n.getMessage("errorOptionsHttp");
+  } else if (string === OPTIONS_NEED_KEY) {
+    newDiv.textContent = chrome.i18n.getMessage("errorOptionsKey");
   }
 
   displayStatus.style.color = "red";
@@ -30,7 +34,7 @@ function showSuccessText() {
   newContent = document.createElement("div");
   var newDiv = displayStatus.appendChild(newContent);
   newDiv.style.color = "#33cc33";
-  newDiv.textContent = "Success!";
+  newDiv.textContent = chrome.i18n.getMessage("optionsSuccess");
   setTimeout(function () {
     newDiv.remove();
   }, 3000);
@@ -66,9 +70,9 @@ function sanitizeURL() {
   var input_url = document.getElementById("inputURL").value;
 
   if (isBlank(input_url)) {
-    showErrorText("need_url");
+    showErrorText(OPTIONS_NEED_URL);
   } else if (!checkHttp(input_url)) {
-    showErrorText("need_http");
+    showErrorText(OPTIONS_NEED_HTTP);
   }
 
   var trailing_regex = new RegExp("/+$", "ig");
@@ -90,7 +94,7 @@ function sanitizeProject() {
     "inputDefaultProject"
   ).value;
   if (isBlank(input_default_project)) {
-    showErrorText("need_project");
+    showErrorText(OPTIONS_NEED_KEY);
   }
   var only_text_regex = new RegExp("[a-z]+", "i");
   var sanitized_project = input_default_project.match(only_text_regex);
@@ -106,12 +110,12 @@ function isBlank(string) {
 function save_options() {
   var input_url = sanitizeURL();
   var input_default_project = sanitizeProject();
-  var input_language = document.getElementById("inputLanguageOptions").value;
+  // var input_language = document.getElementById("inputLanguageOptions").value;
   chrome.storage.sync.set(
     {
       useURL: input_url,
       useDefaultProject: input_default_project,
-      useLanguage: input_language,
+      // useLanguage: input_language,
     },
     function () {
       // Update status to let user know options were saved.
@@ -137,7 +141,6 @@ function restore_options() {
       document.getElementById("inputURL").value = items.useURL;
       document.getElementById("inputDefaultProject").value =
         items.useDefaultProject;
-      document.getElementById("inputLanguageOptions").value = items.useLanguage;
       setTicketPreview(
         items.useURL + "/browse/" + items.useDefaultProject,
         "green"

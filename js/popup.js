@@ -124,7 +124,8 @@ function displayDefaultTicket() {
         displayError(ERROR_NO_DEFAULT_SET);
       } else {
         display.innerText = items.useDefaultProject;
-        display.placeholder = items.useDefaultProject;
+        let inputBox = document.getElementById('ticket')
+        inputBox.placeholder = chrome.i18n.getMessage("enterTicketID")
       }
     }
   }); //end sync

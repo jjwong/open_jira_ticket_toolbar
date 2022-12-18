@@ -26,6 +26,7 @@ All pushes to the master branch will sync the coverage data to code climate.
 	* Disable omnibox support (unable to get it to work in v3 yet)
 	* Add keyboard support for history navigation
 	* Add chrome i18n
+	* Add Japanese, Korean and Chinese language support (all google translated, apologies if errors. Feel free to submit a PR for bad language translations)
 	* Simplify, update and remove cruft
 * 2.0
 	* Add top 5 favorites feature

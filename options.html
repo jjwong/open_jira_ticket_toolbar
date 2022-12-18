@@ -2,35 +2,45 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Open JIRA Ticket Options Panel</title>
+  <script type="text/javascript" src="js/localize.js"></script>
+  <title data-locale="optionsTitle">Open JIRA Ticket Options</title>
   <link rel="stylesheet" type="text/css" href="css/options.css">
   <script type="text/javascript" src="js/options.js"></script>
 </head>
 <body>
 
-  <div class="header">
-    <label>JIRA URL</label>
-    <input type="text" id="inputURL" placeholder="http://issues.jiraland.com">
+  <div class="container" id="container">
+    <div class="form-container left-container">
+      <div class="options-form">
+        <h1 data-locale="optionsTitle">Open JIRA Ticket Options</h1>
+        <span>Fill out the fields to start using the extension.</span>
 
-    <label>Default Project</label>
-    <input type="text" id="inputDefaultProject" placeholder="STACK" maxlength="20">
+        <label>JIRA URL</label>
+        <input type="text" id="inputURL" placeholder="http://issues.jiraland.com">
+        <label data-locale="optionsDefaultProjectLabel">Default Project</label>
+        <input type="text" id="inputDefaultProject" placeholder="STACK" maxlength="20">
 
-    <div class="preview">Preview</div>
-    <div class="preview" id="badOptions">Invalid options set.</div>
-    <div class="clear" id="ticketPreview"></div>
+        <label data-locale="optionsPreviewLabel">Preview</label>
+        <div class="clear" id="ticketPreview"></div>
+        <div data-locale="errorOptionsPreview" class="preview" id="badOptions">Invalid options set.</div>
 
-    <label>Language</label>
-    <select id="inputLanguageOptions">
-      <option value="gm">Deutsche</option>
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="rs">Pусский</option>
-    </select>
 
-    <div id="status"></div>
-    <button id="save">Save</button>
+        <label data-locale="optionsLanguageLabel">Language</label>
+        <span data-locale="optionsLanguageExplanation">Language based on browser settings. See`chrome://settings/languages` </span><br>
+        <span ><a data-locale="optionsLanguageHelpLinkText" href="https://developer.chrome.com/docs/extensions/reference/i18n/#how-to-set-browsers-locale" target="_blank">Additional Help - How to set language locale in Chrome</a></span>
 
+        <div id="status"></div>
+        <button data-locale="optionsSaveButton" id="save">Save</button>
+      </div>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-right">
+          <iframe id='kofiframe' src='https://ko-fi.com/potatotools/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='potatotools'></iframe>
+        </div>
+      </div>
+    </div>
   </div>
+
 </body>
 </html>
