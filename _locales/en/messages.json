@@ -56,7 +56,7 @@
         "description": "Language label"
     },
     "optionsLanguageExplanation": {
-        "message": "Language based on browser settings. See`chrome://settings/languages`s",
+        "message": "Language based on browser settings. See`chrome://settings/languages`",
         "description": "Language based on browser settings. See`chrome://settings/languages`"
     },
     "optionsLanguageHelpLinkText": {

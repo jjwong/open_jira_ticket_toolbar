@@ -1,74 +1,74 @@
 {
     "errorInvalid": {
-        "message": "Invalid ticket entered.",
+        "message": "Введен неверный билет.",
         "description": "Invalid error message"
     },
     "errorMissingTicket": {
-        "message": "Unable to find display ticket.",
+        "message": "Не удалось найти билет на показ.",
         "description": "Missing ticket error message"
     },
     "errorMissingDefault": {
-        "message": "No default project set in options.",
+        "message": "В настройках нет проекта по умолчанию.",
         "description": "Missing default error message"
     },
     "errorUnknown": {
-        "message": "Unhelpful error.",
+        "message": "Бесполезная ошибка.",
         "description": "Unknown error message"
     },
     "enterTicketID": {
-        "message": "Enter Ticket ID",
+        "message": "Введите идентификатор билета",
         "description": "Placeholder text for primary input box"
     },
     "errorOptionsUrl": {
-        "message": "Please enter a URL!",
+        "message": "Пожалуйста, введите URL!",
         "description": "Options error message when missing a URL"
     },
     "errorOptionsHttp": {
-        "message": "Please enter http:// or https:// in your URL!",
+        "message": "Пожалуйста, введите http:// или https:// в свой URL!",
         "description": "Options error message when missing http"
     },
     "errorOptionsKey": {
-        "message": "Please enter a valid default project!",
+        "message": "Пожалуйста, введите действительный проект по умолчанию!",
         "description": "Options error message when missing a project key"
     },
     "errorOptionsPreview": {
-        "message": "Invalid options set.",
+        "message": "Установлены неверные параметры.",
         "description": "Show bad options set message for preview"
     },
     "optionsTitle": {
-        "message": "Open JIRA Ticket Options",
+        "message": "Открыть параметры заявки JIRA",
         "description": "Header and Tab title"
     },
     "optionsInstructions": {
-        "message": "Fill out the fields to start using the extension.",
+        "message": "Заполните поля, чтобы начать использовать расширение.",
         "description": "Options instructions under header"
     },
     "optionsDefaultProjectLabel": {
-        "message": "Default Project",
+        "message": "Проект по умолчанию",
         "description": "Default Project label"
     },
     "optionsPreviewLabel": {
-        "message": "Preview",
+        "message": "Предварительный просмотр",
         "description": "Preview label"
     },
     "optionsLanguageLabel": {
-        "message": "Language",
+        "message": "Язык",
         "description": "Language label"
     },
     "optionsLanguageExplanation": {
-        "message": "Language based on browser settings. See`chrome://settings/languages`s",
+        "message": "Язык в зависимости от настроек браузера. См.`chrome://settings/languages`",
         "description": "Language based on browser settings. See`chrome://settings/languages`"
     },
     "optionsLanguageHelpLinkText": {
-        "message": "Additional Help - How to set language locale in Chrome",
+        "message": "Дополнительная справка - Как установить языковой стандарт в Chrome",
         "description": "Additional Help - How to set language locale in Chrome"
     },
     "optionsSaveButton": {
-        "message": "Save",
+        "message": "Сохранять",
         "description": "Options Save Button"
     },
     "optionsSuccess": {
-        "message": "Success!",
+        "message": "Успех!",
         "description": "Success text"
     }
 }

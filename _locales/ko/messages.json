@@ -1,74 +1,74 @@
 {
     "errorInvalid": {
-        "message": "Invalid ticket entered.",
+        "message": "유효하지 않은 티켓이 입력되었습니다.",
         "description": "Invalid error message"
     },
     "errorMissingTicket": {
-        "message": "Unable to find display ticket.",
+        "message": "표시 티켓을 찾을 수 없습니다.",
         "description": "Missing ticket error message"
     },
     "errorMissingDefault": {
-        "message": "No default project set in options.",
+        "message": "옵션에 설정된 기본 프로젝트가 없습니다.",
         "description": "Missing default error message"
     },
     "errorUnknown": {
-        "message": "Unhelpful error.",
+        "message": "도움이 되지 않는 오류입니다.",
         "description": "Unknown error message"
     },
     "enterTicketID": {
-        "message": "Enter Ticket ID",
+        "message": "티켓 ID 입력",
         "description": "Placeholder text for primary input box"
     },
     "errorOptionsUrl": {
-        "message": "Please enter a URL!",
+        "message": "URL을 입력하세요!",
         "description": "Options error message when missing a URL"
     },
     "errorOptionsHttp": {
-        "message": "Please enter http:// or https:// in your URL!",
+        "message": "URL에 http:// 또는 https://를 입력하세요!",
         "description": "Options error message when missing http"
     },
     "errorOptionsKey": {
-        "message": "Please enter a valid default project!",
+        "message": "유효한 기본 프로젝트를 입력하세요!",
         "description": "Options error message when missing a project key"
     },
     "errorOptionsPreview": {
-        "message": "Invalid options set.",
+        "message": "잘못된 옵션이 설정되었습니다.",
         "description": "Show bad options set message for preview"
     },
     "optionsTitle": {
-        "message": "Open JIRA Ticket Options",
+        "message": "JIRA 티켓 옵션 열기",
         "description": "Header and Tab title"
     },
     "optionsInstructions": {
-        "message": "Fill out the fields to start using the extension.",
+        "message": "확장 프로그램 사용을 시작하려면 입력란을 작성하세요.",
         "description": "Options instructions under header"
     },
     "optionsDefaultProjectLabel": {
-        "message": "Default Project",
+        "message": "기본 프로젝트",
         "description": "Default Project label"
     },
     "optionsPreviewLabel": {
-        "message": "Preview",
+        "message": "시사",
         "description": "Preview label"
     },
     "optionsLanguageLabel": {
-        "message": "Language",
+        "message": "언어",
         "description": "Language label"
     },
     "optionsLanguageExplanation": {
-        "message": "Language based on browser settings. See`chrome://settings/languages`s",
+        "message": "브라우저 설정에 따른 언어. `chrome://settings/languages` 참조",
         "description": "Language based on browser settings. See`chrome://settings/languages`"
     },
     "optionsLanguageHelpLinkText": {
-        "message": "Additional Help - How to set language locale in Chrome",
+        "message": "추가 도움말 - Chrome에서 언어 로캘을 설정하는 방법",
         "description": "Additional Help - How to set language locale in Chrome"
     },
     "optionsSaveButton": {
-        "message": "Save",
+        "message": "구하다",
         "description": "Options Save Button"
     },
     "optionsSuccess": {
-        "message": "Success!",
+        "message": "성공!",
         "description": "Success text"
     }
 }

@@ -1,74 +1,74 @@
 {
     "errorInvalid": {
-        "message": "Invalid ticket entered.",
+        "message": "输入的票无效。",
         "description": "Invalid error message"
     },
     "errorMissingTicket": {
-        "message": "Unable to find display ticket.",
+        "message": "无法找到显示票。",
         "description": "Missing ticket error message"
     },
     "errorMissingDefault": {
-        "message": "No default project set in options.",
+        "message": "选项中没有设置默认项目。",
         "description": "Missing default error message"
     },
     "errorUnknown": {
-        "message": "Unhelpful error.",
+        "message": "无益的错误。",
         "description": "Unknown error message"
     },
     "enterTicketID": {
-        "message": "Enter Ticket ID",
+        "message": "输入工单 ID",
         "description": "Placeholder text for primary input box"
     },
     "errorOptionsUrl": {
-        "message": "Please enter a URL!",
+        "message": "请输入网址！",
         "description": "Options error message when missing a URL"
     },
     "errorOptionsHttp": {
-        "message": "Please enter http:// or https:// in your URL!",
+        "message": "请在网址中输入http://或https://！",
         "description": "Options error message when missing http"
     },
     "errorOptionsKey": {
-        "message": "Please enter a valid default project!",
+        "message": "请输入有效的默认项目！",
         "description": "Options error message when missing a project key"
     },
     "errorOptionsPreview": {
-        "message": "Invalid options set.",
+        "message": "无效的选项集。",
         "description": "Show bad options set message for preview"
     },
     "optionsTitle": {
-        "message": "Open JIRA Ticket Options",
+        "message": "打开 JIRA 工单选项",
         "description": "Header and Tab title"
     },
     "optionsInstructions": {
-        "message": "Fill out the fields to start using the extension.",
+        "message": "填写字段以开始使用扩展程序。",
         "description": "Options instructions under header"
     },
     "optionsDefaultProjectLabel": {
-        "message": "Default Project",
+        "message": "默认项目",
         "description": "Default Project label"
     },
     "optionsPreviewLabel": {
-        "message": "Preview",
+        "message": "预习",
         "description": "Preview label"
     },
     "optionsLanguageLabel": {
-        "message": "Language",
+        "message": "语",
         "description": "Language label"
     },
     "optionsLanguageExplanation": {
-        "message": "Language based on browser settings. See`chrome://settings/languages`s",
+        "message": "基于浏览器设置的语言。 请参阅`chrome://settings/languages`",
         "description": "Language based on browser settings. See`chrome://settings/languages`"
     },
     "optionsLanguageHelpLinkText": {
-        "message": "Additional Help - How to set language locale in Chrome",
+        "message": "其他帮助 - 如何在 Chrome 中设置语言区域",
         "description": "Additional Help - How to set language locale in Chrome"
     },
     "optionsSaveButton": {
-        "message": "Save",
+        "message": "节省",
         "description": "Options Save Button"
     },
     "optionsSuccess": {
-        "message": "Success!",
+        "message": "成功!",
         "description": "Success text"
     }
 }

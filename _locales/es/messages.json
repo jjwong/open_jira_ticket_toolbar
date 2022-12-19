@@ -1,74 +1,74 @@
 {
     "errorInvalid": {
-        "message": "Invalid ticket entered.",
+        "message": "Entrada inválida ingresada.",
         "description": "Invalid error message"
     },
     "errorMissingTicket": {
-        "message": "Unable to find display ticket.",
+        "message": "No se puede encontrar el ticket de visualización.",
         "description": "Missing ticket error message"
     },
     "errorMissingDefault": {
-        "message": "No default project set in options.",
+        "message": "No hay un proyecto predeterminado establecido en las opciones.",
         "description": "Missing default error message"
     },
     "errorUnknown": {
-        "message": "Unhelpful error.",
+        "message": "Error inútil.",
         "description": "Unknown error message"
     },
     "enterTicketID": {
-        "message": "Enter Ticket ID",
+        "message": "Ingrese la identificación del boleto",
         "description": "Placeholder text for primary input box"
     },
     "errorOptionsUrl": {
-        "message": "Please enter a URL!",
+        "message": "¡Por favor ingrese una URL!",
         "description": "Options error message when missing a URL"
     },
     "errorOptionsHttp": {
-        "message": "Please enter http:// or https:// in your URL!",
+        "message": "¡Ingrese http:// o https:// en su URL!",
         "description": "Options error message when missing http"
     },
     "errorOptionsKey": {
-        "message": "Please enter a valid default project!",
+        "message": "¡Ingrese un proyecto predeterminado válido!",
         "description": "Options error message when missing a project key"
     },
     "errorOptionsPreview": {
-        "message": "Invalid options set.",
+        "message": "Conjunto de opciones no válido.",
         "description": "Show bad options set message for preview"
     },
     "optionsTitle": {
-        "message": "Open JIRA Ticket Options",
+        "message": "Abrir opciones de boletos de JIRA",
         "description": "Header and Tab title"
     },
     "optionsInstructions": {
-        "message": "Fill out the fields to start using the extension.",
+        "message": "Rellena los campos para empezar a usar la extensión.",
         "description": "Options instructions under header"
     },
     "optionsDefaultProjectLabel": {
-        "message": "Default Project",
+        "message": "Proyecto predeterminado",
         "description": "Default Project label"
     },
     "optionsPreviewLabel": {
-        "message": "Preview",
+        "message": "Preestrenar",
         "description": "Preview label"
     },
     "optionsLanguageLabel": {
-        "message": "Language",
+        "message": "Idioma",
         "description": "Language label"
     },
     "optionsLanguageExplanation": {
-        "message": "Language based on browser settings. See`chrome://settings/languages`s",
+        "message": "Idioma basado en la configuración del navegador. Ver `chrome://settings/languages`",
         "description": "Language based on browser settings. See`chrome://settings/languages`"
     },
     "optionsLanguageHelpLinkText": {
-        "message": "Additional Help - How to set language locale in Chrome",
+        "message": "Ayuda adicional: cómo configurar la configuración regional del idioma en Chrome",
         "description": "Additional Help - How to set language locale in Chrome"
     },
     "optionsSaveButton": {
-        "message": "Save",
+        "message": "Salvar",
         "description": "Options Save Button"
     },
     "optionsSuccess": {
-        "message": "Success!",
+        "message": "Éxito!",
         "description": "Success text"
     }
 }

@@ -1,74 +1,74 @@
 {
     "errorInvalid": {
-        "message": "Invalid ticket entered.",
+        "message": "無効なチケットが入力されました。",
         "description": "Invalid error message"
     },
     "errorMissingTicket": {
-        "message": "Unable to find display ticket.",
+        "message": "表示チケットが見つかりません。",
         "description": "Missing ticket error message"
     },
     "errorMissingDefault": {
-        "message": "No default project set in options.",
+        "message": "オプションに既定のプロジェクトが設定されていません。",
         "description": "Missing default error message"
     },
     "errorUnknown": {
-        "message": "Unhelpful error.",
+        "message": "役に立たないエラー。",
         "description": "Unknown error message"
     },
     "enterTicketID": {
-        "message": "Enter Ticket ID",
+        "message": "チケットIDを入力",
         "description": "Placeholder text for primary input box"
     },
     "errorOptionsUrl": {
-        "message": "Please enter a URL!",
+        "message": "URL を入力してください。",
         "description": "Options error message when missing a URL"
     },
     "errorOptionsHttp": {
-        "message": "Please enter http:// or https:// in your URL!",
+        "message": "URL に http:// または https:// を入力してください。",
         "description": "Options error message when missing http"
     },
     "errorOptionsKey": {
-        "message": "Please enter a valid default project!",
+        "message": "有効なデフォルト プロジェクトを入力してください。",
         "description": "Options error message when missing a project key"
     },
     "errorOptionsPreview": {
-        "message": "Invalid options set.",
+        "message": "無効なオプション セットです。",
         "description": "Show bad options set message for preview"
     },
     "optionsTitle": {
-        "message": "Open JIRA Ticket Options",
+        "message": "JIRA チケット オプションを開く",
         "description": "Header and Tab title"
     },
     "optionsInstructions": {
-        "message": "Fill out the fields to start using the extension.",
+        "message": "フィールドに入力して、拡張機能の使用を開始します。",
         "description": "Options instructions under header"
     },
     "optionsDefaultProjectLabel": {
-        "message": "Default Project",
+        "message": "デフォルト プロジェクト",
         "description": "Default Project label"
     },
     "optionsPreviewLabel": {
-        "message": "Preview",
+        "message": "プレビュー",
         "description": "Preview label"
     },
     "optionsLanguageLabel": {
-        "message": "Language",
+        "message": "言語",
         "description": "Language label"
     },
     "optionsLanguageExplanation": {
-        "message": "Language based on browser settings. See`chrome://settings/languages`s",
+        "message": "ブラウザの設定に基づく言語。 `chrome://settings/languages` を参照してください",
         "description": "Language based on browser settings. See`chrome://settings/languages`"
     },
     "optionsLanguageHelpLinkText": {
-        "message": "Additional Help - How to set language locale in Chrome",
+        "message": "追加ヘルプ - Chrome で言語ロケールを設定する方法",
         "description": "Additional Help - How to set language locale in Chrome"
     },
     "optionsSaveButton": {
-        "message": "Save",
+        "message": "保存",
         "description": "Options Save Button"
     },
     "optionsSuccess": {
-        "message": "Success!",
+        "message": "成功!",
         "description": "Success text"
     }
 }
