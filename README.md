@@ -3,7 +3,7 @@
 [![Issue Count](https://codeclimate.com/github/jjwong/open_jira_ticket_toolbar/badges/issue_count.svg)](https://codeclimate.com/github/jjwong/open_jira_ticket_toolbar)
 
 # Download Extension
-[![Open Jira Ticket @Chrome Web Store](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_340x96.png "Open Jira Ticket @Chrome Web Store")](https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci?hl=en-US)
+[![Open Jira Ticket @Chrome Web Store](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/mPGKYBIR2uCP0ApchDXE.png "Open Jira Ticket @Chrome Web Store")](https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci?hl=en-US)
 
 # Description
 Simple Chrome extension that will allow a user to search for JIRA tickets via the address bar or the provided toolbar.
@@ -42,3 +42,6 @@ All pushes to the master branch will sync the coverage data to code climate.
 * 0.2
 	* Beta release
 		* Core functionality testing
+
+# Donate
+[![Buy Me a Coffee at ko-fi.com](https://storage.ko-fi.com/cdn/kofi1.png?v=3 "Buy Me a Coffee at ko-fi.com")](https://ko-fi.com/A0A3H3GR7)
