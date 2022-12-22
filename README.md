@@ -6,7 +6,7 @@
 [![Open Jira Ticket @Chrome Web Store](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/mPGKYBIR2uCP0ApchDXE.png "Open Jira Ticket @Chrome Web Store")](https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci?hl=en-US)
 
 # Description
-Simple Chrome extension that will allow a user to search for JIRA tickets via the address bar or the provided toolbar.
+Simple Chrome extension that will allow a user to search for JIRA tickets via the provided toolbar.
 
 # Testing
 This repository uses the standalone Jasmine installation to load up specs. You can re-run them manually to see results when viewing `/js/jasmine/SpecRunner.html`
