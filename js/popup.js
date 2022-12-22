@@ -40,6 +40,8 @@ function sanitizeTicket(userInput) {
   // Trim and uppercase user input
   let cleanUserInput = userInput.toUpperCase().trim();
 
+  const fullTicketWithNumberRegex = new RegExp("([A-Z]{1,}\\d{1,2}-\\d+)", "i")
+
   const fullTicketRegex = new RegExp("([A-Z]{1,}-\\d+)", "i");
   const semiTicketRegex = new RegExp("([A-Z]{1,}\\d+)", "i");
 
@@ -49,7 +51,9 @@ function sanitizeTicket(userInput) {
 
   const fullTicketText = cleanUserInput.match(fullTicketRegex);
 
-  if (fullTicketText) {
+  if (cleanUserInput.match(fullTicketWithNumberRegex)) {
+    return cleanUserInput.match(fullTicketWithNumberRegex)[0]
+  } else if (fullTicketText) {
     return fullTicketText[0];
   } else if (cleanUserInput.match(semiTicketRegex)) {
     var semiTicket = cleanUserInput.match(semiTicketRegex)[0];

@@ -11,6 +11,12 @@ describe("Popup.js", function () {
     //     expect(sanitizeTicket("MY_EXAMPLE_PROJECT")).toEqual("MY_EXAMPLE_PROJECT");
     // });
 
+    it("should allow clean valid JIRA tickets in without additional filtering", () => {
+        expect(sanitizeTicket("CORE2-31")).toEqual("CORE2-31");
+        expect(sanitizeTicket("CORE22-31")).toEqual("CORE22-31");
+        expect(sanitizeTicket("CORE222-31")).toEqual("CORE-222");
+    })
+
     it("should return invalid for unsupported JIRA key format per documentation", () => {
         expect(sanitizeTicket("2013PROJECT")).toEqual("2013");
     });
@@ -52,6 +58,15 @@ describe("Popup.js", function () {
     it("should accept links and filter for the ticket ID", () => {
       expect(sanitizeTicket("http://qunitjs.com/intro/core-123")).toEqual(
         "CORE-123"
+      );
+      expect(sanitizeTicket("http://qunitjs.com/intro/core2-123")).toEqual(
+        "CORE2-123"
+      );
+      expect(sanitizeTicket("http://qunitjs.com/intro/core22-123")).toEqual(
+        "CORE22-123"
+      );
+      expect(sanitizeTicket("http://qunitjs.com/intro/core222-123")).toEqual(
+        "CORE-222"
       );
     });
 
