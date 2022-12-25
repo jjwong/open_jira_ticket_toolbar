@@ -70,5 +70,13 @@
     "optionsSuccess": {
         "message": "成功!",
         "description": "Success text"
+    },
+    "optionsDonationHeader": {
+        "message": "やあ！",
+        "description": "Hello message in the header"
+    },
+    "optionsDonationMessage": {
+        "message": "拡張機能のサポートをご検討ください。",
+        "description": "Please consider supporting the extension."
     }
 }

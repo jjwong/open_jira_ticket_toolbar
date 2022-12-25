@@ -40,7 +40,7 @@ function sanitizeTicket(userInput) {
   // Trim and uppercase user input
   let cleanUserInput = userInput.toUpperCase().trim();
 
-  const fullTicketWithNumberRegex = new RegExp("([A-Z]{1,}\\d{1,2}-\\d+)", "i")
+  const fullTicketWithNumberRegex = new RegExp("([A-Z]{1,}\\d{1,2}[A-Z]{0,2}-\\d+)", "i")
 
   const fullTicketRegex = new RegExp("([A-Z]{1,}-\\d+)", "i");
   const semiTicketRegex = new RegExp("([A-Z]{1,}\\d+)", "i");
@@ -319,11 +319,6 @@ function addClass(el, className) {
   }
   document.querySelector('.selected > a').focus();
 };
-
-// chrome.runtime.onConnect.addListener(() => {
-//   displayDefaultTicket();
-//   retrieveHistory();
-// });
 
 // chrome.action.onClicked.addListener((tab) => {
 //   chrome.scripting.executeScript({

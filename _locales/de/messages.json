@@ -70,5 +70,13 @@
     "optionsSuccess": {
         "message": "Erfolg!",
         "description": "Success text"
+    },
+    "optionsDonationHeader": {
+        "message": "Hallo Freund!",
+        "description": "Hello message in the header"
+    },
+    "optionsDonationMessage": {
+        "message": "Bitte erwägen Sie, die Erweiterung zu unterstützen.",
+        "description": "Please consider supporting the extension."
     }
 }

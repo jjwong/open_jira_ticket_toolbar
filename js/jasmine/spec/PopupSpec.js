@@ -11,10 +11,17 @@ describe("Popup.js", function () {
     //     expect(sanitizeTicket("MY_EXAMPLE_PROJECT")).toEqual("MY_EXAMPLE_PROJECT");
     // });
 
-    it("should allow clean valid JIRA tickets in without additional filtering", () => {
+    it("should allow clean valid numbered JIRA tickets in without additional filtering", () => {
         expect(sanitizeTicket("CORE2-31")).toEqual("CORE2-31");
         expect(sanitizeTicket("CORE22-31")).toEqual("CORE22-31");
         expect(sanitizeTicket("CORE222-31")).toEqual("CORE-222");
+    })
+
+    it("should work for reported user use cases", () => {
+        expect(sanitizeTicket("DEV00US-321")).toEqual("DEV00US-321");
+        expect(sanitizeTicket("DEV00IN-123")).toEqual("DEV00IN-123");
+        expect(sanitizeTicket("DEV00EU-31")).toEqual("DEV00EU-31");
+        expect(sanitizeTicket("DEV00 EU-31")).toEqual("EU-31");
     })
 
     it("should return invalid for unsupported JIRA key format per documentation", () => {

@@ -70,5 +70,13 @@
     "optionsSuccess": {
         "message": "성공!",
         "description": "Success text"
+    },
+    "optionsDonationHeader": {
+        "message": "안녕 친구야!",
+        "description": "Hello message in the header"
+    },
+    "optionsDonationMessage": {
+        "message": "확장 지원을 고려하십시오.",
+        "description": "Please consider supporting the extension."
     }
 }
