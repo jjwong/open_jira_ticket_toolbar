@@ -319,14 +319,3 @@ function addClass(el, className) {
   }
   document.querySelector('.selected > a').focus();
 };
-
-// chrome.action.onClicked.addListener((tab) => {
-//   chrome.scripting.executeScript({
-//     target: { tabId: tab.id },
-//     function: reddenPage,
-//   });
-// });
-
-// chrome.omnibox.onInputEntered.addListener(function (userInput) {
-//   openNewTicket(userInput.trim(), "omnibox");
-// }); //end listener
