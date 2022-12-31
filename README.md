@@ -11,13 +11,15 @@ Simple Chrome extension that will allow a user to search for JIRA tickets via th
 # Testing
 This repository uses the standalone Jasmine installation to load up specs. You can re-run them manually to see results when viewing `/js/jasmine/SpecRunner.html`
 
-You can view the coverage summary in the command line when you run `npm coverage`.
+You can view the coverage summary in the command line when you run `npm run coverage`.
 For more information, you can view the the full report under the `coverage/Chrome Headless (version **)/loc-report` directory and search for `index.html`.
 
 All pushes to the master branch will sync the coverage data to code climate.
 
 # Changelog
-* 3.0
+* 3.0.1
+	* Refactor and add back in omnibox support using new keyword - 'ojira', short for openjira and avoid conflict with simple search of jira in toolbar
+* 3.0.0
 	* Upgrade to manifest v3
 	* Remove travis and codecov
 	* Move from qunit to jasmine and update unit tests
