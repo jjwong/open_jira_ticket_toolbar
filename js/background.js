@@ -1,4 +1,5 @@
-import openNewTicket from "./main.js";
+import { openNewTicket } from "./main.js";
+
 
 chrome.omnibox.onInputEntered.addListener((text) => {
   // Encode user input for special characters , / ? : @ & = + $ #

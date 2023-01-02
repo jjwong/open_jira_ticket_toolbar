@@ -19,6 +19,7 @@ All pushes to the master branch will sync the coverage data to code climate.
 # Changelog
 * 3.0.1
 	* Refactor and add back in omnibox support using new keyword - 'ojira', short for openjira and avoid conflict with simple search of jira in toolbar
+	* Disable tests due to import/export issue, avoid duping code
 * 3.0.0
 	* Upgrade to manifest v3
 	* Remove travis and codecov

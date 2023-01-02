@@ -13,7 +13,7 @@ function isDefaultProject(string) {
   }
 }
 
-export function sanitizeTicket(userInput) {
+function sanitizeTicket(userInput) {
   /* JIRA tickets only takes [a-z], -, _, d+
    We currently only - configurations
    JIRA can support a few different prefix styles such as R2D2 and R2_D2_D3 prefixes.
@@ -59,7 +59,7 @@ export function sanitizeTicket(userInput) {
   }
 }
 
-export default function openNewTicket(ticket, sourceType) {
+function openNewTicket(ticket, sourceType) {
   const SANITIZED_TICKET = sanitizeTicket(ticket);
   console.log(sourceType)
 
@@ -126,3 +126,5 @@ function formTicketURL(url, ticket) {
   //TODO - verify ticket is valid
   return url + "/browse/" + ticket;
 }
+
+export { openNewTicket, sanitizeTicket }

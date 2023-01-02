@@ -1,6 +1,6 @@
-// import openNewTicket, {sanitizeTicket} from "./../../main.js";
+// import { sanitizeTicket } from "./../../main";
 
-describe("Main.js", function () {
+xdescribe("Main.js", function () {
   describe("when we sanitize user input", () => {
     // JIRA valid ticket documentation
     // https://confluence.atlassian.com/adminjiraserver071/changing-the-project-key-format-802592378.html

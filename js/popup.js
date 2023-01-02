@@ -1,4 +1,4 @@
-import openNewTicket, {sanitizeTicket} from "./main.js";
+import { openNewTicket, sanitizeTicket } from "./main.js";
 
 /*eslint-env es6*/
 const form = document.getElementById("ticket-form");
