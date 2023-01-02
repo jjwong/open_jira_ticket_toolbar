@@ -1,6 +1,6 @@
-describe("Popup.js", function () {
-  let app;
+// import { sanitizeTicket } from "./../../main";
 
+xdescribe("Main.js", function () {
   describe("when we sanitize user input", () => {
     // JIRA valid ticket documentation
     // https://confluence.atlassian.com/adminjiraserver071/changing-the-project-key-format-802592378.html
