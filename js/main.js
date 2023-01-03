@@ -1,3 +1,5 @@
+// TODO: When testing is fixed, can use this shared code for omnibox and toolbar
+
 function isDefaultProject(string) {
   // If there are only numbers at the beginning, we can assume this is a default project
   // There is a chance someone could type in 123BAD, but it will default to STACK-123
@@ -26,7 +28,10 @@ function sanitizeTicket(userInput) {
   // Trim and uppercase user input
   let cleanUserInput = userInput.toString().toUpperCase().trim();
 
-  const fullTicketWithNumberRegex = new RegExp("([A-Z]{1,}\\d{1,2}[A-Z]{0,2}-\\d+)", "i")
+  const fullTicketWithNumberRegex = new RegExp(
+    "([A-Z]{1,}\\d{1,2}[A-Z]{0,2}-\\d+)",
+    "i"
+  );
 
   const fullTicketRegex = new RegExp("([A-Z]{1,}-\\d+)", "i");
   const semiTicketRegex = new RegExp("([A-Z]{1,}\\d+)", "i");
@@ -37,31 +42,34 @@ function sanitizeTicket(userInput) {
 
   const fullTicketText = cleanUserInput.match(fullTicketRegex);
 
+  let sanitizedOutput = "";
+
   if (cleanUserInput.match(fullTicketWithNumberRegex)) {
-    return cleanUserInput.match(fullTicketWithNumberRegex)[0]
+    sanitizedOutput = cleanUserInput.match(fullTicketWithNumberRegex)[0];
   } else if (fullTicketText) {
-    return fullTicketText[0];
+    sanitizedOutput = fullTicketText[0];
   } else if (cleanUserInput.match(semiTicketRegex)) {
     var semiTicket = cleanUserInput.match(semiTicketRegex)[0];
     var jprojectRegex = new RegExp("([A-Z]{1,})", "i");
     var jprojectText = semiTicket.match(jprojectRegex);
     var jprojectNumber = semiTicket.match(numbersOnlyRegex);
     //Form ticket
-    var ticketID = jprojectText[0].concat("-", jprojectNumber[0]);
-    return ticketID;
+    sanitizedOutput = jprojectText[0].concat("-", jprojectNumber[0]);
   } else if (cleanUserInput.match(spaceTicketRegex)) {
-    return cleanUserInput.replace(/\s+/g, "-");
+    sanitizedOutput = cleanUserInput.replace(/\s+/g, "-");
   } else if (cleanUserInput.match(numbersOnlyRegex)) {
     var defaultTicket = cleanUserInput.match(numbersOnlyRegex);
-    return defaultTicket[0];
+    sanitizedOutput = defaultTicket[0];
   } else {
-    return "invalid ticket";
+    sanitizedOutput = "invalid ticket";
   }
+
+  return sanitizedOutput;
 }
 
 function openNewTicket(ticket, sourceType) {
   const SANITIZED_TICKET = sanitizeTicket(ticket);
-  console.log(sourceType)
+  console.log(sourceType);
 
   chrome.storage.sync.get(function (items) {
     const USER_HOST_URL = items.useURL;
@@ -110,7 +118,7 @@ function getFullJiraID(defaultProject, ticket) {
   let sanitizedTicket = sanitizeTicket(ticket);
 
   if (ticket === "invalid ticket") {
-    console.error("Invalid ticket reached getFullJiraID.")
+    console.error("Invalid ticket reached getFullJiraID.");
   } else {
     // Add default project to history
     if (isDefaultProject(sanitizedTicket)) {
@@ -127,4 +135,4 @@ function formTicketURL(url, ticket) {
   return url + "/browse/" + ticket;
 }
 
-export { openNewTicket, sanitizeTicket }
+export { openNewTicket, sanitizeTicket };

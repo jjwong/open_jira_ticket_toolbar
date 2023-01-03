@@ -205,3 +205,9 @@ input {
   right: 0;
   transform: translateX(0);
 }
+
+input#worldClock {
+  height: 35px;
+  width: 35px;
+}
+

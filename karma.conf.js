@@ -6,8 +6,8 @@ module.exports = function (config) {
     browsers: ["ChromeHeadless"],
     frameworks: ["jasmine"],
     files: [
-      "js/main.js",
-      "js/jasmine/spec/MainSpec.js",
+      "js/popup.js",
+      "js/jasmine/spec/PopupSpec.js",
       { pattern: "js/jasmine/spec/*.js", included: true },
     ],
     autoWatch: false,
