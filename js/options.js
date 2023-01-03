@@ -1,6 +1,6 @@
-const OPTIONS_NEED_URL = "OPTIONS_NEED_URL"
-const OPTIONS_NEED_HTTP = "OPTIONS_NEED_HTTP"
-const OPTIONS_NEED_KEY = "OPTIONS_NEED_KEY"
+const OPTIONS_NEED_URL = "OPTIONS_NEED_URL";
+const OPTIONS_NEED_HTTP = "OPTIONS_NEED_HTTP";
+const OPTIONS_NEED_KEY = "OPTIONS_NEED_KEY";
 
 function showErrorText(string) {
   removeError();
@@ -108,13 +108,15 @@ function isBlank(string) {
 
 // Saves options to chrome.storage.sync.
 function save_options() {
-  var input_url = sanitizeURL();
-  var input_default_project = sanitizeProject();
+  let input_url = sanitizeURL();
+  let input_default_project = sanitizeProject();
   // var input_language = document.getElementById("inputLanguageOptions").value;
+  let input_world_clock = document.getElementById("worldClock").checked;
   chrome.storage.sync.set(
     {
       useURL: input_url,
       useDefaultProject: input_default_project,
+      useWorldClock: input_world_clock,
       // useLanguage: input_language,
     },
     function () {
@@ -136,11 +138,14 @@ function restore_options() {
       useURL: "http://jiraland.issues.com",
       useDefaultProject: "STACK",
       useLanguage: "en",
+      useWorldClock: false,
     },
     function (items) {
       document.getElementById("inputURL").value = items.useURL;
       document.getElementById("inputDefaultProject").value =
         items.useDefaultProject;
+      document.getElementById("worldClock").checked = items.useWorldClock;
+
       setTicketPreview(
         items.useURL + "/browse/" + items.useDefaultProject,
         "green"
