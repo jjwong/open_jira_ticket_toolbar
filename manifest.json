@@ -2,7 +2,7 @@
     "name": "Open JIRA Ticket",
     "description": "Open JIRA tickets easily using the toolbar.",
     "manifest_version": 3,
-    "version": "3.0.2",
+    "version": "3.0.3",
     "author": "jjwong",
     "commands": {
         "_execute_action": {
@@ -32,6 +32,7 @@
     "default_locale": "en",
     "options_page": "options.html",
     "permissions": [
-        "storage"
+        "storage",
+        "tabs"
     ]
 }
