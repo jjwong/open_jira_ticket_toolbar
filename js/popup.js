@@ -48,8 +48,8 @@ function displayDefaultTicket() {
         displayError(ERROR_NO_DEFAULT_SET);
       } else {
         display.innerText = items.useDefaultProject;
-        let inputBox = document.getElementById('ticket')
-        inputBox.placeholder = chrome.i18n.getMessage("enterTicketID")
+        let inputBox = document.getElementById("ticket");
+        inputBox.placeholder = chrome.i18n.getMessage("enterTicketID");
       }
     }
   }); //end sync
@@ -87,7 +87,7 @@ function clearStatusMessage() {
 
 function buildHistoryList(userHostURL, ...tickets) {
   let historyList = document.getElementById("historyList");
-  let r = 1
+  let r = 1;
 
   let rows = tickets.map((ticketID) => {
     let ticketURL = formTicketURL(userHostURL, ticketID);
@@ -113,99 +113,106 @@ window.addEventListener("load", function () {
 }); //load eventlistener end
 
 // Add keyboard arrow support
-var ul = document.getElementById('historyList');
+var ul = document.getElementById("historyList");
 var liSelected;
 var index = -1;
 var next;
 
-document.addEventListener('keydown', function(event) {
-  var len = ul.getElementsByTagName('li').length - 1;
+document.addEventListener(
+  "keydown",
+  function (event) {
+    var len = ul.getElementsByTagName("li").length - 1;
 
-  //down key
-  if (event.which === 40) {
-    index++;
+    //down key
+    if (event.which === 40) {
+      index++;
 
-    if (liSelected) {
-      removeClass(liSelected, 'selected');
-      next = ul.getElementsByTagName('li')[index];
+      if (liSelected) {
+        removeClass(liSelected, "selected");
+        next = ul.getElementsByTagName("li")[index];
 
-      if (typeof next !== undefined && index <= len) {
-        liSelected = next;
+        if (typeof next !== undefined && index <= len) {
+          liSelected = next;
+        } else {
+          index = 0;
+          liSelected = ul.getElementsByTagName("li")[0];
+        }
+        addClass(liSelected, "selected");
       } else {
         index = 0;
-        liSelected = ul.getElementsByTagName('li')[0];
-      }
-      addClass(liSelected, 'selected');
-    } else {
-      index = 0;
 
-      liSelected = ul.getElementsByTagName('li')[0];
-      addClass(liSelected, 'selected');
-    }
-  //up key
-  } else if (event.which === 38) {
-    if (liSelected) {
-      removeClass(liSelected, 'selected');
-      index--;
-      next = ul.getElementsByTagName('li')[index];
-      if (typeof next !== undefined && index >= 0) {
-        liSelected = next;
-      } else {
-        index = len;
-        liSelected = ul.getElementsByTagName('li')[len];
+        liSelected = ul.getElementsByTagName("li")[0];
+        addClass(liSelected, "selected");
       }
-      addClass(liSelected, 'selected');
-    } else {
-      index = 0;
-      liSelected = ul.getElementsByTagName('li')[len];
-      addClass(liSelected, 'selected');
+      //up key
+    } else if (event.which === 38) {
+      if (liSelected) {
+        removeClass(liSelected, "selected");
+        index--;
+        next = ul.getElementsByTagName("li")[index];
+        if (typeof next !== undefined && index >= 0) {
+          liSelected = next;
+        } else {
+          index = len;
+          liSelected = ul.getElementsByTagName("li")[len];
+        }
+        addClass(liSelected, "selected");
+      } else {
+        index = 0;
+        liSelected = ul.getElementsByTagName("li")[len];
+        addClass(liSelected, "selected");
+      }
+      // tabbing doubles the focus, removing selected since tab works natively okay.
+    } else if (event.keyCode == 9 || (event.shiftKey && event.keyCode == 9)) {
+      if (document.querySelector(".selected") !== null) {
+        removeClass(liSelected, "selected");
+        index = 0;
+      }
     }
-    // tabbing doubles the focus, removing selected since tab works natively okay.
-  } else if (event.keyCode == 9 || (event.shiftKey && event.keyCode == 9)) {
-    if(document.querySelector('.selected') !== null) {
-      removeClass(liSelected, 'selected');
-      index = 0;
-    }
-  }
-}, false);
+  },
+  false
+);
 
 function removeClass(el, className) {
   if (el.classList) {
     el.classList.remove(className);
   } else {
-    el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    el.className = el.className.replace(
+      new RegExp("(^|\\b)" + className.split(" ").join("|") + "(\\b|$)", "gi"),
+      " "
+    );
   }
-};
+}
 
 function addClass(el, className) {
   if (el.classList) {
     el.classList.add(className);
   } else {
-    el.className += ' ' + className;
+    el.className += " " + className;
   }
-  document.querySelector('.selected > a').focus();
-};
+  document.querySelector(".selected > a").focus();
+}
 
 // search all desired clocks
 function searchClocks() {
-	document.querySelectorAll('.clock').forEach(item => {
-		const timezone = {
-			offset: item.getAttribute('data-offset')
-		};
+  document.querySelectorAll(".clock").forEach((item) => {
+    const timezone = {
+      offset: item.getAttribute("data-offset"),
+    };
 
-		setInterval(() => {
-			item.querySelector('span').innerHTML = calcTime(timezone);
-		}, 1000);
-	})
+    setInterval(() => {
+      item.querySelector("span").innerHTML = calcTime(timezone);
+    }, 1000);
+  });
 }
 
 // get local time (browser based)
 function calcTime(timezone) {
-	const d = new Date(),
-				utc = d.getTime() + (d.getTimezoneOffset() * 60000),
-				nd = new Date(utc + (3600000 * timezone.offset));
+  const d = new Date(),
+    utc = d.getTime() + d.getTimezoneOffset() * 60000,
+    nd = new Date(utc + 3600000 * timezone.offset);
 
-	return nd.toLocaleTimeString('en-US');
+  return nd.toLocaleTimeString("en-US");
 }
 
 function getWorldClock() {
@@ -216,7 +223,6 @@ function getWorldClock() {
       searchClocks();
       document.getElementById("clock-container").hidden = false;
     }
-
   }); //end get sync
 } //end getWorldClock
 
