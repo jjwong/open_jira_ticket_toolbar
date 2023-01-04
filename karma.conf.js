@@ -7,8 +7,8 @@ module.exports = function (config) {
     frameworks: ["jasmine"],
     files: [
       "js/popup.js",
-      "js/jasmine/spec/PopupSpec.js",
-      { pattern: "js/jasmine/spec/*.js", included: true },
+      { pattern: "js/jasmine/spec/*.js", included: false },
+      { pattern: "js/*.js", included: true },
     ],
     autoWatch: false,
     singleRun: true,

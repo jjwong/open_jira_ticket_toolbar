@@ -1,4 +1,4 @@
-// TODO: When testing is fixed, can use this shared code for omnibox and toolbar
+//TODO: Export breaks the testing pipeline, need to get that addressed.
 
 function isDefaultProject(string) {
   // If there are only numbers at the beginning, we can assume this is a default project
@@ -135,4 +135,4 @@ function formTicketURL(url, ticket) {
   return url + "/browse/" + ticket;
 }
 
-export { openNewTicket, sanitizeTicket };
+export { openNewTicket, sanitizeTicket, formTicketURL };
