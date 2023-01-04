@@ -65,6 +65,7 @@ li.selected {
 #status {
   font-size: 16px;
   color: #cc0000;
+  margin-left: 10px;
 }
 
 input {
@@ -116,4 +117,9 @@ input {
 .input-container input:valid ~ label {
   top: -12px;
   font-size: 14px;
+}
+
+.clock {
+  margin-top: 3px;
+  margin-bottom: 2px;
 }
