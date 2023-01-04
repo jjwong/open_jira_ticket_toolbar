@@ -195,16 +195,13 @@ function addClass(el, className) {
   document.querySelector(".selected > a").focus();
 }
 
-// search all desired clocks
 function searchClocks() {
   document.querySelectorAll(".clock").forEach((item) => {
     const timezone = {
       offset: item.getAttribute("data-offset"),
     };
-
-    setInterval(() => {
-      item.querySelector("span").innerHTML = calcTime(timezone);
-    }, 1000);
+    // Not running this in an interval loads the toolbar instantly. Cleaner display.
+    item.querySelector("span").innerHTML = calcTime(timezone);
   });
 }
 
@@ -214,7 +211,7 @@ function calcTime(timezone) {
     utc = d.getTime() + d.getTimezoneOffset() * 60000,
     nd = new Date(utc + 3600000 * timezone.offset);
 
-  return nd.toLocaleTimeString("en-US");
+  return nd.toLocaleTimeString("en-US", {hour: '2-digit', minute:'2-digit'});
 }
 
 function getWorldClock() {

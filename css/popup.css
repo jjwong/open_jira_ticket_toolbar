@@ -37,11 +37,11 @@ li a:hover {
 }
 
 li.selected {
-  background: #6fb7d3
+  background: #6fb7d3;
 }
 
 .invalid {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .valid {
@@ -75,46 +75,45 @@ input {
   font-size: 14px;
 }
 
-.text-center{
-	color:rgb(0, 0, 0);
-	text-transform:uppercase;
-    font-size: 23px;
-    margin: -50px 0 80px 0;
-    display: block;
-    text-align: center;
+.text-center {
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  font-size: 23px;
+  margin: -50px 0 80px 0;
+  display: block;
+  text-align: center;
 }
 
-.input-container{
-	position:relative;
+.input-container {
+  position: relative;
   margin-top: 25px;
-	margin-bottom:25px;
+  margin-bottom: 25px;
 }
-.input-container label{
-	position:absolute;
-	top:-12px;
-	left:0px;
-	font-size:12px;
-	color:rgb(0, 0, 0);
-    pointer-event:none;
-	transition: all 0.5s ease-in-out;
+.input-container label {
+  position: absolute;
+  top: -12px;
+  left: 0px;
+  font-size: 12px;
+  color: rgb(0, 0, 0);
+  pointer-event: none;
+  transition: all 0.5s ease-in-out;
 }
-.input-container input{
-  border:0;
-  border-bottom:1px solid #555;
-  background:transparent;
-  width:100%;
-  padding:8px 0 5px 0;
-  font-size:16px;
-  color:rgb(0, 0, 0);
+.input-container input {
+  border: 0;
+  border-bottom: 1px solid #555;
+  background: transparent;
+  width: 100%;
+  padding: 8px 0 5px 0;
+  font-size: 16px;
+  color: rgb(0, 0, 0);
 }
-.input-container input:focus{
- border:none;
- outline:none;
- border-bottom:1px solid #3c56e7;
+.input-container input:focus {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #3c56e7;
 }
 .input-container input:focus ~ label,
-.input-container input:valid ~ label{
-	top:-12px;
-	font-size:14px;
+.input-container input:valid ~ label {
+  top: -12px;
+  font-size: 14px;
 }
-

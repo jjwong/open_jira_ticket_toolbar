@@ -17,6 +17,12 @@ For more information, you can view the the full report under the `coverage/Chrom
 All pushes to the master branch will sync the coverage data to code climate.
 
 # Changelog
+* 3.0.4
+	* Refactor back to deduped code. Need an open request for fixing the pipeline
+	* Minor modifications to clock. Disable persistent seconds update (was too slow imo)
+	* Remove seconds indicator
+* 3.0.3
+	* Hotfix permission back. Need it to open toolbar with shortcut
 * 3.0.2
 	* Remove unnecessary tabs permission
 	* Add World Clock option
