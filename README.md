@@ -17,6 +17,8 @@ For more information, you can view the the full report under the `coverage/Chrom
 All pushes to the master branch will sync the coverage data to code climate.
 
 # Changelog
+* 3.0.6
+	* Add Q to display
 * 3.0.5
 	* Add simple show me what quarter of the year I'm in option
 * 3.0.4
