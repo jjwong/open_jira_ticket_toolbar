@@ -112,11 +112,13 @@ function save_options() {
   let input_default_project = sanitizeProject();
   // var input_language = document.getElementById("inputLanguageOptions").value;
   let input_world_clock = document.getElementById("worldClock").checked;
+  let input_fiscal_quarter = document.getElementById("fiscalQuarter").checked;
   chrome.storage.sync.set(
     {
       useURL: input_url,
       useDefaultProject: input_default_project,
       useWorldClock: input_world_clock,
+      useFiscalQuarter: input_fiscal_quarter,
       // useLanguage: input_language,
     },
     function () {
@@ -139,12 +141,14 @@ function restore_options() {
       useDefaultProject: "STACK",
       useLanguage: "en",
       useWorldClock: false,
+      useFiscalQuarter: false,
     },
     function (items) {
       document.getElementById("inputURL").value = items.useURL;
       document.getElementById("inputDefaultProject").value =
         items.useDefaultProject;
       document.getElementById("worldClock").checked = items.useWorldClock;
+      document.getElementById("fiscalQuarter").checked = items.useFiscalQuarter;
 
       setTicketPreview(
         items.useURL + "/browse/" + items.useDefaultProject,

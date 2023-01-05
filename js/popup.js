@@ -111,7 +111,8 @@ window.addEventListener("load", function () {
   window.addEventListener("submit", handleFormSubmit);
   displayDefaultTicket();
   retrieveHistory();
-  getWorldClock();
+  checkWorldClock();
+  checkFiscalQuarter();
 }); //load eventlistener end
 
 // Add keyboard arrow support
@@ -214,7 +215,7 @@ function calcTime(timezone) {
   return nd.toLocaleTimeString("en-US", {hour: '2-digit', minute:'2-digit'});
 }
 
-function getWorldClock() {
+function checkWorldClock() {
   chrome.storage.sync.get(function (items) {
     const WORLD_CLOCK = items.useWorldClock;
 
@@ -223,4 +224,29 @@ function getWorldClock() {
       document.getElementById("clock-container").hidden = false;
     }
   }); //end get sync
-} //end getWorldClock
+} //end checkWorldClock
+
+function getCurrentQuarter(date) {
+  let month = date.getMonth() + 1;
+  return (Math.ceil(month / 3));
+}
+
+function setFiscalQuarter() {
+  const currentQuarter = getCurrentQuarter(new Date());
+  const quarterSelector = '.q' + currentQuarter.toString()
+
+  document.querySelectorAll(quarterSelector).forEach((item) => {
+    item.id = "activeQuarter"
+  });
+}
+
+function checkFiscalQuarter() {
+  chrome.storage.sync.get(function (items) {
+    const FISCAL_QUARTER = items.useFiscalQuarter;
+
+    if (FISCAL_QUARTER) {
+      setFiscalQuarter();
+      document.getElementById("quarter-container").hidden = false;
+    }
+  }); //end get sync
+} //end checkFiscalQuarter

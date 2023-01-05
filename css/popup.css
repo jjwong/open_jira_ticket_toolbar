@@ -123,3 +123,14 @@ input {
   margin-top: 3px;
   margin-bottom: 2px;
 }
+
+#quarter-container {
+  color: #5e5151;
+  font-size: 10px;
+  align-content: center;
+  margin-left: 2px;
+}
+
+#activeQuarter {
+  color: #2296c4;
+}

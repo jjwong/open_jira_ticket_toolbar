@@ -9,7 +9,15 @@
   <body>
     <form id="ticket-form">
       <div class="input-container">
-        <input type="text" id="ticket" placeholder="Enter Ticket ID" autofocus required tabindex="0" autocomplete="off"/>
+        <input
+          type="text"
+          id="ticket"
+          placeholder="Enter Ticket ID"
+          autofocus
+          required
+          tabindex="0"
+          autocomplete="off"
+        />
         <label id="displayDefaultTicket">Default ID</label>
       </div>
     </form>
@@ -22,9 +30,20 @@
       <div class="clock" data-offset="+5.5">🇮🇳 India - <span></span></div>
       <div class="clock" data-offset="+8">🇸🇬 Singapore - <span></span></div>
     </div>
-    <h3>
-      <span><p id="history_title"></p></span>
-    </h3>
+
+    <table id="quarter-container" hidden>
+      <th class="q1">1</th>
+      <th class="q2">2</th>
+      <th class="q3">3</th>
+      <th class="q4">4</th>
+      <tr>
+        <td class="q1">JAN-MAR</td>
+        <td class="q2">APR-JUN</td>
+        <td class="q3">JUL-SEP</td>
+        <td class="q4">OCT-DEC</td>
+      </tr>
+    </table>
+
     <div id="previousSearches" style="padding: 0">
       <ul id="historyList"></ul>
     </div>

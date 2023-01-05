@@ -17,6 +17,8 @@ For more information, you can view the the full report under the `coverage/Chrom
 All pushes to the master branch will sync the coverage data to code climate.
 
 # Changelog
+* 3.0.5
+	* Add simple show me what quarter of the year I'm in option
 * 3.0.4
 	* Refactor back to deduped code. Need an open request for fixing the pipeline
 	* Minor modifications to clock. Disable persistent seconds update (was too slow imo)
