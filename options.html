@@ -30,12 +30,6 @@
             maxlength="20"
           />
 
-          <label for="worldClock">Enable World Clock</label>
-          <input type="checkbox" id="worldClock" value="worldClock" />
-
-          <label for="fiscalQuarters">Enable Fiscal Quarters</label>
-          <input type="checkbox" id="fiscalQuarter" value="fiscalQuarter" />
-
           <label data-locale="optionsPreviewLabel">Preview</label>
           <div class="clear" id="ticketPreview"></div>
           <div
@@ -45,6 +39,17 @@
           >
             Invalid options set.
           </div>
+
+          <table>
+            <td>
+              <label for="worldClock">Enable World Clock</label
+              ><input type="checkbox" id="worldClock" value="worldClock" />
+            </td>
+            <td>
+              <label for="fiscalQuarters">Enable Fiscal Quarters</label>
+              <input type="checkbox" id="fiscalQuarter" value="fiscalQuarter" />
+            </td>
+          </table>
 
           <label data-locale="optionsLanguageLabel">Language</label>
           <span data-locale="optionsLanguageExplanation"
@@ -67,9 +72,10 @@
       <div class="overlay-container">
         <div class="overlay">
           <div class="overlay-panel overlay-right">
-
-              <h1 data-locale="optionsDonationHeader">Hello, Friend!</h1>
-              <p data-locale="optionsDonationMessage">Please consider supporting the extension.</p>
+            <h1 data-locale="optionsDonationHeader">Hello, Friend!</h1>
+            <p data-locale="optionsDonationMessage">
+              Please consider supporting the extension.
+            </p>
 
             <a href="https://ko-fi.com/A0A3H3GR7" target="_blank"
               ><img
