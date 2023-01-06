@@ -219,3 +219,22 @@ input#fiscalQuarter {
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+#jiraSearchHeader {
+  margin-top: 15px;
+  font-size: 22px;
+}
+
+#usageNumber {
+  font-size: 28px;
+}
+
+#rankHeader {
+  margin-top: 30px;
+}
+
+#rank {
+  font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}

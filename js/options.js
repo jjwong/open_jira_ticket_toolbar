@@ -1,6 +1,18 @@
 const OPTIONS_NEED_URL = "OPTIONS_NEED_URL";
 const OPTIONS_NEED_HTTP = "OPTIONS_NEED_HTTP";
 const OPTIONS_NEED_KEY = "OPTIONS_NEED_KEY";
+const RANKS = [
+  "Explorer",
+  "JIRA Opener",
+  "Agile Adept",
+  "Scrum Master",
+  "Fastest JIRA finder",
+  "Keyboard Pro",
+  "Chief",
+  "Guru",
+  "Supreme Guru",
+  "Supreme Chief Guru",
+];
 
 function showErrorText(string) {
   removeError();
@@ -156,6 +168,48 @@ function restore_options() {
       );
     }
   );
+  retrieveUsageOptionDisplay();
+}
+
+function retrieveUsageOptionDisplay() {
+  chrome.storage.sync.get({ userUsage: 0 }, function (items) {
+    let userUsage = items.userUsage;
+    let optionsUsage = document.getElementById("usageNumber");
+
+    optionsUsage.textContent = userUsage;
+    setRankDisplay(userUsage);
+  }); //end get sync
+} //end retrieveUsageOptionDisplay
+
+function setRankDisplay(usage) {
+  const rankElement = document.getElementById("rank");
+  let rankName;
+  let rankNumber;
+
+  if (usage < 100) {
+    rankName = RANKS[0]
+  } else if (usage < 200) {
+    rankName = RANKS[1]
+  } else if (usage < 500) {
+    rankName = RANKS[2]
+  } else if (usage < 1000) {
+    rankName = RANKS[3]
+  } else if (usage < 5000) {
+    rankName = RANKS[4]
+  } else if (usage < 10000) {
+    rankName = RANKS[5]
+  } else if (usage < 20000) {
+    rankName = RANKS[6]
+  } else if (usage < 30000) {
+    rankName = RANKS[7]
+  } else if (usage <= 49999) {
+    rankName = RANKS[8]
+  } else if (usage >= 50000) {
+    rankName = RANKS[9]
+  }
+
+  rankNumber = RANKS.indexOf(rankName);
+  rankElement.textContent = rankNumber + " - " + rankName;
 }
 
 document.addEventListener("DOMContentLoaded", restore_options);

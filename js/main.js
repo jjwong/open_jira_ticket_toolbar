@@ -80,6 +80,7 @@ function openNewTicket(ticket, sourceType) {
     let formURL = formTicketURL(USER_HOST_URL, fullTicketID);
 
     saveHistory(fullTicketID);
+    saveUsage();
     chrome.tabs.create({ url: formURL });
   }); //end get sync
 } //end openNewTicket
@@ -134,5 +135,15 @@ function formTicketURL(url, ticket) {
   //TODO - verify ticket is valid
   return url + "/browse/" + ticket;
 }
+
+function saveUsage() {
+  chrome.storage.sync.get({ userUsage: 0 }, function (result) {
+    let userUsage = result.userUsage;
+
+    userUsage += 1;
+
+    chrome.storage.sync.set({ userUsage: userUsage }, function () {});
+  }); //end get sync
+} //end saveUsage
 
 export { openNewTicket, sanitizeTicket, formTicketURL };
