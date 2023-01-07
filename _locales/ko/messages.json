@@ -78,5 +78,13 @@
     "optionsDonationMessage": {
         "message": "확장 지원을 고려하십시오.",
         "description": "Please consider supporting the extension."
+    },
+    "jiraSearchHeader": {
+        "message": "귀하의 JIRA 검색 수",
+        "description": "Your number of JIRA searches"
+    },
+    "rankHeader": {
+        "message": "계급",
+        "description": "Rank"
     }
 }

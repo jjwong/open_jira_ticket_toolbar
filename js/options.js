@@ -8,10 +8,10 @@ const RANKS = [
   "Scrum Master",
   "Fastest JIRA finder",
   "Keyboard Pro",
-  "Chief",
-  "Guru",
-  "Supreme Guru",
-  "Supreme Chief Guru",
+  "Chief Keyboard Pro",
+  "Chief Scrum Master",
+  "Supreme Chief Keyboard Pro",
+  "Supreme Chief Scrum Master Keyboard Pro",
 ];
 
 function showErrorText(string) {

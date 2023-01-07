@@ -78,5 +78,13 @@
     "optionsDonationMessage": {
         "message": "Por favor, considere apoyar la extensión.",
         "description": "Please consider supporting the extension."
+    },
+    "jiraSearchHeader": {
+        "message": "Tu número de búsquedas en JIRA",
+        "description": "Your number of JIRA searches"
+    },
+    "rankHeader": {
+        "message": "Rango",
+        "description": "Rank"
     }
 }
