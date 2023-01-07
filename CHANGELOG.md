@@ -2,7 +2,6 @@
 * 3.0.6
 	* Add Q to display
     * Add fun feature with ranks on usage
-    * Add fun animation button
     * Add missing i18n translations
     * Minor options cleanup
 * 3.0.5
