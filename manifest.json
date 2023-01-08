@@ -2,7 +2,7 @@
     "name": "Open JIRA Ticket",
     "description": "Open JIRA tickets easily using the toolbar.",
     "manifest_version": 3,
-    "version": "3.0.6",
+    "version": "3.0.7",
     "author": "jjwong",
     "commands": {
         "_execute_action": {
