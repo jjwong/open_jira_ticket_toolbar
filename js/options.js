@@ -4,14 +4,14 @@ const OPTIONS_NEED_KEY = "OPTIONS_NEED_KEY";
 const RANKS = [
   "Explorer",
   "JIRA Opener",
-  "Agile Adept",
+  "Agile Apprentice",
   "Scrum Master",
   "Fastest JIRA finder",
+  "Agile Adept",
   "Keyboard Pro",
-  "Chief Keyboard Pro",
-  "Chief Scrum Master",
-  "Supreme Chief Keyboard Pro",
-  "Supreme Chief Scrum Master Keyboard Pro",
+  "Agile Master",
+  "Supreme Agile Chief Keyboard Pro",
+  "Supreme Agile Chief Scrum Master Keyboard Pro",
 ];
 
 function showErrorText(string) {

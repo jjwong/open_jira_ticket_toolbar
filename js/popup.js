@@ -1,4 +1,4 @@
-import { openNewTicket, sanitizeTicket, formTicketURL } from "./main.js"
+import { openNewTicket, sanitizeTicket, formTicketURL } from "./main.js";
 
 /*eslint-env es6*/
 const form = document.getElementById("ticket-form");
@@ -199,20 +199,11 @@ function addClass(el, className) {
 function searchClocks() {
   document.querySelectorAll(".clock").forEach((item) => {
     const timezone = {
-      offset: item.getAttribute("data-offset"),
+      locale: item.getAttribute("data-timezone"),
     };
-    // Not running this in an interval loads the toolbar instantly. Cleaner display.
-    item.querySelector("span").innerHTML = calcTime(timezone);
+
+    item.querySelector("span").innerHTML = calculateTime(timezone.locale);
   });
-}
-
-// get local time (browser based)
-function calcTime(timezone) {
-  const d = new Date(),
-    utc = d.getTime() + d.getTimezoneOffset() * 60000,
-    nd = new Date(utc + 3600000 * timezone.offset);
-
-  return nd.toLocaleTimeString("en-US", {hour: '2-digit', minute:'2-digit'});
 }
 
 function checkWorldClock() {
@@ -223,20 +214,49 @@ function checkWorldClock() {
       searchClocks();
       document.getElementById("clock-container").hidden = false;
     }
+
+    // showTimezonesInConsole();
   }); //end get sync
 } //end checkWorldClock
 
+function getSupportedTimezones() {
+  return Intl.supportedValuesOf("timeZone");
+}
+
+// get timing based on supported timezones
+function calculateTime(timezone) {
+  let date = new Date();
+  let localizedTime = date.toLocaleString("en-US", {
+    timeZone: `${timezone}`,
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  // console.log(localizedTime);
+  return localizedTime;
+}
+
+// Reference function to get all support time zones
+function showTimezonesInConsole() {
+  const timezonesArray = getSupportedTimezones();
+
+  let date = new Date();
+  timezonesArray.forEach((timeZone) => {
+    let strTime = date.toLocaleString("en-US", { timeZone: `${timeZone}` });
+    console.log(timeZone, strTime);
+  });
+}
+
 function getCurrentQuarter(date) {
   let month = date.getMonth() + 1;
-  return (Math.ceil(month / 3));
+  return Math.ceil(month / 3);
 }
 
 function setFiscalQuarter() {
   const currentQuarter = getCurrentQuarter(new Date());
-  const quarterSelector = '.q' + currentQuarter.toString()
+  const quarterSelector = ".q" + currentQuarter.toString();
 
   document.querySelectorAll(quarterSelector).forEach((item) => {
-    item.id = "activeQuarter"
+    item.id = "activeQuarter";
   });
 }
 

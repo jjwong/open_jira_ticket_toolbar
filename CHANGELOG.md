@@ -1,4 +1,6 @@
 # Changelog
+* 3.0.7
+    * Update world clock for the inevitable DST. Use timezones instead of arbitrary offsets
 * 3.0.6
 	* Add Q to display
     * Add fun feature with ranks on usage
