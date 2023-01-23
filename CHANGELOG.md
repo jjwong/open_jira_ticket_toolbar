@@ -1,4 +1,7 @@
 # Changelog
+* 3.0.8
+    * Fix default project to support numbers in options
+    * Add Enable History option to show/hide
 * 3.0.7
     * Update world clock for the inevitable DST. Use timezones instead of arbitrary offsets
 * 3.0.6
