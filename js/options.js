@@ -108,7 +108,7 @@ function sanitizeProject() {
   if (isBlank(input_default_project)) {
     showErrorText(OPTIONS_NEED_KEY);
   }
-  var only_text_regex = new RegExp("[a-z]+\\d", "i");
+  var only_text_regex = new RegExp("[a-z]+\\d*", "i");
   var sanitized_project = input_default_project.match(only_text_regex);
   return sanitized_project[0].toUpperCase();
 }

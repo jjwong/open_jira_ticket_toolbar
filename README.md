@@ -15,6 +15,8 @@ Simple Chrome extension that will allow a user to search for JIRA tickets via th
 # Testing
 This repository uses the standalone Jasmine installation to load up specs. You can re-run them manually to see results when viewing `/js/jasmine/SpecRunner.html`
 
+* Issue with exporting files, so you'll need to comment that out to run locally.
+
 You can view the coverage summary in the command line when you run `npm run coverage`.
 For more information, you can view the the full report under the `coverage/Chrome Headless (version **)/loc-report` directory and search for `index.html`.
 
