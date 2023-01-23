@@ -206,14 +206,7 @@ input {
   transform: translateX(0);
 }
 
-input#worldClock {
-  height: 25px;
-  width: 25px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-input#fiscalQuarter {
+input.optionsCheckbox {
   height: 25px;
   width: 25px;
   margin-top: 0px;

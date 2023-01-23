@@ -113,6 +113,7 @@ window.addEventListener("load", function () {
   retrieveHistory();
   checkWorldClock();
   checkFiscalQuarter();
+  checkHistoryPreference();
 }); //load eventlistener end
 
 // Add keyboard arrow support
@@ -270,3 +271,19 @@ function checkFiscalQuarter() {
     }
   }); //end get sync
 } //end checkFiscalQuarter
+
+function checkHistoryPreference() {
+  chrome.storage.sync.get(function (items) {
+    const HISTORY_PREFERENCE = items.useHistoryPreference;
+    console.log(HISTORY_PREFERENCE)
+
+    // For existing users, history will be undefined, and we want it to show up by default.
+    // This will go away once they save options. This shouldn't occur for new users.
+    if (HISTORY_PREFERENCE == true || HISTORY_PREFERENCE == undefined) {
+      document.getElementById("previousSearches").hidden = false;
+    } else {
+      document.getElementById("previousSearches").hidden = true;
+    }
+
+  }); //end get sync
+} //end checkHistoryPreference

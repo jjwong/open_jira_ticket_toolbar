@@ -125,12 +125,14 @@ function save_options() {
   // var input_language = document.getElementById("inputLanguageOptions").value;
   let input_world_clock = document.getElementById("worldClock").checked;
   let input_fiscal_quarter = document.getElementById("fiscalQuarter").checked;
+  let input_history_preference = document.getElementById("historyPreference").checked;
   chrome.storage.sync.set(
     {
       useURL: input_url,
       useDefaultProject: input_default_project,
       useWorldClock: input_world_clock,
       useFiscalQuarter: input_fiscal_quarter,
+      useHistoryPreference: input_history_preference,
       // useLanguage: input_language,
     },
     function () {
@@ -154,6 +156,7 @@ function restore_options() {
       useLanguage: "en",
       useWorldClock: false,
       useFiscalQuarter: false,
+      useHistoryPreference: true,
     },
     function (items) {
       document.getElementById("inputURL").value = items.useURL;
@@ -161,6 +164,7 @@ function restore_options() {
         items.useDefaultProject;
       document.getElementById("worldClock").checked = items.useWorldClock;
       document.getElementById("fiscalQuarter").checked = items.useFiscalQuarter;
+      document.getElementById("historyPreference").checked = items.useHistoryPreference;
 
       setTicketPreview(
         items.useURL + "/browse/" + items.useDefaultProject,
