@@ -5,6 +5,8 @@
 # Download Extension
 [![Open Jira Ticket @Chrome Web Store](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/mPGKYBIR2uCP0ApchDXE.png "Open Jira Ticket @Chrome Web Store")](https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci?hl=en-US)
 
+[![Open Jira Ticket @Edge Store](https://get.microsoft.com/images/en-us%20dark.svg "Open Jira Ticket @Edge Store")](https://microsoftedge.microsoft.com/addons/detail/open-jira-ticket/mcgalgcbedknfbohhhnngnbofngoifkm)
+
 # Description
 Simple Chrome extension that will allow a user to search for JIRA tickets via the provided toolbar.
 
