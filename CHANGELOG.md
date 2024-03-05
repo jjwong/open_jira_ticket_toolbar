@@ -1,4 +1,7 @@
 # Changelog
+* 3.0.9
+	* Remove tabs permission again.
+	* Update timezone locations. Remove Arizona and London, replace with Sydney Australia and Los Angeles
 * 3.0.8
     * Fix default project to support numbers in options
     * Add Enable History Display preference to show/hide
