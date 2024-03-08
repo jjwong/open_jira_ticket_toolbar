@@ -1,4 +1,8 @@
 # Changelog
+* 3.0.10 (planned)
+	* Add in secondary jira projects
+	* Add in less strict filtering for projects with numbers like R2D2
+	* Move UTC to a better spot
 * 3.0.9
 	* Remove tabs permission again.
 	* Update timezone locations. Remove Arizona and London, replace with Sydney Australia and Los Angeles

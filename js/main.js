@@ -29,7 +29,7 @@ function sanitizeTicket(userInput) {
   let cleanUserInput = userInput.toString().toUpperCase().trim();
 
   const fullTicketWithNumberRegex = new RegExp(
-    "([A-Z]{1,}\\d{1,2}[A-Z]{0,2}-\\d+)",
+    "[A-Z]*\\d*[A-Z]{1,}\\d{0,2}[A-Z]{0,2}-\\d+",
     "i"
   );
 
