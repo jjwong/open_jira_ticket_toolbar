@@ -1,6 +1,6 @@
 # Changelog
-* 3.0.10 (planned)
-	* Add in secondary jira projects
+* 3.1.0
+	* Add in secondary jira projects feature
 	* Add in less strict filtering for projects with numbers like R2D2
 	* Move UTC to a better spot
 * 3.0.9

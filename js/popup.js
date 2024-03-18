@@ -37,7 +37,7 @@ function displayError(error_type) {
 
 function displayDefaultTicket() {
   chrome.storage.sync.get(function (items) {
-    let display = document.getElementById("displayDefaultTicket");
+    let display = document.getElementById("toggleProject");
     if (display === null) {
       console.log("ERROR: Unable to find display ticket.");
       displayError(ERROR_MISSING);
@@ -56,6 +56,29 @@ function displayDefaultTicket() {
     }
   }); //end sync
 } //end displayDefaultTicket
+
+// derived from displayDefaultTicket
+function displaySecondaryTicket() {
+  chrome.storage.sync.get(function (items) {
+    let display = document.getElementById("toggleProject");
+    if (display === null) {
+      console.log("ERROR: Unable to find display ticket.");
+      displayError(ERROR_MISSING);
+    } else {
+      if (
+        items.useSecondaryProject === undefined ||
+        items.useSecondaryProject === null
+      ) {
+        document.getElementById("ticket").setAttribute("disabled", true);
+        displayError(ERROR_NO_DEFAULT_SET);
+      } else {
+        display.innerText = items.useSecondaryProject;
+        let inputBox = document.getElementById("ticket");
+        inputBox.placeholder = chrome.i18n.getMessage("enterTicketID");
+      }
+    }
+  }); //end sync
+} //end displaySecondaryTicket
 
 async function retrieveHistory() {
   // Set default useHistory if undefined
@@ -110,6 +133,7 @@ function buildHistoryList(userHostURL, ...tickets) {
 window.addEventListener("load", function () {
   window.addEventListener("submit", handleFormSubmit);
   displayDefaultTicket();
+  toggleProject();
   retrieveHistory();
   checkWorldClock();
   checkFiscalQuarter();
@@ -275,7 +299,7 @@ function checkFiscalQuarter() {
 function checkHistoryPreference() {
   chrome.storage.sync.get(function (items) {
     const HISTORY_PREFERENCE = items.useHistoryPreference;
-    console.log(HISTORY_PREFERENCE)
+    console.log(HISTORY_PREFERENCE);
 
     // For existing users, history will be undefined, and we want it to show up by default.
     // This will go away once they save options. This shouldn't occur for new users.
@@ -284,6 +308,41 @@ function checkHistoryPreference() {
     } else {
       document.getElementById("previousSearches").hidden = true;
     }
-
   }); //end get sync
 } //end checkHistoryPreference
+
+// support multi projects
+function toggleProject() {
+  document
+    .getElementById("toggleProject")
+    .addEventListener("click", handleProject);
+}
+
+function handleProject() {
+  // var x = document.getElementById("toggleProject");
+  // if (x.innerHTML === "R2D2") {
+  //   x.innerHTML = "Swapped text!";
+  // } else {
+  //   displayDefaultTicket();
+  // }
+
+  chrome.storage.sync.get({ useProjectTracker: 2 }, function (result) {
+    let useProjectTracker = result.useProjectTracker;
+    let useSecondaryURL = result.useSecondaryURL;
+    let useSecondaryProject = result.useSecondaryProject;
+
+    if (useSecondaryURL == null || useSecondaryProject == null) {
+      // do nothing if its not set
+      console.log("No secondary project set, go to options to set.");
+    } else {
+      // intention is to swap useProjectTracker id so you can toggle when calling this
+      if (useProjectTracker == 1) {
+        chrome.storage.sync.set({ useProjectTracker: 2 }, function () {});
+        displaySecondaryTicket();
+      } else {
+        chrome.storage.sync.set({ useProjectTracker: 1 }, function () {});
+        displayDefaultTicket();
+      }
+    }
+  }); //end get sync
+}

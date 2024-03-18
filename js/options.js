@@ -14,7 +14,7 @@ const RANKS = [
   "Supreme Agile Chief Scrum Master Keyboard Pro",
 ];
 
-function showErrorText(string) {
+function showErrorText(string, project_tracker_id) {
   removeError();
 
   var displayStatus = document.getElementById("status");
@@ -32,7 +32,12 @@ function showErrorText(string) {
   }
 
   displayStatus.style.color = "red";
-  setPreviewError();
+  if (project_tracker_id == 1) {
+    setPreviewError("ticketPreview", "badOptions");
+  } else {
+    setPreviewError("ticketSecondaryPreview", "badSecondaryOptions");
+  }
+
   setTimeout(function () {
     newDiv.remove();
   }, 3000);
@@ -64,27 +69,37 @@ function removeSuccess() {
   }
 }
 
-function setPreviewError() {
-  var badOptionsText = document.getElementById("badOptions");
+function setPreviewError(error_display_id, preview_id) {
+  var badOptionsText = document.getElementById(error_display_id);
   badOptionsText.style.color = "red";
   badOptionsText.style.visibility = "visible";
-  setTicketPreview("N/A", "red");
+  setTicketPreview("N/A", "red", preview_id);
 }
 
-function setTicketPreview(string, color) {
-  var ticketPreview = document.getElementById("ticketPreview");
+function setTicketPreview(string, color, element_id) {
+  var ticketPreview = document.getElementById(element_id);
   ticketPreview.style.color = color;
   ticketPreview.innerText = string;
 }
 
-function sanitizeURL() {
+function sanitizeURL(element_id, project_tracker_id) {
   // We are only removing the trailing slash for now.
-  var input_url = document.getElementById("inputURL").value;
+  var input_url = document.getElementById(element_id).value;
 
-  if (isBlank(input_url)) {
-    showErrorText(OPTIONS_NEED_URL);
-  } else if (!checkHttp(input_url)) {
-    showErrorText(OPTIONS_NEED_HTTP);
+  // rule set 1 - unchanged, requirements are needed for default project
+  if (project_tracker_id == 1) {
+    if (isBlank(input_url)) {
+      showErrorText(OPTIONS_NEED_URL, project_tracker_id);
+    } else if (!checkHttp(input_url)) {
+      showErrorText(OPTIONS_NEED_HTTP, project_tracker_id);
+    }
+  }
+
+  // rule set 2
+  if (project_tracker_id == 2) {
+    if (!isBlank(input_url) && !checkHttp(input_url)) {
+      showErrorText(OPTIONS_NEED_HTTP, project_tracker_id);
+    }
   }
 
   var trailing_regex = new RegExp("/+$", "ig");
@@ -101,16 +116,36 @@ function checkHttp(string) {
   }
 }
 
-function sanitizeProject() {
-  var input_default_project = document.getElementById(
-    "inputDefaultProject"
-  ).value;
-  if (isBlank(input_default_project)) {
-    showErrorText(OPTIONS_NEED_KEY);
+function sanitizeProject(element_id, project_tracker_id) {
+  var input_default_project = document.getElementById(element_id).value;
+
+  // rule set 1
+  if (project_tracker_id == 1) {
+    if (isNumberAtStart(input_default_project)) {
+      showErrorText(OPTIONS_NEED_KEY, project_tracker_id);
+    }
+
+    if (isBlank(input_default_project)) {
+      showErrorText(OPTIONS_NEED_KEY, project_tracker_id);
+    }
+
+    var only_text_regex = new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+    var sanitized_project = input_default_project.match(only_text_regex);
+    return sanitized_project[0].toUpperCase();
   }
-  var only_text_regex = new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
-  var sanitized_project = input_default_project.match(only_text_regex);
-  return sanitized_project[0].toUpperCase();
+
+  //rule set 2
+  if (project_tracker_id == 2 && !isBlank(input_default_project)) {
+    if (isNumberAtStart(input_default_project)) {
+      showErrorText(OPTIONS_NEED_KEY, project_tracker_id);
+    }
+
+    var only_text_regex = new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+    var sanitized_project = input_default_project.match(only_text_regex);
+    return sanitized_project[0].toUpperCase();
+  } else if (isBlank(input_default_project)){
+    return null
+  }
 }
 
 function isBlank(string) {
@@ -120,16 +155,21 @@ function isBlank(string) {
 
 // Saves options to chrome.storage.sync.
 function save_options() {
-  let input_url = sanitizeURL();
-  let input_default_project = sanitizeProject();
+  let input_url = sanitizeURL("inputURL", 1);
+  let input_default_project = sanitizeProject("inputDefaultProject", 1);
+  let input_secondary_url = sanitizeURL("inputSecondaryURL", 2);
+  let input_secondary_project = sanitizeProject("inputSecondaryProject", 2);
   // var input_language = document.getElementById("inputLanguageOptions").value;
   let input_world_clock = document.getElementById("worldClock").checked;
   let input_fiscal_quarter = document.getElementById("fiscalQuarter").checked;
-  let input_history_preference = document.getElementById("historyPreference").checked;
+  let input_history_preference =
+    document.getElementById("historyPreference").checked;
   chrome.storage.sync.set(
     {
       useURL: input_url,
       useDefaultProject: input_default_project,
+      useSecondaryURL: input_secondary_url,
+      useSecondaryProject: input_secondary_project,
       useWorldClock: input_world_clock,
       useFiscalQuarter: input_fiscal_quarter,
       useHistoryPreference: input_history_preference,
@@ -157,19 +197,40 @@ function restore_options() {
       useWorldClock: false,
       useFiscalQuarter: false,
       useHistoryPreference: true,
+      useSecondaryURL: "",
+      useSecondaryProject: "",
     },
     function (items) {
       document.getElementById("inputURL").value = items.useURL;
       document.getElementById("inputDefaultProject").value =
         items.useDefaultProject;
+      document.getElementById("inputSecondaryURL").value =
+        items.useSecondaryURL;
+      document.getElementById("inputSecondaryProject").value =
+        items.useSecondaryProject;
       document.getElementById("worldClock").checked = items.useWorldClock;
       document.getElementById("fiscalQuarter").checked = items.useFiscalQuarter;
-      document.getElementById("historyPreference").checked = items.useHistoryPreference;
+      document.getElementById("historyPreference").checked =
+        items.useHistoryPreference;
 
+      // default project preview
       setTicketPreview(
         items.useURL + "/browse/" + items.useDefaultProject,
-        "green"
+        "green",
+        "ticketPreview"
       );
+
+      console.log(items.useSecondaryURL + items.useSecondaryProject);
+
+      // don't display preview if secondary is not set.
+      if (items.useSecondaryURL != null && items.useSecondaryProject != null) {
+        //secondary project preview
+        setTicketPreview(
+          items.useSecondaryURL + "/browse/" + items.useSecondaryProject,
+          "green",
+          "ticketSecondaryPreview"
+        );
+      }
     }
   );
   retrieveUsageOptionDisplay();
@@ -191,25 +252,25 @@ function setRankDisplay(usage) {
   let rankNumber;
 
   if (usage < 100) {
-    rankName = RANKS[0]
+    rankName = RANKS[0];
   } else if (usage < 200) {
-    rankName = RANKS[1]
+    rankName = RANKS[1];
   } else if (usage < 500) {
-    rankName = RANKS[2]
+    rankName = RANKS[2];
   } else if (usage < 1000) {
-    rankName = RANKS[3]
+    rankName = RANKS[3];
   } else if (usage < 5000) {
-    rankName = RANKS[4]
+    rankName = RANKS[4];
   } else if (usage < 10000) {
-    rankName = RANKS[5]
+    rankName = RANKS[5];
   } else if (usage < 20000) {
-    rankName = RANKS[6]
+    rankName = RANKS[6];
   } else if (usage < 30000) {
-    rankName = RANKS[7]
+    rankName = RANKS[7];
   } else if (usage <= 49999) {
-    rankName = RANKS[8]
+    rankName = RANKS[8];
   } else if (usage >= 50000) {
-    rankName = RANKS[9]
+    rankName = RANKS[9];
   }
 
   rankNumber = RANKS.indexOf(rankName);
@@ -220,3 +281,15 @@ document.addEventListener("DOMContentLoaded", restore_options);
 window.onload = function () {
   document.getElementById("save").addEventListener("click", save_options);
 };
+
+function isNumberAtStart(string) {
+  // number only regex
+  const number_at_start_regex = new RegExp("^\\d+", "i");
+  const string_results = string.match(number_at_start_regex);
+
+  if (string_results == null) {
+    return false;
+  } else {
+    return true;
+  }
+}

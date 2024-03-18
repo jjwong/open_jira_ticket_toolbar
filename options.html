@@ -40,6 +40,32 @@
             Invalid options set.
           </div>
 
+          <label>Second JIRA URL</label>
+          <input
+            type="text"
+            id="inputSecondaryURL"
+            placeholder="http://issues2.jiraland.com"
+          />
+          <label data-locale="optionsDefaultProjectLabel"
+            >Default Project</label
+          >
+          <input
+            type="text"
+            id="inputSecondaryProject"
+            placeholder="STACK"
+            maxlength="20"
+          />
+
+          <label data-locale="optionsSecondaryPreviewLabel">Preview</label>
+          <div class="clear" id="ticketSecondaryPreview"></div>
+          <div
+            data-locale="errorSecondaryOptionsPreview"
+            class="preview"
+            id="badSecondaryOptions"
+          >
+            Invalid options set.
+          </div>
+
           <table>
             <td>
               <label for="worldClock">Enable World Clock</label
