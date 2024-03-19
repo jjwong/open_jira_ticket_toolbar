@@ -143,8 +143,8 @@ function sanitizeProject(element_id, project_tracker_id) {
     var only_text_regex = new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
     var sanitized_project = input_default_project.match(only_text_regex);
     return sanitized_project[0].toUpperCase();
-  } else if (isBlank(input_default_project)){
-    return null
+  } else if (isBlank(input_default_project)) {
+    return null;
   }
 }
 
@@ -164,6 +164,13 @@ function save_options() {
   let input_fiscal_quarter = document.getElementById("fiscalQuarter").checked;
   let input_history_preference =
     document.getElementById("historyPreference").checked;
+
+  // set tracker to 1 if either secondary option is empty
+  if (input_secondary_url == null || input_secondary_project == null) {
+    chrome.storage.sync.set({ useProjectTracker: 1 }, function () {});
+  }
+
+  // set all the options
   chrome.storage.sync.set(
     {
       useURL: input_url,
@@ -199,6 +206,7 @@ function restore_options() {
       useHistoryPreference: true,
       useSecondaryURL: "",
       useSecondaryProject: "",
+      useProjectTracker: 1,
     },
     function (items) {
       document.getElementById("inputURL").value = items.useURL;
@@ -219,8 +227,6 @@ function restore_options() {
         "green",
         "ticketPreview"
       );
-
-      console.log(items.useSecondaryURL + items.useSecondaryProject);
 
       // don't display preview if secondary is not set.
       if (items.useSecondaryURL != null && items.useSecondaryProject != null) {

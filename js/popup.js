@@ -83,10 +83,20 @@ function displaySecondaryTicket() {
 async function retrieveHistory() {
   // Set default useHistory if undefined
   chrome.storage.sync.get(
-    { userHistory: [], useURL: "default", favoritesList: [] },
+    {
+      userHistory: [],
+      useURL: "default",
+      useSecondaryURL: "",
+      favoritesList: [],
+      useProjectTracker: 1,
+    },
     function (items) {
       let historyStorage = items.userHistory;
       let userHostURL = items.useURL;
+
+      if (items.useProjectTracker == 2) {
+        userHostURL = items.useSecondaryURL;
+      }
 
       buildHistoryList(userHostURL, ...historyStorage);
     }
@@ -130,9 +140,17 @@ function buildHistoryList(userHostURL, ...tickets) {
   historyList.append(...rows);
 }
 
+function clearHistory() {
+  let historyList = document.getElementById("historyList");
+
+  while (historyList.firstChild) {
+    historyList.removeChild(historyList.lastChild);
+  }
+}
+
 window.addEventListener("load", function () {
   window.addEventListener("submit", handleFormSubmit);
-  displayDefaultTicket();
+  initDisplayProject();
   toggleProject();
   retrieveHistory();
   checkWorldClock();
@@ -299,7 +317,7 @@ function checkFiscalQuarter() {
 function checkHistoryPreference() {
   chrome.storage.sync.get(function (items) {
     const HISTORY_PREFERENCE = items.useHistoryPreference;
-    console.log(HISTORY_PREFERENCE);
+    // console.log(HISTORY_PREFERENCE);
 
     // For existing users, history will be undefined, and we want it to show up by default.
     // This will go away once they save options. This shouldn't occur for new users.
@@ -319,30 +337,41 @@ function toggleProject() {
 }
 
 function handleProject() {
-  // var x = document.getElementById("toggleProject");
-  // if (x.innerHTML === "R2D2") {
-  //   x.innerHTML = "Swapped text!";
-  // } else {
-  //   displayDefaultTicket();
-  // }
+  chrome.storage.sync.get(
+    { useProjectTracker: 2, useSecondaryURL: "", useSecondaryProject: "" },
+    function (result) {
+      let useProjectTracker = result.useProjectTracker;
+      let useSecondaryURL = result.useSecondaryURL;
+      let useSecondaryProject = result.useSecondaryProject;
 
-  chrome.storage.sync.get({ useProjectTracker: 2 }, function (result) {
-    let useProjectTracker = result.useProjectTracker;
-    let useSecondaryURL = result.useSecondaryURL;
-    let useSecondaryProject = result.useSecondaryProject;
-
-    if (useSecondaryURL == null || useSecondaryProject == null) {
-      // do nothing if its not set
-      console.log("No secondary project set, go to options to set.");
-    } else {
-      // intention is to swap useProjectTracker id so you can toggle when calling this
-      if (useProjectTracker == 1) {
-        chrome.storage.sync.set({ useProjectTracker: 2 }, function () {});
-        displaySecondaryTicket();
+      if (useSecondaryURL == null || useSecondaryProject == null) {
+        // do nothing if its not set
+        console.log("No secondary project set, go to options to set.");
       } else {
-        chrome.storage.sync.set({ useProjectTracker: 1 }, function () {});
-        displayDefaultTicket();
+        // intention is to swap useProjectTracker id so you can toggle when calling this
+        if (useProjectTracker == 1) {
+          chrome.storage.sync.set({ useProjectTracker: 2 }, function () {});
+          displaySecondaryTicket();
+        } else {
+          chrome.storage.sync.set({ useProjectTracker: 1 }, function () {});
+          displayDefaultTicket();
+        }
+        // after toggling, reset the history view
+        clearHistory();
+        retrieveHistory();
       }
+    }
+  ); //end get sync
+}
+
+function initDisplayProject() {
+  chrome.storage.sync.get({ useProjectTracker: 1 }, function (result) {
+    let useProjectTracker = result.useProjectTracker;
+
+    if (useProjectTracker == 1) {
+      displayDefaultTicket();
+    } else {
+      displaySecondaryTicket();
     }
   }); //end get sync
 }

@@ -69,11 +69,20 @@ function sanitizeTicket(userInput) {
 
 function openNewTicket(ticket, sourceType) {
   const SANITIZED_TICKET = sanitizeTicket(ticket);
-  console.log(sourceType);
 
   chrome.storage.sync.get(function (items) {
-    const USER_HOST_URL = items.useURL;
-    const DEFAULT_PROJECT = items.useDefaultProject;
+    const PROJECT_SELECTED = items.useProjectTracker;
+
+    let USER_HOST_URL = items.useURL;
+    let DEFAULT_PROJECT = items.useDefaultProject;
+
+    if (PROJECT_SELECTED == 2) {
+      USER_HOST_URL = items.useSecondaryURL;
+      DEFAULT_PROJECT = items.useSecondaryProject;
+    } else {
+      USER_HOST_URL = items.useURL;
+      DEFAULT_PROJECT = items.useDefaultProject;
+    }
 
     const fullTicketID = getFullJiraID(DEFAULT_PROJECT, SANITIZED_TICKET);
 
