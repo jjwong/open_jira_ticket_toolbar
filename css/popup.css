@@ -150,6 +150,11 @@ input {
   background-color: #28739e;
 }
 
+#toggleProject:disabled {
+  outline: none;
+  background-color: #ffffff;
+}
+
 .glow-on-hover {
   border: none;
   outline: none;
@@ -204,6 +209,11 @@ input {
   left: 0;
   top: 0;
   border-radius: 10px;
+}
+
+.glow-on-hover:disabled {
+  outline: none;
+  background-color: #ffffff;
 }
 
 @keyframes glowing {

@@ -38,6 +38,12 @@ function displayError(error_type) {
 function displayDefaultTicket() {
   chrome.storage.sync.get(function (items) {
     let display = document.getElementById("toggleProject");
+
+    // disable button look if there is no secondary
+    if (items.useSecondaryURL === null || items.useSecondaryProject === null) {
+      display.disabled = true;
+    }
+
     if (display === null) {
       console.log("ERROR: Unable to find display ticket.");
       displayError(ERROR_MISSING);
@@ -46,7 +52,6 @@ function displayDefaultTicket() {
         items.useDefaultProject === undefined ||
         items.useDefaultProject === null
       ) {
-        document.getElementById("ticket").setAttribute("disabled", true);
         displayError(ERROR_NO_DEFAULT_SET);
       } else {
         display.innerText = items.useDefaultProject;
@@ -69,7 +74,6 @@ function displaySecondaryTicket() {
         items.useSecondaryProject === undefined ||
         items.useSecondaryProject === null
       ) {
-        document.getElementById("ticket").setAttribute("disabled", true);
         displayError(ERROR_NO_DEFAULT_SET);
       } else {
         display.innerText = items.useSecondaryProject;
