@@ -338,9 +338,15 @@ function toggleProject() {
 
 function handleProject() {
   chrome.storage.sync.get(
-    { useProjectTracker: 2, useSecondaryURL: "", useSecondaryProject: "" },
+    {
+      useProjectTracker: 2,
+      useURL: "",
+      useSecondaryURL: "",
+      useSecondaryProject: "",
+    },
     function (result) {
       let useProjectTracker = result.useProjectTracker;
+      let useURL = result.useURL;
       let useSecondaryURL = result.useSecondaryURL;
       let useSecondaryProject = result.useSecondaryProject;
 
@@ -356,9 +362,12 @@ function handleProject() {
           chrome.storage.sync.set({ useProjectTracker: 1 }, function () {});
           displayDefaultTicket();
         }
-        // after toggling, reset the history view
-        clearHistory();
-        retrieveHistory();
+
+        // reset the history view if the URLs are different after toggling
+        if (useURL != useSecondaryURL) {
+          clearHistory();
+          retrieveHistory();
+        }
       }
     }
   ); //end get sync

@@ -136,17 +136,10 @@ input {
 }
 
 #toggleProject {
-  /* background: #2a88ad;
-  color: #fff;
-  border: 1px solid #fff;
-  font-size: 12px;
-  font-weight: normal;
-  letter-spacing: 1px;
-  text-transform: uppercase; */
   position: absolute;
-  top: -12px;
+  top: -16px;
   left: 0px;
-  font-size: 12px;
+  font-size: 14px;
   color: rgb(0, 0, 0);
   pointer-event: none;
   transition: all 0.5s ease-in-out;
@@ -155,4 +148,72 @@ input {
 #toggleProject:active {
   background: linear-gradient(to bottom, #2d77a2 5%, #337da8 100%);
   background-color: #28739e;
+}
+
+.glow-on-hover {
+  border: none;
+  outline: none;
+  color: #000000;
+  background: #ffffff;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  outline: 1px solid hsla(0, 0%, 0%, 0.8);
+}
+
+.glow-on-hover:before {
+  content: "";
+  background: linear-gradient(45deg, #ffffff, #00ffd5, #092bd6, #3abee6);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.glow-on-hover:active {
+  color: #ffffff;
+}
+
+.glow-on-hover:active:after {
+  background: transparent;
+}
+
+.glow-on-hover:focus {
+  outline: 3px solid hsla(201, 100%, 50%, 0.8);
+}
+
+.glow-on-hover:hover:before {
+  opacity: 1;
+}
+
+.glow-on-hover:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }

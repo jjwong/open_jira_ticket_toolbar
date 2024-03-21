@@ -73,6 +73,12 @@ label {
   font-size: 15px;
 }
 
+#ticketSecondaryPreview {
+  margin-top: 0px;
+  color: #000;
+  font-size: 15px;
+}
+
 #badOptions {
   padding-left: 8px;
 }
