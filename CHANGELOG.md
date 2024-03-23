@@ -1,4 +1,6 @@
 # Changelog
+* 3.1.3
+	* Fix a few undefined states, cleanup
 * 3.1.2
 	* Prevent bad toggle state
 * 3.1.1

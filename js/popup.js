@@ -49,8 +49,8 @@ function displayDefaultTicket() {
       displayError(ERROR_MISSING);
     } else {
       if (
-        items.useDefaultProject === undefined ||
-        items.useDefaultProject === null
+        isEmpty(items.useDefaultProject) ||
+        isEmpty(items.useDefaultProject)
       ) {
         displayError(ERROR_NO_DEFAULT_SET);
       } else {
@@ -71,8 +71,8 @@ function displaySecondaryTicket() {
       displayError(ERROR_MISSING);
     } else {
       if (
-        items.useSecondaryProject === undefined ||
-        items.useSecondaryProject === null
+        isEmpty(items.useSecondaryProject) ||
+        isEmpty(items.useSecondaryProject)
       ) {
         displayError(ERROR_NO_DEFAULT_SET);
       } else {
@@ -354,8 +354,12 @@ function handleProject() {
       let useSecondaryURL = result.useSecondaryURL;
       let useSecondaryProject = result.useSecondaryProject;
 
-      if (isEmpty(useSecondaryURL) || isEmpty(useSecondaryProject) === null) {
-        // do nothing if its not set
+      if (isEmpty(useSecondaryURL) || isEmpty(useSecondaryProject)) {
+        // should never reach here, but if there is an odd state, refresh the display
+        displayDefaultTicket();
+        clearHistory();
+        retrieveHistory();
+        // if there is a bad state, let us know to debug.
         console.log("No secondary project set, go to options to set.");
       } else {
         // intention is to swap useProjectTracker id so you can toggle when calling this
