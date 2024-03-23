@@ -8,9 +8,10 @@
 [![Open Jira Ticket @Edge Store](https://get.microsoft.com/images/en-us%20dark.svg "Open Jira Ticket @Edge Store")](https://microsoftedge.microsoft.com/addons/detail/open-jira-ticket/mcgalgcbedknfbohhhnngnbofngoifkm)
 
 # Description
-Simple Chrome extension that will allow a user to search for JIRA tickets via the provided toolbar.
+Simple Chrome extension that will allow a user to search for JIRA tickets via the provided toolbar. Toggle between JIRA instances and review your previously searched tickets.
 
 ## Bonus Features
+* Supports 2 JIRA projects or instances
 * Enable World Map display in toolbar
 * Enable Fiscal Quarter Calendar display in toolbar
 
