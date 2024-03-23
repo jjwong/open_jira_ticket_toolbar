@@ -1,4 +1,8 @@
 # Changelog
+* 3.1.2
+	* Prevent bad toggle state
+* 3.1.1
+	* Minor fix for undefined button click
 * 3.1.0
 	* Add in secondary jira projects feature
 	* Add in less strict filtering for projects with numbers like R2D2

@@ -40,7 +40,7 @@ function displayDefaultTicket() {
     let display = document.getElementById("toggleProject");
 
     // disable button look if there is no secondary
-    if (items.useSecondaryURL === null || items.useSecondaryProject === null) {
+    if (isEmpty(items.useSecondaryURL) || isEmpty(items.useSecondaryProject)) {
       display.disabled = true;
     }
 
@@ -343,7 +343,7 @@ function toggleProject() {
 function handleProject() {
   chrome.storage.sync.get(
     {
-      useProjectTracker: 2,
+      useProjectTracker: 1,
       useURL: "",
       useSecondaryURL: "",
       useSecondaryProject: "",
@@ -354,7 +354,7 @@ function handleProject() {
       let useSecondaryURL = result.useSecondaryURL;
       let useSecondaryProject = result.useSecondaryProject;
 
-      if (useSecondaryURL == null || useSecondaryProject == null) {
+      if (isEmpty(useSecondaryURL) || isEmpty(useSecondaryProject) === null) {
         // do nothing if its not set
         console.log("No secondary project set, go to options to set.");
       } else {
@@ -387,4 +387,10 @@ function initDisplayProject() {
       displaySecondaryTicket();
     }
   }); //end get sync
+}
+
+function isEmpty(value) {
+  return (
+    value == null || (typeof value === "string" && value.trim().length === 0)
+  );
 }
