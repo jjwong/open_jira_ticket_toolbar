@@ -5,13 +5,24 @@ const RANKS = [
   "Explorer",
   "JIRA Opener",
   "Agile Apprentice",
-  "Scrum Master",
-  "Fastest JIRA finder",
+  "Scrum Scout",
+  "Fastest JIRA Finder",
   "Agile Adept",
   "Keyboard Pro",
+  "Sprint Strategist",
   "Agile Master",
   "Supreme Agile Chief Keyboard Pro",
   "Supreme Agile Chief Scrum Master Keyboard Pro",
+  "Workflow Whisperer",
+  "Backlog Baron",
+  "Epic Executor",
+  "JIRA Juggernaut",
+  "Velocity Virtuoso",
+  "Sprint Sorcerer",
+  "Kanban Commander",
+  "JIRA Overlord",
+  "Chief Ticket Alchemist",
+  "Legendary Agile Archmage"
 ];
 
 function showErrorText(string, project_tracker_id) {
@@ -327,26 +338,48 @@ function setRankDisplay(usage) {
   let rankName;
   let rankNumber;
 
-  if (usage < 100) {
+  if (usage < 50) {
     rankName = RANKS[0];
-  } else if (usage < 200) {
+  } else if (usage < 100) {
     rankName = RANKS[1];
-  } else if (usage < 500) {
+  } else if (usage < 200) {
     rankName = RANKS[2];
-  } else if (usage < 1000) {
+  } else if (usage < 500) {
     rankName = RANKS[3];
-  } else if (usage < 5000) {
+  } else if (usage < 1000) {
     rankName = RANKS[4];
-  } else if (usage < 10000) {
+  } else if (usage < 2000) {
     rankName = RANKS[5];
-  } else if (usage < 20000) {
+  } else if (usage < 5000) {
     rankName = RANKS[6];
-  } else if (usage < 30000) {
+  } else if (usage < 10000) {
     rankName = RANKS[7];
-  } else if (usage <= 49999) {
+  } else if (usage < 20000) {
     rankName = RANKS[8];
-  } else if (usage >= 50000) {
+  } else if (usage < 30000) {
     rankName = RANKS[9];
+  } else if (usage < 50000) {
+    rankName = RANKS[10];
+  } else if (usage < 75000) {
+    rankName = RANKS[11];
+  } else if (usage < 100000) {
+    rankName = RANKS[12];
+  } else if (usage < 150000) {
+    rankName = RANKS[13];
+  } else if (usage < 200000) {
+    rankName = RANKS[14];
+  } else if (usage < 300000) {
+    rankName = RANKS[15];
+  } else if (usage < 500000) {
+    rankName = RANKS[16];
+  } else if (usage < 750000) {
+    rankName = RANKS[17];
+  } else if (usage < 1000000) {
+    rankName = RANKS[18];
+  } else if (usage < 2000000) {
+    rankName = RANKS[19];
+  } else if (usage >= 2000000) {
+    rankName = RANKS[20];
   }
 
   rankNumber = RANKS.indexOf(rankName);

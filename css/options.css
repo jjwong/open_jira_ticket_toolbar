@@ -471,6 +471,14 @@ input[type="text"]::placeholder {
   border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.stats-section:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .stats-section::before {
