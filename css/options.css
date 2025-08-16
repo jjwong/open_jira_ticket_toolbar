@@ -273,6 +273,9 @@ input[type="text"]::placeholder {
   border: 1px solid #e5e7eb;
   transition: all 0.3s ease;
   cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #374151;
 }
 
 .checkbox-item:hover {
