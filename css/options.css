@@ -9,7 +9,7 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #ffffff 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -53,7 +53,7 @@ body {
   font-weight: 700;
   color: #1a1a1a;
   margin-bottom: 8px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -95,7 +95,7 @@ body {
   content: '';
   width: 4px;
   height: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   border-radius: 2px;
 }
 
@@ -126,8 +126,8 @@ input[type="text"] {
 }
 
 input[type="text"]:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   transform: translateY(-1px);
 }
 
@@ -275,15 +275,15 @@ input[type="text"]::placeholder {
 }
 
 .checkbox-item:hover {
-  border-color: #667eea;
-  background: #f8faff;
+  border-color: #3b82f6;
+  background: #f0f9ff;
   transform: translateY(-1px);
 }
 
 .checkbox-item input[type="checkbox"] {
   width: 20px;
   height: 20px;
-  accent-color: #667eea;
+  accent-color: #3b82f6;
   cursor: pointer;
 }
 
@@ -319,14 +319,14 @@ input[type="text"]::placeholder {
 }
 
 .language-info a {
-  color: #667eea;
+  color: #3b82f6;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .language-info a:hover {
-  color: #5a67d8;
+  color: #1e3a8a;
   text-decoration: underline;
 }
 
@@ -388,7 +388,7 @@ input[type="text"]::placeholder {
 
 /* Save Button */
 #save {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   color: #ffffff;
   border: none;
   padding: 16px 32px;
@@ -399,14 +399,14 @@ input[type="text"]::placeholder {
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
   width: 100%;
   margin-top: 16px;
 }
 
 #save:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
 }
 
 #save:active {
@@ -416,7 +416,7 @@ input[type="text"]::placeholder {
 /* Right Side Panel */
 .overlay-container {
   flex: 0 0 400px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -602,6 +602,6 @@ input[type="text"]::placeholder {
 /* Focus styles for accessibility */
 input:focus,
 button:focus {
-  outline: 2px solid #667eea;
+  outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
