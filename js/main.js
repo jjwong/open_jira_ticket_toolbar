@@ -77,13 +77,13 @@ function sanitizeTicketWithUnderscores(userInput) {
 
   // Simple and direct regex for full tickets with underscores
   const fullTicketWithUnderscoresRegex = new RegExp("([A-Z0-9_]+-\\d+)", "i");
-  
+
   // For semi-tickets (project + number without dash)
   const semiTicketWithUnderscoresRegex = new RegExp("([A-Z0-9_]+\\d+)", "i");
-  
+
   // For space-separated tickets
   const spaceTicketRegex = new RegExp("([A-Z0-9_]+\\s+\\d+)", "i");
-  
+
   // For numbers only
   const numbersOnlyRegex = new RegExp("(\\d+)", "i");
 
@@ -93,7 +93,7 @@ function sanitizeTicketWithUnderscores(userInput) {
   const fullTicketMatch = cleanUserInput.match(fullTicketWithUnderscoresRegex);
   if (fullTicketMatch) {
     sanitizedOutput = fullTicketMatch[0];
-  } 
+  }
   // Check for semi-ticket format (e.g., A8SIT2_IRM33)
   else if (cleanUserInput.match(semiTicketWithUnderscoresRegex)) {
     var semiTicket = cleanUserInput.match(semiTicketWithUnderscoresRegex)[0];
@@ -102,11 +102,11 @@ function sanitizeTicketWithUnderscores(userInput) {
     var jprojectNumber = semiTicket.match(numbersOnlyRegex);
     //Form ticket
     sanitizedOutput = jprojectText[0].concat("-", jprojectNumber[0]);
-  } 
+  }
   // Check for space-separated format
   else if (cleanUserInput.match(spaceTicketRegex)) {
     sanitizedOutput = cleanUserInput.replace(/\s+/g, "-");
-  } 
+  }
   // Check for numbers only
   else if (cleanUserInput.match(numbersOnlyRegex)) {
     var defaultTicket = cleanUserInput.match(numbersOnlyRegex);
@@ -155,19 +155,23 @@ function openNewTicket(ticket, sourceType) {
 
     // Determine if this is a default project ticket (just numbers) or a full ticket
     const isDefaultTicket = isDefaultProject(ticket);
-    
+
     let SANITIZED_TICKET;
     if (isDefaultTicket) {
       // For default tickets (just numbers), use simple number extraction
       SANITIZED_TICKET = sanitizeTicketOnly(ticket);
     } else {
       // For full tickets, use appropriate sanitization based on underscore setting
-      SANITIZED_TICKET = ALLOW_UNDERSCORES ? 
-        sanitizeTicketWithUnderscores(ticket) : 
-        sanitizeTicket(ticket);
+      SANITIZED_TICKET = ALLOW_UNDERSCORES
+        ? sanitizeTicketWithUnderscores(ticket)
+        : sanitizeTicket(ticket);
     }
 
-    const fullTicketID = getFullJiraID(DEFAULT_PROJECT, SANITIZED_TICKET, ALLOW_UNDERSCORES);
+    const fullTicketID = getFullJiraID(
+      DEFAULT_PROJECT,
+      SANITIZED_TICKET,
+      ALLOW_UNDERSCORES
+    );
 
     let formURL = formTicketURL(USER_HOST_URL, fullTicketID);
 
@@ -186,7 +190,11 @@ function saveHistory(userStringInput) {
       let allowUnderscores = result.useAllowUnderscores;
       let jiraTicketID;
 
-      jiraTicketID = getFullJiraID(defaultProject, userStringInput, allowUnderscores);
+      jiraTicketID = getFullJiraID(
+        defaultProject,
+        userStringInput,
+        allowUnderscores
+      );
 
       let checkTicketIndex = userHistory.indexOf(jiraTicketID);
       // Check if string is in index, if so. Remove it first, then add it back in later.
@@ -238,4 +246,10 @@ function saveUsage() {
   }); //end get sync
 } //end saveUsage
 
-export { openNewTicket, sanitizeTicket, sanitizeTicketWithUnderscores, sanitizeTicketOnly, formTicketURL };
+export {
+  openNewTicket,
+  sanitizeTicket,
+  sanitizeTicketWithUnderscores,
+  sanitizeTicketOnly,
+  formTicketURL,
+};
