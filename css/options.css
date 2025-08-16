@@ -27,7 +27,7 @@ body {
   overflow: hidden;
   width: 100%;
   max-width: 1200px;
-  min-height: 700px;
+  min-height: 600px;
   max-height: 90vh;
   display: flex;
   position: relative;
@@ -36,7 +36,7 @@ body {
 /* Left Form Container */
 .form-container {
   flex: 1;
-  padding: 40px;
+  padding: 24px 32px;
   background: #ffffff;
   overflow-y: auto;
   max-height: 90vh;
@@ -45,6 +45,7 @@ body {
 .options-form {
   max-width: 600px;
   margin: 0 auto;
+  padding-bottom: 16px;
 }
 
 /* Header Section */
@@ -62,7 +63,7 @@ body {
 .options-form > span:first-of-type {
   font-size: 1.1rem;
   color: #666;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   display: block;
 }
 
@@ -70,8 +71,8 @@ body {
 .form-section {
   background: #f8fafc;
   border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 24px;
+  padding: 20px;
+  margin-bottom: 20px;
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
 }
@@ -85,7 +86,7 @@ body {
   font-size: 1.25rem;
   font-weight: 600;
   color: #1a1a1a;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -101,7 +102,7 @@ body {
 
 /* Form Fields */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 label {
@@ -165,8 +166,8 @@ input[type="text"]::placeholder {
   background: #f0f9ff;
   border: 1px solid #bae6fd;
   border-radius: 12px;
-  padding: 16px;
-  margin-top: 12px;
+  padding: 12px;
+  margin-top: 8px;
   position: relative;
   transition: all 0.3s ease;
 }
@@ -250,16 +251,16 @@ input[type="text"]::placeholder {
 .checkbox-section {
   background: #f8fafc;
   border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 24px;
+  padding: 20px;
+  margin-bottom: 20px;
   border: 1px solid #e2e8f0;
 }
 
 .checkbox-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-top: 16px;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 .checkbox-item {
@@ -298,8 +299,8 @@ input[type="text"]::placeholder {
 .language-section {
   background: #f8fafc;
   border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 24px;
+  padding: 20px;
+  margin-bottom: 20px;
   border: 1px solid #e2e8f0;
 }
 
@@ -307,8 +308,8 @@ input[type="text"]::placeholder {
   background: #f0f9ff;
   border: 1px solid #bae6fd;
   border-radius: 10px;
-  padding: 16px;
-  margin-top: 12px;
+  padding: 12px;
+  margin-top: 8px;
 }
 
 .language-info span {
@@ -332,7 +333,7 @@ input[type="text"]::placeholder {
 
 /* Status Messages */
 #status {
-  margin: 24px 0;
+  margin: 20px 0;
   text-align: center;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -340,9 +341,9 @@ input[type="text"]::placeholder {
 
 #status div {
   font-size: 1rem;
-  padding: 16px 24px;
+  padding: 12px 20px;
   border-radius: 12px;
-  margin: 12px 0;
+  margin: 8px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -391,7 +392,7 @@ input[type="text"]::placeholder {
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   color: #ffffff;
   border: none;
-  padding: 16px 32px;
+  padding: 14px 28px;
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
@@ -401,7 +402,7 @@ input[type="text"]::placeholder {
   letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
   width: 100%;
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 #save:hover {
