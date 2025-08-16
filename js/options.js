@@ -153,6 +153,7 @@ function checkHttp(string) {
 
 function sanitizeProject(element_id, project_tracker_id) {
   var input_default_project = document.getElementById(element_id).value;
+  var allow_underscores = document.getElementById("allowUnderscores").checked;
 
   // rule set 1
   if (project_tracker_id == 1) {
@@ -164,7 +165,11 @@ function sanitizeProject(element_id, project_tracker_id) {
       showErrorText(OPTIONS_NEED_KEY, project_tracker_id);
     }
 
-    var only_text_regex = new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+    // Use different regex based on underscore setting
+    var only_text_regex = allow_underscores ? 
+      new RegExp("[a-z0-9_]+", "i") : 
+      new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+    
     var sanitized_project = input_default_project.match(only_text_regex);
     return sanitized_project[0].toUpperCase();
   }
@@ -175,7 +180,11 @@ function sanitizeProject(element_id, project_tracker_id) {
       showErrorText(OPTIONS_NEED_KEY, project_tracker_id);
     }
 
-    var only_text_regex = new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+    // Use different regex based on underscore setting
+    var only_text_regex = allow_underscores ? 
+      new RegExp("[a-z0-9_]+", "i") : 
+      new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+    
     var sanitized_project = input_default_project.match(only_text_regex);
     return sanitized_project[0].toUpperCase();
   } else if (isBlank(input_default_project)) {
@@ -199,6 +208,7 @@ function save_options() {
   let input_fiscal_quarter = document.getElementById("fiscalQuarter").checked;
   let input_history_preference =
     document.getElementById("historyPreference").checked;
+  let input_allow_underscores = document.getElementById("allowUnderscores").checked;
 
   // set tracker to 1 if either secondary option is empty
   if (input_secondary_url == null || input_secondary_project == null) {
@@ -215,6 +225,7 @@ function save_options() {
       useWorldClock: input_world_clock,
       useFiscalQuarter: input_fiscal_quarter,
       useHistoryPreference: input_history_preference,
+      useAllowUnderscores: input_allow_underscores,
       // useLanguage: input_language,
     },
     function () {
@@ -261,6 +272,7 @@ function restore_options() {
       useWorldClock: false,
       useFiscalQuarter: false,
       useHistoryPreference: true,
+      useAllowUnderscores: false,
       useSecondaryURL: "",
       useSecondaryProject: "",
       useProjectTracker: 1,
@@ -277,6 +289,7 @@ function restore_options() {
       document.getElementById("fiscalQuarter").checked = items.useFiscalQuarter;
       document.getElementById("historyPreference").checked =
         items.useHistoryPreference;
+      document.getElementById("allowUnderscores").checked = items.useAllowUnderscores;
 
       // default project preview
       setTicketPreview(

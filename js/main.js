@@ -67,11 +67,80 @@ function sanitizeTicket(userInput) {
   return sanitizedOutput;
 }
 
-function openNewTicket(ticket, sourceType) {
-  const SANITIZED_TICKET = sanitizeTicket(ticket);
+function sanitizeTicketWithUnderscores(userInput) {
+  /* Enhanced version that supports underscores in project IDs
+   This allows for project IDs like A8SIT2_IRM-123
+   */
 
+  // Trim and uppercase user input
+  let cleanUserInput = userInput.toString().toUpperCase().trim();
+
+  // Simple and direct regex for full tickets with underscores
+  const fullTicketWithUnderscoresRegex = new RegExp("([A-Z0-9_]+-\\d+)", "i");
+  
+  // For semi-tickets (project + number without dash)
+  const semiTicketWithUnderscoresRegex = new RegExp("([A-Z0-9_]+\\d+)", "i");
+  
+  // For space-separated tickets
+  const spaceTicketRegex = new RegExp("([A-Z0-9_]+\\s+\\d+)", "i");
+  
+  // For numbers only
+  const numbersOnlyRegex = new RegExp("(\\d+)", "i");
+
+  let sanitizedOutput = "";
+
+  // Check for full ticket format first (e.g., A8SIT2_IRM-33)
+  const fullTicketMatch = cleanUserInput.match(fullTicketWithUnderscoresRegex);
+  if (fullTicketMatch) {
+    sanitizedOutput = fullTicketMatch[0];
+  } 
+  // Check for semi-ticket format (e.g., A8SIT2_IRM33)
+  else if (cleanUserInput.match(semiTicketWithUnderscoresRegex)) {
+    var semiTicket = cleanUserInput.match(semiTicketWithUnderscoresRegex)[0];
+    var jprojectRegex = new RegExp("([A-Z0-9_]+)", "i");
+    var jprojectText = semiTicket.match(jprojectRegex);
+    var jprojectNumber = semiTicket.match(numbersOnlyRegex);
+    //Form ticket
+    sanitizedOutput = jprojectText[0].concat("-", jprojectNumber[0]);
+  } 
+  // Check for space-separated format
+  else if (cleanUserInput.match(spaceTicketRegex)) {
+    sanitizedOutput = cleanUserInput.replace(/\s+/g, "-");
+  } 
+  // Check for numbers only
+  else if (cleanUserInput.match(numbersOnlyRegex)) {
+    var defaultTicket = cleanUserInput.match(numbersOnlyRegex);
+    sanitizedOutput = defaultTicket[0];
+  } else {
+    sanitizedOutput = "invalid ticket";
+  }
+
+  return sanitizedOutput;
+}
+
+function sanitizeTicketOnly(userInput) {
+  /* Sanitizes only the ticket number part, not the project part
+   This is used when we have a default project with underscores
+   */
+
+  // Trim and uppercase user input
+  let cleanUserInput = userInput.toString().toUpperCase().trim();
+
+  // Only extract the ticket number part
+  const numbersOnlyRegex = new RegExp("(\\d+)", "i");
+  const ticketMatch = cleanUserInput.match(numbersOnlyRegex);
+
+  if (ticketMatch) {
+    return ticketMatch[0];
+  } else {
+    return "invalid ticket";
+  }
+}
+
+function openNewTicket(ticket, sourceType) {
   chrome.storage.sync.get(function (items) {
     const PROJECT_SELECTED = items.useProjectTracker;
+    const ALLOW_UNDERSCORES = items.useAllowUnderscores;
 
     let USER_HOST_URL = items.useURL;
     let DEFAULT_PROJECT = items.useDefaultProject;
@@ -84,7 +153,21 @@ function openNewTicket(ticket, sourceType) {
       DEFAULT_PROJECT = items.useDefaultProject;
     }
 
-    const fullTicketID = getFullJiraID(DEFAULT_PROJECT, SANITIZED_TICKET);
+    // Determine if this is a default project ticket (just numbers) or a full ticket
+    const isDefaultTicket = isDefaultProject(ticket);
+    
+    let SANITIZED_TICKET;
+    if (isDefaultTicket) {
+      // For default tickets (just numbers), use simple number extraction
+      SANITIZED_TICKET = sanitizeTicketOnly(ticket);
+    } else {
+      // For full tickets, use appropriate sanitization based on underscore setting
+      SANITIZED_TICKET = ALLOW_UNDERSCORES ? 
+        sanitizeTicketWithUnderscores(ticket) : 
+        sanitizeTicket(ticket);
+    }
+
+    const fullTicketID = getFullJiraID(DEFAULT_PROJECT, SANITIZED_TICKET, ALLOW_UNDERSCORES);
 
     let formURL = formTicketURL(USER_HOST_URL, fullTicketID);
 
@@ -96,13 +179,14 @@ function openNewTicket(ticket, sourceType) {
 
 function saveHistory(userStringInput) {
   chrome.storage.sync.get(
-    { userHistory: [], useDefaultProject: "PL" },
+    { userHistory: [], useDefaultProject: "PL", useAllowUnderscores: false },
     function (result) {
       let userHistory = result.userHistory;
       let defaultProject = result.useDefaultProject;
+      let allowUnderscores = result.useAllowUnderscores;
       let jiraTicketID;
 
-      jiraTicketID = getFullJiraID(defaultProject, userStringInput);
+      jiraTicketID = getFullJiraID(defaultProject, userStringInput, allowUnderscores);
 
       let checkTicketIndex = userHistory.indexOf(jiraTicketID);
       // Check if string is in index, if so. Remove it first, then add it back in later.
@@ -124,18 +208,17 @@ function saveHistory(userStringInput) {
   ); //end get sync
 } //end saveHistory
 
-function getFullJiraID(defaultProject, ticket) {
-  let sanitizedTicket = sanitizeTicket(ticket);
-
+function getFullJiraID(defaultProject, ticket, allowUnderscores = false) {
   if (ticket === "invalid ticket") {
     console.error("Invalid ticket reached getFullJiraID.");
+    return "invalid ticket";
   } else {
     // Add default project to history
-    if (isDefaultProject(sanitizedTicket)) {
-      let defaultTicket = defaultProject + "-" + sanitizedTicket;
+    if (isDefaultProject(ticket)) {
+      let defaultTicket = defaultProject + "-" + ticket;
       return defaultTicket;
     } else {
-      return sanitizedTicket;
+      return ticket;
     }
   }
 }
@@ -155,4 +238,4 @@ function saveUsage() {
   }); //end get sync
 } //end saveUsage
 
-export { openNewTicket, sanitizeTicket, formTicketURL };
+export { openNewTicket, sanitizeTicket, sanitizeTicketWithUnderscores, sanitizeTicketOnly, formTicketURL };

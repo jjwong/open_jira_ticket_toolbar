@@ -86,5 +86,9 @@
     "rankHeader": {
         "message": "Rango",
         "description": "Rank"
+    },
+    "optionsAllowUnderscoresLabel": {
+        "message": "Habilitar guiones bajos en IDs de proyecto",
+        "description": "Label for the allow underscores feature"
     }
 }

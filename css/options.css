@@ -274,7 +274,7 @@ input[type="text"]::placeholder {
   transition: all 0.3s ease;
   cursor: pointer;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: #374151;
 }
 
