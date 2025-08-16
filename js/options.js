@@ -5,13 +5,24 @@ const RANKS = [
   "Explorer",
   "JIRA Opener",
   "Agile Apprentice",
-  "Scrum Master",
-  "Fastest JIRA finder",
+  "Scrum Scout",
+  "Fastest JIRA Finder",
   "Agile Adept",
   "Keyboard Pro",
+  "Sprint Strategist",
   "Agile Master",
   "Supreme Agile Chief Keyboard Pro",
   "Supreme Agile Chief Scrum Master Keyboard Pro",
+  "Workflow Whisperer",
+  "Backlog Baron",
+  "Epic Executor",
+  "JIRA Juggernaut",
+  "Velocity Virtuoso",
+  "Sprint Sorcerer",
+  "Kanban Commander",
+  "JIRA Overlord",
+  "Chief Ticket Alchemist",
+  "Legendary Agile Archmage"
 ];
 
 function showErrorText(string, project_tracker_id) {
@@ -25,10 +36,28 @@ function showErrorText(string, project_tracker_id) {
 
   if (string === OPTIONS_NEED_URL) {
     newDiv.textContent = chrome.i18n.getMessage("errorOptionsUrl");
+    // Highlight the URL field
+    if (project_tracker_id == 1) {
+      document.getElementById("inputURL").classList.add("error");
+    } else {
+      document.getElementById("inputSecondaryURL").classList.add("error");
+    }
   } else if (string === OPTIONS_NEED_HTTP) {
     newDiv.textContent = chrome.i18n.getMessage("errorOptionsHttp");
+    // Highlight the URL field
+    if (project_tracker_id == 1) {
+      document.getElementById("inputURL").classList.add("error");
+    } else {
+      document.getElementById("inputSecondaryURL").classList.add("error");
+    }
   } else if (string === OPTIONS_NEED_KEY) {
     newDiv.textContent = chrome.i18n.getMessage("errorOptionsKey");
+    // Highlight the project field
+    if (project_tracker_id == 1) {
+      document.getElementById("inputDefaultProject").classList.add("error");
+    } else {
+      document.getElementById("inputSecondaryProject").classList.add("error");
+    }
   }
 
   displayStatus.style.color = "red";
@@ -71,15 +100,32 @@ function removeSuccess() {
 
 function setPreviewError(error_display_id, preview_id) {
   var badOptionsText = document.getElementById(error_display_id);
-  badOptionsText.style.color = "red";
-  badOptionsText.style.visibility = "visible";
+  badOptionsText.classList.remove("hidden");
   setTicketPreview("N/A", "red", preview_id);
+  
+  // Update preview section styling
+  if (preview_id === "ticketPreview") {
+    document.querySelector('.preview-section').classList.add("error");
+  } else if (preview_id === "ticketSecondaryPreview") {
+    document.querySelectorAll('.preview-section')[1].classList.add("error");
+  }
 }
 
 function setTicketPreview(string, color, element_id) {
   var ticketPreview = document.getElementById(element_id);
   ticketPreview.style.color = color;
   ticketPreview.innerText = string;
+  
+  // Clear error messages and styling when preview is valid
+  if (color === "green") {
+    if (element_id === "ticketPreview") {
+      document.getElementById("badOptions").classList.add("hidden");
+      document.querySelector('.preview-section').classList.remove("error");
+    } else if (element_id === "ticketSecondaryPreview") {
+      document.getElementById("badSecondaryOptions").classList.add("hidden");
+      document.querySelectorAll('.preview-section')[1].classList.remove("error");
+    }
+  }
 }
 
 function sanitizeURL(element_id, project_tracker_id) {
@@ -118,6 +164,7 @@ function checkHttp(string) {
 
 function sanitizeProject(element_id, project_tracker_id) {
   var input_default_project = document.getElementById(element_id).value;
+  var allow_underscores = document.getElementById("allowUnderscores").checked;
 
   // rule set 1
   if (project_tracker_id == 1) {
@@ -129,7 +176,11 @@ function sanitizeProject(element_id, project_tracker_id) {
       showErrorText(OPTIONS_NEED_KEY, project_tracker_id);
     }
 
-    var only_text_regex = new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+    // Use different regex based on underscore setting
+    var only_text_regex = allow_underscores ? 
+      new RegExp("[a-z0-9_]+", "i") : 
+      new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+    
     var sanitized_project = input_default_project.match(only_text_regex);
     return sanitized_project[0].toUpperCase();
   }
@@ -140,7 +191,11 @@ function sanitizeProject(element_id, project_tracker_id) {
       showErrorText(OPTIONS_NEED_KEY, project_tracker_id);
     }
 
-    var only_text_regex = new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+    // Use different regex based on underscore setting
+    var only_text_regex = allow_underscores ? 
+      new RegExp("[a-z0-9_]+", "i") : 
+      new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+    
     var sanitized_project = input_default_project.match(only_text_regex);
     return sanitized_project[0].toUpperCase();
   } else if (isBlank(input_default_project)) {
@@ -164,6 +219,7 @@ function save_options() {
   let input_fiscal_quarter = document.getElementById("fiscalQuarter").checked;
   let input_history_preference =
     document.getElementById("historyPreference").checked;
+  let input_allow_underscores = document.getElementById("allowUnderscores").checked;
 
   // set tracker to 1 if either secondary option is empty
   if (input_secondary_url == null || input_secondary_project == null) {
@@ -180,6 +236,7 @@ function save_options() {
       useWorldClock: input_world_clock,
       useFiscalQuarter: input_fiscal_quarter,
       useHistoryPreference: input_history_preference,
+      useAllowUnderscores: input_allow_underscores,
       // useLanguage: input_language,
     },
     function () {
@@ -195,7 +252,29 @@ function save_options() {
 // Defined values are defaults.
 function restore_options() {
   var badOptionsText = document.getElementById("badOptions");
-  badOptionsText.style.visibility = "hidden";
+  var badSecondaryOptionsText = document.getElementById("badSecondaryOptions");
+  badOptionsText.classList.add("hidden");
+  badSecondaryOptionsText.classList.add("hidden");
+  
+  // Clear error styling from preview sections
+  document.querySelectorAll('.preview-section').forEach(section => {
+    section.classList.remove("error");
+  });
+  
+  // Clear error highlighting from input fields
+  const inputFields = [
+    "inputURL",
+    "inputDefaultProject", 
+    "inputSecondaryURL",
+    "inputSecondaryProject"
+  ];
+  
+  inputFields.forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (field) {
+      field.classList.remove("error");
+    }
+  });
   chrome.storage.sync.get(
     {
       useURL: "http://jiraland.issues.com",
@@ -204,6 +283,7 @@ function restore_options() {
       useWorldClock: false,
       useFiscalQuarter: false,
       useHistoryPreference: true,
+      useAllowUnderscores: false,
       useSecondaryURL: "",
       useSecondaryProject: "",
       useProjectTracker: 1,
@@ -220,6 +300,7 @@ function restore_options() {
       document.getElementById("fiscalQuarter").checked = items.useFiscalQuarter;
       document.getElementById("historyPreference").checked =
         items.useHistoryPreference;
+      document.getElementById("allowUnderscores").checked = items.useAllowUnderscores;
 
       // default project preview
       setTicketPreview(
@@ -257,26 +338,48 @@ function setRankDisplay(usage) {
   let rankName;
   let rankNumber;
 
-  if (usage < 100) {
+  if (usage < 50) {
     rankName = RANKS[0];
-  } else if (usage < 200) {
+  } else if (usage < 100) {
     rankName = RANKS[1];
-  } else if (usage < 500) {
+  } else if (usage < 200) {
     rankName = RANKS[2];
-  } else if (usage < 1000) {
+  } else if (usage < 500) {
     rankName = RANKS[3];
-  } else if (usage < 5000) {
+  } else if (usage < 1000) {
     rankName = RANKS[4];
-  } else if (usage < 10000) {
+  } else if (usage < 2000) {
     rankName = RANKS[5];
-  } else if (usage < 20000) {
+  } else if (usage < 5000) {
     rankName = RANKS[6];
-  } else if (usage < 30000) {
+  } else if (usage < 10000) {
     rankName = RANKS[7];
-  } else if (usage <= 49999) {
+  } else if (usage < 20000) {
     rankName = RANKS[8];
-  } else if (usage >= 50000) {
+  } else if (usage < 30000) {
     rankName = RANKS[9];
+  } else if (usage < 50000) {
+    rankName = RANKS[10];
+  } else if (usage < 75000) {
+    rankName = RANKS[11];
+  } else if (usage < 100000) {
+    rankName = RANKS[12];
+  } else if (usage < 150000) {
+    rankName = RANKS[13];
+  } else if (usage < 200000) {
+    rankName = RANKS[14];
+  } else if (usage < 300000) {
+    rankName = RANKS[15];
+  } else if (usage < 500000) {
+    rankName = RANKS[16];
+  } else if (usage < 750000) {
+    rankName = RANKS[17];
+  } else if (usage < 1000000) {
+    rankName = RANKS[18];
+  } else if (usage < 2000000) {
+    rankName = RANKS[19];
+  } else if (usage >= 2000000) {
+    rankName = RANKS[20];
   }
 
   rankNumber = RANKS.indexOf(rankName);
@@ -286,6 +389,72 @@ function setRankDisplay(usage) {
 document.addEventListener("DOMContentLoaded", restore_options);
 window.onload = function () {
   document.getElementById("save").addEventListener("click", save_options);
+  
+  // Add event listeners to clear error highlighting when user starts typing
+  const inputFields = [
+    "inputURL",
+    "inputDefaultProject", 
+    "inputSecondaryURL",
+    "inputSecondaryProject"
+  ];
+  
+  inputFields.forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (field) {
+      field.addEventListener("input", function() {
+        this.classList.remove("error");
+      });
+      field.addEventListener("focus", function() {
+        this.classList.remove("error");
+      });
+    }
+  });
+  
+  // Add rating button functionality with browser detection
+  const ratingButton = document.getElementById("rateExtension");
+  const ratingText = document.querySelector(".rating-section p");
+  const ratingTitle = document.querySelector(".rating-section h3");
+  
+  if (ratingButton && ratingText && ratingTitle) {
+    // Detect browser
+    const isEdge = navigator.userAgent.includes("Edg");
+    const isChrome = navigator.userAgent.includes("Chrome") && !navigator.userAgent.includes("Edg");
+    
+    if (isEdge) {
+      // Edge Add-ons store
+      ratingTitle.textContent = "Enjoying the extension?";
+      ratingText.textContent = "Rate us 5 stars on the Microsoft Edge Add-ons store!";
+      ratingButton.textContent = "Rate on Edge Add-ons";
+      ratingButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        chrome.tabs.create({
+          url: "https://microsoftedge.microsoft.com/addons/detail/open-jira-ticket/mcgalgcbedknfbohhhnngnbofngoifkm"
+        });
+      });
+    } else if (isChrome) {
+      // Chrome Web Store
+      ratingTitle.textContent = "Enjoying the extension?";
+      ratingText.textContent = "Rate us 5 stars on the Chrome Web Store!";
+      ratingButton.textContent = "Rate on Chrome Web Store";
+      ratingButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        chrome.tabs.create({
+          url: "https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci"
+        });
+      });
+    } else {
+      // Fallback for other browsers
+      ratingTitle.textContent = "Enjoying the extension?";
+      ratingText.textContent = "Rate us 5 stars on the Chrome Web Store!";
+      ratingButton.textContent = "Rate Extension";
+      ratingButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        chrome.tabs.create({
+          url: "https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci"
+        });
+      });
+    }
+  }
 };
 
 function isNumberAtStart(string) {

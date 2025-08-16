@@ -86,5 +86,9 @@
     "rankHeader": {
         "message": "ランク",
         "description": "Rank"
+    },
+    "optionsAllowUnderscoresLabel": {
+        "message": "プロジェクトIDでアンダースコアを有効化",
+        "description": "Label for the allow underscores feature"
     }
 }

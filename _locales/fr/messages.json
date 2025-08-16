@@ -86,5 +86,9 @@
     "rankHeader": {
         "message": "Rang",
         "description": "Rank"
+    },
+    "optionsAllowUnderscoresLabel": {
+        "message": "Activer les tirets bas dans les IDs de projet",
+        "description": "Label for the allow underscores feature"
     }
 }

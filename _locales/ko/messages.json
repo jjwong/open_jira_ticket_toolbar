@@ -86,5 +86,9 @@
     "rankHeader": {
         "message": "계급",
         "description": "Rank"
+    },
+    "optionsAllowUnderscoresLabel": {
+        "message": "프로젝트 ID에서 밑줄 활성화",
+        "description": "Label for the allow underscores feature"
     }
 }

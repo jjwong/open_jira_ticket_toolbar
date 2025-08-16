@@ -1,4 +1,7 @@
 # Changelog
+* 3.2.0
+	* Add underscore support for projects
+	* Revamp options styling
 * 3.1.3
 	* Fix a few undefined states, cleanup
 * 3.1.2

@@ -9,118 +9,165 @@
   </head>
   <body>
     <div class="container" id="container">
-      <div class="form-container left-container">
+      <div class="form-container">
         <div class="options-form">
           <h1 data-locale="optionsTitle">Open JIRA Ticket Options</h1>
           <span>Fill out the fields to start using the extension.</span>
 
-          <label>JIRA URL</label>
-          <input
-            type="text"
-            id="inputURL"
-            placeholder="http://issues.jiraland.com"
-          />
-          <label data-locale="optionsDefaultProjectLabel"
-            >Default Project</label
-          >
-          <input
-            type="text"
-            id="inputDefaultProject"
-            placeholder="STACK"
-            maxlength="20"
-          />
+          <!-- Primary JIRA Configuration -->
+          <div class="form-section">
+            <div class="section-title">Primary JIRA Configuration</div>
+            
+            <div class="form-group">
+              <label>JIRA URL</label>
+              <input
+                type="text"
+                id="inputURL"
+                placeholder="http://issues.jiraland.com"
+              />
+            </div>
+            
+            <div class="form-group">
+              <label data-locale="optionsDefaultProjectLabel">Default Project</label>
+              <input
+                type="text"
+                id="inputDefaultProject"
+                placeholder="STACK"
+                maxlength="20"
+              />
+            </div>
 
-          <label data-locale="optionsPreviewLabel">Preview</label>
-          <div class="clear" id="ticketPreview"></div>
-          <div
-            data-locale="errorOptionsPreview"
-            class="preview"
-            id="badOptions"
-          >
-            Invalid options set.
+            <div class="form-group">
+              <label data-locale="optionsPreviewLabel">Preview</label>
+              <div class="preview-section">
+                <div id="ticketPreview"></div>
+              </div>
+              <div
+                data-locale="errorOptionsPreview"
+                id="badOptions"
+                class="error-message hidden"
+              >
+                Invalid options set.
+              </div>
+            </div>
           </div>
 
-          <label>Second JIRA URL</label>
-          <input
-            type="text"
-            id="inputSecondaryURL"
-            placeholder="http://issues2.jiraland.com"
-          />
-          <label data-locale="optionsDefaultProjectLabel"
-            >Default Project</label
-          >
-          <input
-            type="text"
-            id="inputSecondaryProject"
-            placeholder="STACK"
-            maxlength="20"
-          />
+          <!-- Secondary JIRA Configuration -->
+          <div class="form-section">
+            <div class="section-title">Secondary JIRA Configuration</div>
+            
+            <div class="form-group">
+              <label>Second JIRA URL</label>
+              <input
+                type="text"
+                id="inputSecondaryURL"
+                placeholder="http://issues2.jiraland.com"
+              />
+            </div>
+            
+            <div class="form-group">
+              <label data-locale="optionsDefaultProjectLabel">Default Project</label>
+              <input
+                type="text"
+                id="inputSecondaryProject"
+                placeholder="STACK"
+                maxlength="20"
+              />
+            </div>
 
-          <label data-locale="optionsPreviewLabel">Preview</label>
-          <div class="clear" id="ticketSecondaryPreview"></div>
-          <div
-            data-locale="errorSecondaryOptionsPreview"
-            class="preview"
-            id="badSecondaryOptions"
-          >
-            Invalid options set.
+            <div class="form-group">
+              <label data-locale="optionsPreviewLabel">Preview</label>
+              <div class="preview-section">
+                <div id="ticketSecondaryPreview"></div>
+              </div>
+              <div
+                data-locale="errorSecondaryOptionsPreview"
+                id="badSecondaryOptions"
+                class="error-message hidden"
+              >
+                Invalid options set.
+              </div>
+            </div>
           </div>
 
-          <table>
-            <td>
-              <label for="worldClock">Enable World Clock</label
-              ><input type="checkbox" id="worldClock" class="optionsCheckbox" value="worldClock" />
-            </td>
-            <td>
-              <label for="fiscalQuarters">Enable Fiscal Quarters</label>
-              <input type="checkbox" id="fiscalQuarter" class="optionsCheckbox" value="fiscalQuarter" />
-            </td>
-            <td>
-              <label for="historyPreference">Enable History Display</label>
-              <input type="checkbox" id="historyPreference" class="optionsCheckbox" value="historyPreference" />
-            </td>
-          </table>
+          <!-- Features Configuration -->
+          <div class="checkbox-section">
+            <div class="section-title">Features</div>
+            <div class="checkbox-grid">
+              <label class="checkbox-item" for="worldClock">
+                <input type="checkbox" id="worldClock" class="optionsCheckbox" value="worldClock" />
+                <span>Enable World Clock</span>
+              </label>
+              <label class="checkbox-item" for="fiscalQuarter">
+                <input type="checkbox" id="fiscalQuarter" class="optionsCheckbox" value="fiscalQuarter" />
+                <span>Enable Fiscal Quarters</span>
+              </label>
+              <label class="checkbox-item" for="historyPreference">
+                <input type="checkbox" id="historyPreference" class="optionsCheckbox" value="historyPreference" />
+                <span>Enable History Display</span>
+              </label>
+              <label class="checkbox-item" for="allowUnderscores">
+                <input type="checkbox" id="allowUnderscores" class="optionsCheckbox" value="allowUnderscores" />
+                <span data-locale="optionsAllowUnderscoresLabel">Enable Underscores in Project IDs</span>
+              </label>
+            </div>
+          </div>
 
-          <label data-locale="optionsLanguageLabel">Language</label>
-          <span data-locale="optionsLanguageExplanation"
-            >Language based on browser settings.
-            See`chrome://settings/languages`</span
-          ><br />
-          <span
-            ><a
-              data-locale="optionsLanguageHelpLinkText"
-              href="https://developer.chrome.com/docs/extensions/reference/i18n/#how-to-set-browsers-locale"
-              target="_blank"
-              >Additional Help - How to set language locale in Chrome</a
-            ></span
-          >
+          <!-- Language Configuration -->
+          <div class="language-section">
+            <div class="section-title">Language Settings</div>
+            <div class="language-info">
+              <span data-locale="optionsLanguageExplanation">Language based on browser settings. See `chrome://settings/languages`</span>
+              <a
+                data-locale="optionsLanguageHelpLinkText"
+                href="https://developer.chrome.com/docs/extensions/reference/i18n/#how-to-set-browsers-locale"
+                target="_blank"
+              >Additional Help - How to set language locale in Chrome</a>
+            </div>
+          </div>
 
           <div id="status"></div>
           <button data-locale="optionsSaveButton" id="save">Save</button>
         </div>
       </div>
+      
+      <!-- Right Side Panel -->
       <div class="overlay-container">
-        <div class="overlay">
-          <div class="overlay-panel overlay-right">
-            <h1 data-locale="optionsDonationHeader">Hello, Friend!</h1>
+        <div class="overlay-panel">
+          <h1 data-locale="optionsDonationHeader">Hello, Friend!</h1>
+          
+          <div class="stats-section">
             <div id="jiraSearchHeader" data-locale="jiraSearchHeader">Your number of JIRA searches</div>
             <div id="usageNumber">0</div>
 
-            <h1 id="rankHeader" data-locale="rankHeader">Rank</h1>
+            <div id="rankHeader" data-locale="rankHeader">Rank</div>
             <div id="rank">Undefined</div>
-
-            <p data-locale="optionsDonationMessage">
-              Please consider supporting the extension.
-            </p>
-            <a href="https://ko-fi.com/A0A3H3GR7" target="_blank"
-              ><img
-                height="36"
-                style="border: 0px; height: 36px"
-                src="https://storage.ko-fi.com/cdn/kofi1.png?v=3"
-                border="0"
-                alt="Buy Me a Coffee at ko-fi.com"
-            /></a>
           </div>
+
+          <div class="rating-section">
+            <h3>Enjoying the extension?</h3>
+            <p>Rate us 5 stars on the Chrome Web Store!</p>
+            <div class="stars">
+              ⭐⭐⭐⭐⭐
+            </div>
+            <a href="#" class="rating-button" id="rateExtension">
+              Rate Extension
+            </a>
+          </div>
+
+          <p data-locale="optionsDonationMessage">
+            Please consider supporting the extension.
+          </p>
+          
+          <a href="https://ko-fi.com/A0A3H3GR7" target="_blank" class="donation-button">
+            <img
+              height="36"
+              style="border: 0px; height: 36px"
+              src="https://storage.ko-fi.com/cdn/kofi1.png?v=3"
+              border="0"
+              alt="Buy Me a Coffee at ko-fi.com"
+            />
+          </a>
         </div>
       </div>
     </div>
