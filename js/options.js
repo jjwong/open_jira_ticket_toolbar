@@ -25,10 +25,28 @@ function showErrorText(string, project_tracker_id) {
 
   if (string === OPTIONS_NEED_URL) {
     newDiv.textContent = chrome.i18n.getMessage("errorOptionsUrl");
+    // Highlight the URL field
+    if (project_tracker_id == 1) {
+      document.getElementById("inputURL").classList.add("error");
+    } else {
+      document.getElementById("inputSecondaryURL").classList.add("error");
+    }
   } else if (string === OPTIONS_NEED_HTTP) {
     newDiv.textContent = chrome.i18n.getMessage("errorOptionsHttp");
+    // Highlight the URL field
+    if (project_tracker_id == 1) {
+      document.getElementById("inputURL").classList.add("error");
+    } else {
+      document.getElementById("inputSecondaryURL").classList.add("error");
+    }
   } else if (string === OPTIONS_NEED_KEY) {
     newDiv.textContent = chrome.i18n.getMessage("errorOptionsKey");
+    // Highlight the project field
+    if (project_tracker_id == 1) {
+      document.getElementById("inputDefaultProject").classList.add("error");
+    } else {
+      document.getElementById("inputSecondaryProject").classList.add("error");
+    }
   }
 
   displayStatus.style.color = "red";
@@ -71,15 +89,32 @@ function removeSuccess() {
 
 function setPreviewError(error_display_id, preview_id) {
   var badOptionsText = document.getElementById(error_display_id);
-  badOptionsText.style.color = "red";
-  badOptionsText.style.visibility = "visible";
+  badOptionsText.classList.remove("hidden");
   setTicketPreview("N/A", "red", preview_id);
+  
+  // Update preview section styling
+  if (preview_id === "ticketPreview") {
+    document.querySelector('.preview-section').classList.add("error");
+  } else if (preview_id === "ticketSecondaryPreview") {
+    document.querySelectorAll('.preview-section')[1].classList.add("error");
+  }
 }
 
 function setTicketPreview(string, color, element_id) {
   var ticketPreview = document.getElementById(element_id);
   ticketPreview.style.color = color;
   ticketPreview.innerText = string;
+  
+  // Clear error messages and styling when preview is valid
+  if (color === "green") {
+    if (element_id === "ticketPreview") {
+      document.getElementById("badOptions").classList.add("hidden");
+      document.querySelector('.preview-section').classList.remove("error");
+    } else if (element_id === "ticketSecondaryPreview") {
+      document.getElementById("badSecondaryOptions").classList.add("hidden");
+      document.querySelectorAll('.preview-section')[1].classList.remove("error");
+    }
+  }
 }
 
 function sanitizeURL(element_id, project_tracker_id) {
@@ -195,7 +230,29 @@ function save_options() {
 // Defined values are defaults.
 function restore_options() {
   var badOptionsText = document.getElementById("badOptions");
-  badOptionsText.style.visibility = "hidden";
+  var badSecondaryOptionsText = document.getElementById("badSecondaryOptions");
+  badOptionsText.classList.add("hidden");
+  badSecondaryOptionsText.classList.add("hidden");
+  
+  // Clear error styling from preview sections
+  document.querySelectorAll('.preview-section').forEach(section => {
+    section.classList.remove("error");
+  });
+  
+  // Clear error highlighting from input fields
+  const inputFields = [
+    "inputURL",
+    "inputDefaultProject", 
+    "inputSecondaryURL",
+    "inputSecondaryProject"
+  ];
+  
+  inputFields.forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (field) {
+      field.classList.remove("error");
+    }
+  });
   chrome.storage.sync.get(
     {
       useURL: "http://jiraland.issues.com",
@@ -286,6 +343,26 @@ function setRankDisplay(usage) {
 document.addEventListener("DOMContentLoaded", restore_options);
 window.onload = function () {
   document.getElementById("save").addEventListener("click", save_options);
+  
+  // Add event listeners to clear error highlighting when user starts typing
+  const inputFields = [
+    "inputURL",
+    "inputDefaultProject", 
+    "inputSecondaryURL",
+    "inputSecondaryProject"
+  ];
+  
+  inputFields.forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (field) {
+      field.addEventListener("input", function() {
+        this.classList.remove("error");
+      });
+      field.addEventListener("focus", function() {
+        this.classList.remove("error");
+      });
+    }
+  });
 };
 
 function isNumberAtStart(string) {
