@@ -363,6 +363,52 @@ window.onload = function () {
       });
     }
   });
+  
+  // Add rating button functionality with browser detection
+  const ratingButton = document.getElementById("rateExtension");
+  const ratingText = document.querySelector(".rating-section p");
+  const ratingTitle = document.querySelector(".rating-section h3");
+  
+  if (ratingButton && ratingText && ratingTitle) {
+    // Detect browser
+    const isEdge = navigator.userAgent.includes("Edg");
+    const isChrome = navigator.userAgent.includes("Chrome") && !navigator.userAgent.includes("Edg");
+    
+    if (isEdge) {
+      // Edge Add-ons store
+      ratingTitle.textContent = "Enjoying the extension?";
+      ratingText.textContent = "Rate us 5 stars on the Microsoft Edge Add-ons store!";
+      ratingButton.textContent = "Rate on Edge Add-ons";
+      ratingButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        chrome.tabs.create({
+          url: "https://microsoftedge.microsoft.com/addons/detail/open-jira-ticket/mcgalgcbedknfbohhhnngnbofngoifkm"
+        });
+      });
+    } else if (isChrome) {
+      // Chrome Web Store
+      ratingTitle.textContent = "Enjoying the extension?";
+      ratingText.textContent = "Rate us 5 stars on the Chrome Web Store!";
+      ratingButton.textContent = "Rate on Chrome Web Store";
+      ratingButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        chrome.tabs.create({
+          url: "https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci"
+        });
+      });
+    } else {
+      // Fallback for other browsers
+      ratingTitle.textContent = "Enjoying the extension?";
+      ratingText.textContent = "Rate us 5 stars on the Chrome Web Store!";
+      ratingButton.textContent = "Rate Extension";
+      ratingButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        chrome.tabs.create({
+          url: "https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci"
+        });
+      });
+    }
+  }
 };
 
 function isNumberAtStart(string) {
