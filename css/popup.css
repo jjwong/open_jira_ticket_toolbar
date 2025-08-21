@@ -246,7 +246,10 @@ input {
   padding: 4px 8px;
   border-radius: 4px;
   transition: all 0.2s ease-in-out;
-  display: inline-block;
+  display: block;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .options-link:hover {
