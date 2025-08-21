@@ -1,3 +1,8 @@
+body {
+  max-height: 550px;
+  overflow-y: auto;
+}
+
 div {
   width: 200px;
   margin: 10px;
@@ -226,4 +231,31 @@ input {
   100% {
     background-position: 0 0;
   }
+}
+
+#options-link-container {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.options-link {
+  font-size: 12px;
+  color: #666;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+
+.options-link:hover {
+  color: #333;
+  background-color: #f0f0f0;
+  text-decoration: underline;
+}
+
+.options-link:focus {
+  outline: 2px solid #3c56e7;
+  outline-offset: 2px;
 }

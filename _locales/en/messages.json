@@ -90,5 +90,13 @@
     "optionsAllowUnderscoresLabel": {
         "message": "Enable Underscores in Project IDs",
         "description": "Label for the allow underscores feature"
+    },
+    "optionsLinkText": {
+        "message": "Options",
+        "description": "Text for the options link in the popup"
+    },
+    "optionsLinkCheckboxLabel": {
+        "message": "Enable Options Link Display",
+        "description": "Label for the options link checkbox in options page"
     }
 }

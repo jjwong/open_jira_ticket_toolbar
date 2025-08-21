@@ -90,5 +90,13 @@
     "optionsAllowUnderscoresLabel": {
         "message": "プロジェクトIDでアンダースコアを有効化",
         "description": "Label for the allow underscores feature"
+    },
+    "optionsLinkText": {
+        "message": "オプション",
+        "description": "Text for the options link in the popup"
+    },
+    "optionsLinkCheckboxLabel": {
+        "message": "オプションリンクの表示を有効化",
+        "description": "Label for the options link checkbox in options page"
     }
 }

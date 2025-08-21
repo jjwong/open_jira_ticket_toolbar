@@ -90,5 +90,13 @@
     "optionsAllowUnderscoresLabel": {
         "message": "Habilitar guiones bajos en IDs de proyecto",
         "description": "Label for the allow underscores feature"
+    },
+    "optionsLinkText": {
+        "message": "Opciones",
+        "description": "Text for the options link in the popup"
+    },
+    "optionsLinkCheckboxLabel": {
+        "message": "Habilitar visualización de enlace de opciones",
+        "description": "Label for the options link checkbox in options page"
     }
 }

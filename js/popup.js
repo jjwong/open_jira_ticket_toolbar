@@ -160,6 +160,8 @@ window.addEventListener("load", function () {
   checkWorldClock();
   checkFiscalQuarter();
   checkHistoryPreference();
+  checkOptionsLinkPreference();
+  initOptionsLink();
 }); //load eventlistener end
 
 // Add keyboard arrow support
@@ -397,4 +399,30 @@ function isEmpty(value) {
   return (
     value == null || (typeof value === "string" && value.trim().length === 0)
   );
+}
+
+function checkOptionsLinkPreference() {
+  chrome.storage.sync.get(function (items) {
+    const OPTIONS_LINK_PREFERENCE = items.useOptionsLink;
+    // console.log(OPTIONS_LINK_PREFERENCE);
+
+    // For existing users, options link will be undefined, and we want it to show up by default.
+    // This will go away once they save options. This shouldn't occur for new users.
+    if (OPTIONS_LINK_PREFERENCE == true || OPTIONS_LINK_PREFERENCE == undefined) {
+      document.getElementById("options-link-container").hidden = false;
+    } else {
+      document.getElementById("options-link-container").hidden = true;
+    }
+  }); //end get sync
+} //end checkOptionsLinkPreference
+
+function initOptionsLink() {
+  // Add click event listener to open options page
+  const optionsLink = document.getElementById("options-link");
+  if (optionsLink) {
+    optionsLink.addEventListener("click", function(event) {
+      event.preventDefault();
+      chrome.runtime.openOptionsPage();
+    });
+  }
 }

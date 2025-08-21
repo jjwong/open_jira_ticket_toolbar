@@ -220,6 +220,7 @@ function save_options() {
   let input_history_preference =
     document.getElementById("historyPreference").checked;
   let input_allow_underscores = document.getElementById("allowUnderscores").checked;
+  let input_options_link = document.getElementById("optionsLink").checked;
 
   // set tracker to 1 if either secondary option is empty
   if (input_secondary_url == null || input_secondary_project == null) {
@@ -237,6 +238,7 @@ function save_options() {
       useFiscalQuarter: input_fiscal_quarter,
       useHistoryPreference: input_history_preference,
       useAllowUnderscores: input_allow_underscores,
+      useOptionsLink: input_options_link,
       // useLanguage: input_language,
     },
     function () {
@@ -284,6 +286,7 @@ function restore_options() {
       useFiscalQuarter: false,
       useHistoryPreference: true,
       useAllowUnderscores: false,
+      useOptionsLink: true,
       useSecondaryURL: "",
       useSecondaryProject: "",
       useProjectTracker: 1,
@@ -301,6 +304,7 @@ function restore_options() {
       document.getElementById("historyPreference").checked =
         items.useHistoryPreference;
       document.getElementById("allowUnderscores").checked = items.useAllowUnderscores;
+      document.getElementById("optionsLink").checked = items.useOptionsLink;
 
       // default project preview
       setTicketPreview(
