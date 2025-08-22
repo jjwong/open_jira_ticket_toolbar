@@ -118,5 +118,13 @@
     "optionsResetColorsButton": {
         "message": "Auf Standardfarben zurücksetzen",
         "description": "Text for the reset colors button"
+    },
+    "optionsWorkHoursLabel": {
+        "message": "Arbeitszeiten aktivieren",
+        "description": "Label für die Arbeitszeiten-Feature-Checkbox"
+    },
+    "optionsWorkHoursExplanation": {
+        "message": "Arbeitszeiten für jede Zeitzone festlegen. Wenn Arbeitszeiten aktiv sind, wird ein Bürogebäude-Emoji (🏢) neben der Zeit angezeigt. Außerhalb der Arbeitszeiten wird ein Schlaf-Emoji (😴) angezeigt.",
+        "description": "Erklärungstext für die Arbeitszeiten-Funktion"
     }
 }

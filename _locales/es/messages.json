@@ -118,5 +118,13 @@
     "optionsResetColorsButton": {
         "message": "Restablecer a colores predeterminados",
         "description": "Text for the reset colors button"
+    },
+    "optionsWorkHoursLabel": {
+        "message": "Habilitar horas de trabajo",
+        "description": "Label para la casilla de verificación de la función de horas de trabajo"
+    },
+    "optionsWorkHoursExplanation": {
+        "message": "Establecer horas de trabajo para cada zona horaria. Cuando las horas de trabajo están activas, aparecerá un emoji de edificio de oficina (🏢) junto a la hora.",
+        "description": "Texto de explicación para la función de horas de trabajo"
     }
 }

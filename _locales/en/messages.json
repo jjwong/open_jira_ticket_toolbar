@@ -118,5 +118,13 @@
     "optionsResetColorsButton": {
         "message": "Reset to Default Colors",
         "description": "Text for the reset colors button"
+    },
+    "optionsWorkHoursLabel": {
+        "message": "Enable Work Hours",
+        "description": "Label for the work hours feature checkbox"
+    },
+    "optionsWorkHoursExplanation": {
+        "message": "Set work hours for each timezone. When work hours are active, an office building emoji (🏢) will appear next to the time. During off hours, a snooze emoji (😴) will be shown.",
+        "description": "Explanation text for the work hours feature"
     }
 }

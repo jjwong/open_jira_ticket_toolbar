@@ -118,5 +118,13 @@
     "optionsResetColorsButton": {
         "message": "Сбросить к цветам по умолчанию",
         "description": "Text for the reset colors button"
+    },
+    "optionsWorkHoursLabel": {
+        "message": "Включить рабочие часы",
+        "description": "Label for the work hours feature checkbox"
+    },
+    "optionsWorkHoursExplanation": {
+        "message": "Установите рабочие часы для каждого часового пояса. Когда рабочие часы активны, рядом со временем появится эмодзи офисного здания (🏢).",
+        "description": "Explanation text for the work hours feature"
     }
 }

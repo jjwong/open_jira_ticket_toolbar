@@ -110,6 +110,16 @@
                 />
                 <span>Enable World Clock</span>
               </label>
+              <label class="checkbox-item" for="workHours" id="workHoursLabel">
+                <input
+                  type="checkbox"
+                  id="workHours"
+                  class="optionsCheckbox"
+                  value="workHours"
+                  disabled
+                />
+                <span data-locale="optionsWorkHoursLabel">Enable Work Hours</span>
+              </label>
               <label class="checkbox-item" for="fiscalQuarter">
                 <input
                   type="checkbox"
@@ -150,6 +160,105 @@
                   >Enable Options Link Display</span
                 >
               </label>
+            </div>
+          </div>
+
+          <!-- Work Hours Configuration -->
+          <div class="form-section" id="workHoursSection" style="display: none;">
+            <div class="section-title">Work Hours Configuration</div>
+            <div class="work-hours-info">
+              <span data-locale="optionsWorkHoursExplanation">Set work hours for each timezone. When work hours are active, an office building emoji (🏢) will appear next to the time. During off hours, a snooze emoji (😴) will be shown.</span>
+            </div>
+            
+            <!-- Working Days Selection -->
+            <div class="working-days-section">
+              <label class="working-days-label">Working Days</label>
+              <div class="working-days-grid">
+                <label class="day-checkbox">
+                  <input type="checkbox" id="workDayMonday" checked />
+                  <span>Mon</span>
+                </label>
+                <label class="day-checkbox">
+                  <input type="checkbox" id="workDayTuesday" checked />
+                  <span>Tue</span>
+                </label>
+                <label class="day-checkbox">
+                  <input type="checkbox" id="workDayWednesday" checked />
+                  <span>Wed</span>
+                </label>
+                <label class="day-checkbox">
+                  <input type="checkbox" id="workDayThursday" checked />
+                  <span>Thu</span>
+                </label>
+                <label class="day-checkbox">
+                  <input type="checkbox" id="workDayFriday" checked />
+                  <span>Fri</span>
+                </label>
+                <label class="day-checkbox">
+                  <input type="checkbox" id="workDaySaturday" />
+                  <span>Sat</span>
+                </label>
+                <label class="day-checkbox">
+                  <input type="checkbox" id="workDaySunday" />
+                  <span>Sun</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="work-hours-grid">
+              <div class="work-hour-item">
+                <label>Los Angeles</label>
+                <div class="time-inputs">
+                  <input type="time" id="workHoursLAStart" value="09:00" />
+                  <span>to</span>
+                  <input type="time" id="workHoursLAEnd" value="17:00" />
+                </div>
+              </div>
+              
+              <div class="work-hour-item">
+                <label>New York</label>
+                <div class="time-inputs">
+                  <input type="time" id="workHoursNYStart" value="09:00" />
+                  <span>to</span>
+                  <input type="time" id="workHoursNYEnd" value="17:00" />
+                </div>
+              </div>
+              
+              <div class="work-hour-item">
+                <label>UTC</label>
+                <div class="time-inputs">
+                  <input type="time" id="workHoursUTCStart" value="09:00" />
+                  <span>to</span>
+                  <input type="time" id="workHoursUTCEnd" value="17:00" />
+                </div>
+              </div>
+              
+              <div class="work-hour-item">
+                <label>India</label>
+                <div class="time-inputs">
+                  <input type="time" id="workHoursIndiaStart" value="09:00" />
+                  <span>to</span>
+                  <input type="time" id="workHoursIndiaEnd" value="17:00" />
+                </div>
+              </div>
+              
+              <div class="work-hour-item">
+                <label>Singapore</label>
+                <div class="time-inputs">
+                  <input type="time" id="workHoursSingaporeStart" value="09:00" />
+                  <span>to</span>
+                  <input type="time" id="workHoursSingaporeEnd" value="17:00" />
+                </div>
+              </div>
+              
+              <div class="work-hour-item">
+                <label>Sydney</label>
+                <div class="time-inputs">
+                  <input type="time" id="workHoursSydneyStart" value="09:00" />
+                  <span>to</span>
+                  <input type="time" id="workHoursSydneyEnd" value="17:00" />
+                </div>
+              </div>
             </div>
           </div>
 

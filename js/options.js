@@ -218,6 +218,7 @@ function save_options() {
   let input_secondary_project = sanitizeProject("inputSecondaryProject", 2);
   // var input_language = document.getElementById("inputLanguageOptions").value;
   let input_world_clock = document.getElementById("worldClock").checked;
+  let input_work_hours = document.getElementById("workHours").checked;
   let input_fiscal_quarter = document.getElementById("fiscalQuarter").checked;
   let input_history_preference =
     document.getElementById("historyPreference").checked;
@@ -242,6 +243,45 @@ function save_options() {
     chrome.storage.sync.set({ useProjectTracker: 1 }, function () {});
   }
 
+  // Get work hours settings
+  let work_hours_settings = {
+    LA: {
+      start: document.getElementById("workHoursLAStart").value,
+      end: document.getElementById("workHoursLAEnd").value
+    },
+    NY: {
+      start: document.getElementById("workHoursNYStart").value,
+      end: document.getElementById("workHoursNYEnd").value
+    },
+    UTC: {
+      start: document.getElementById("workHoursUTCStart").value,
+      end: document.getElementById("workHoursUTCEnd").value
+    },
+    India: {
+      start: document.getElementById("workHoursIndiaStart").value,
+      end: document.getElementById("workHoursIndiaEnd").value
+    },
+    Singapore: {
+      start: document.getElementById("workHoursSingaporeStart").value,
+      end: document.getElementById("workHoursSingaporeEnd").value
+    },
+    Sydney: {
+      start: document.getElementById("workHoursSydneyStart").value,
+      end: document.getElementById("workHoursSydneyEnd").value
+    }
+  };
+
+  // Get working days settings
+  let working_days = {
+    monday: document.getElementById("workDayMonday").checked,
+    tuesday: document.getElementById("workDayTuesday").checked,
+    wednesday: document.getElementById("workDayWednesday").checked,
+    thursday: document.getElementById("workDayThursday").checked,
+    friday: document.getElementById("workDayFriday").checked,
+    saturday: document.getElementById("workDaySaturday").checked,
+    sunday: document.getElementById("workDaySunday").checked
+  };
+
   // set all the options
   chrome.storage.sync.set(
     {
@@ -250,6 +290,9 @@ function save_options() {
       useSecondaryURL: input_secondary_url,
       useSecondaryProject: input_secondary_project,
       useWorldClock: input_world_clock,
+      useWorkHours: input_work_hours,
+      workHoursSettings: work_hours_settings,
+      workingDays: working_days,
       useFiscalQuarter: input_fiscal_quarter,
       useHistoryPreference: input_history_preference,
       useAllowUnderscores: input_allow_underscores,
@@ -302,6 +345,24 @@ function restore_options() {
       useDefaultProject: "STACK",
       useLanguage: "en",
       useWorldClock: false,
+      useWorkHours: false,
+      workHoursSettings: {
+        LA: { start: "09:00", end: "17:00" },
+        NY: { start: "09:00", end: "17:00" },
+        UTC: { start: "09:00", end: "17:00" },
+        India: { start: "09:00", end: "17:00" },
+        Singapore: { start: "09:00", end: "17:00" },
+        Sydney: { start: "09:00", end: "17:00" }
+      },
+      workingDays: {
+        monday: true,
+        tuesday: true,
+        wednesday: true,
+        thursday: true,
+        friday: true,
+        saturday: false,
+        sunday: false
+      },
       useFiscalQuarter: false,
       useHistoryPreference: true,
       useAllowUnderscores: false,
@@ -323,6 +384,7 @@ function restore_options() {
       document.getElementById("inputSecondaryProject").value =
         items.useSecondaryProject;
       document.getElementById("worldClock").checked = items.useWorldClock;
+      document.getElementById("workHours").checked = items.useWorkHours;
       document.getElementById("fiscalQuarter").checked = items.useFiscalQuarter;
       document.getElementById("historyPreference").checked =
         items.useHistoryPreference;
@@ -354,6 +416,36 @@ function restore_options() {
           "ticketSecondaryPreview"
         );
       }
+
+      // Restore work hours settings
+      if (items.workHoursSettings) {
+        document.getElementById("workHoursLAStart").value = items.workHoursSettings.LA.start;
+        document.getElementById("workHoursLAEnd").value = items.workHoursSettings.LA.end;
+        document.getElementById("workHoursNYStart").value = items.workHoursSettings.NY.start;
+        document.getElementById("workHoursNYEnd").value = items.workHoursSettings.NY.end;
+        document.getElementById("workHoursUTCStart").value = items.workHoursSettings.UTC.start;
+        document.getElementById("workHoursUTCEnd").value = items.workHoursSettings.UTC.end;
+        document.getElementById("workHoursIndiaStart").value = items.workHoursSettings.India.start;
+        document.getElementById("workHoursIndiaEnd").value = items.workHoursSettings.India.end;
+        document.getElementById("workHoursSingaporeStart").value = items.workHoursSettings.Singapore.start;
+        document.getElementById("workHoursSingaporeEnd").value = items.workHoursSettings.Singapore.end;
+        document.getElementById("workHoursSydneyStart").value = items.workHoursSettings.Sydney.start;
+        document.getElementById("workHoursSydneyEnd").value = items.workHoursSettings.Sydney.end;
+      }
+
+      // Restore working days settings
+      if (items.workingDays) {
+        document.getElementById("workDayMonday").checked = items.workingDays.monday;
+        document.getElementById("workDayTuesday").checked = items.workingDays.tuesday;
+        document.getElementById("workDayWednesday").checked = items.workingDays.wednesday;
+        document.getElementById("workDayThursday").checked = items.workingDays.thursday;
+        document.getElementById("workDayFriday").checked = items.workingDays.friday;
+        document.getElementById("workDaySaturday").checked = items.workingDays.saturday;
+        document.getElementById("workDaySunday").checked = items.workingDays.sunday;
+      }
+
+      // Handle work hours dependency on world clock
+      updateWorkHoursVisibility(items.useWorldClock);
     }
   );
   retrieveUsageOptionDisplay();
@@ -557,4 +649,47 @@ function initScrollIndicator() {
 
   // Check on window resize
   window.addEventListener("resize", checkScroll);
+
+  // Add work hours dependency logic
+  const worldClockCheckbox = document.getElementById("worldClock");
+  const workHoursCheckbox = document.getElementById("workHours");
+  const workHoursSection = document.getElementById("workHoursSection");
+
+  if (worldClockCheckbox && workHoursCheckbox) {
+    worldClockCheckbox.addEventListener("change", function() {
+      updateWorkHoursVisibility(this.checked);
+    });
+
+    workHoursCheckbox.addEventListener("change", function() {
+      const workHoursSection = document.getElementById("workHoursSection");
+      if (this.checked) {
+        workHoursSection.style.display = "block";
+      } else {
+        workHoursSection.style.display = "none";
+      }
+    });
+  }
+}
+
+// Function to update work hours visibility based on world clock setting
+function updateWorkHoursVisibility(worldClockEnabled) {
+  const workHoursCheckbox = document.getElementById("workHours");
+  const workHoursSection = document.getElementById("workHoursSection");
+  const workHoursLabel = document.getElementById("workHoursLabel");
+
+  if (worldClockEnabled) {
+    workHoursCheckbox.disabled = false;
+    workHoursLabel.classList.remove("disabled");
+    
+    if (workHoursCheckbox.checked) {
+      workHoursSection.style.display = "block";
+    } else {
+      workHoursSection.style.display = "none";
+    }
+  } else {
+    workHoursCheckbox.disabled = true;
+    workHoursCheckbox.checked = false;
+    workHoursLabel.classList.add("disabled");
+    workHoursSection.style.display = "none";
+  }
 }

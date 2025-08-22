@@ -118,5 +118,13 @@
     "optionsResetColorsButton": {
         "message": "기본 색상으로 재설정",
         "description": "Text for the reset colors button"
+    },
+    "optionsWorkHoursLabel": {
+        "message": "근무 시간 활성화",
+        "description": "Label for the work hours feature checkbox"
+    },
+    "optionsWorkHoursExplanation": {
+        "message": "각 시간대의 근무 시간을 설정합니다. 근무 시간이 활성화되면 시간 옆에 사무실 건물 이모지(🏢)가 표시됩니다.",
+        "description": "Explanation text for the work hours feature"
     }
 }

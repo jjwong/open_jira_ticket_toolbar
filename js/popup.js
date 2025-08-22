@@ -162,6 +162,7 @@ window.addEventListener("load", function () {
   toggleProject();
   retrieveHistory();
   checkWorldClock();
+  checkWorkHours();
   checkFiscalQuarter();
   checkHistoryPreference();
   checkOptionsLinkPreference();
@@ -258,6 +259,13 @@ function searchClocks() {
 
     item.querySelector("span").innerHTML = calculateTime(timezone.locale);
   });
+  
+  // Update work hours indicators after updating times
+  chrome.storage.sync.get(function (items) {
+    if (items.useWorkHours && items.useWorldClock) {
+      updateWorkHoursIndicators(items.workHoursSettings, items.workingDays);
+    }
+  });
 }
 
 function checkWorldClock() {
@@ -273,6 +281,17 @@ function checkWorldClock() {
   }); //end get sync
 } //end checkWorldClock
 
+function checkWorkHours() {
+  chrome.storage.sync.get(function (items) {
+    const WORK_HOURS = items.useWorkHours;
+    const WORLD_CLOCK = items.useWorldClock;
+
+    if (WORK_HOURS && WORLD_CLOCK) {
+      updateWorkHoursIndicators(items.workHoursSettings, items.workingDays);
+    }
+  }); //end get sync
+} //end checkWorkHours
+
 function getSupportedTimezones() {
   return Intl.supportedValuesOf("timeZone");
 }
@@ -287,6 +306,62 @@ function calculateTime(timezone) {
   });
   // console.log(localizedTime);
   return localizedTime;
+}
+
+// Check if current time is within work hours for a given timezone
+function isWithinWorkHours(timezone, workHoursSettings, location, workingDays) {
+  if (!workHoursSettings || !workHoursSettings[location]) {
+    return false;
+  }
+
+  const now = new Date();
+  const timeInTimezone = new Date(now.toLocaleString("en-US", { timeZone: timezone }));
+  
+  // Check if it's a working day
+  if (workingDays) {
+    const dayOfWeek = timeInTimezone.getDay(); // 0 = Sunday, 1 = Monday, etc.
+    const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const currentDay = dayNames[dayOfWeek];
+    
+    if (!workingDays[currentDay]) {
+      return false; // Not a working day
+    }
+  }
+  
+  // Convert work hours to minutes for easier comparison
+  const startTime = workHoursSettings[location].start;
+  const endTime = workHoursSettings[location].end;
+  
+  const startMinutes = parseInt(startTime.split(':')[0]) * 60 + parseInt(startTime.split(':')[1]);
+  const endMinutes = parseInt(endTime.split(':')[0]) * 60 + parseInt(endTime.split(':')[1]);
+  const currentMinutes = timeInTimezone.getHours() * 60 + timeInTimezone.getMinutes();
+  
+  // Handle overnight shifts (e.g., 22:00 to 06:00)
+  if (startMinutes > endMinutes) {
+    return currentMinutes >= startMinutes || currentMinutes <= endMinutes;
+  } else {
+    return currentMinutes >= startMinutes && currentMinutes <= endMinutes;
+  }
+}
+
+// Update work hours indicators for all clocks
+function updateWorkHoursIndicators(workHoursSettings, workingDays) {
+  document.querySelectorAll(".clock").forEach((clockElement) => {
+    const timezone = clockElement.getAttribute("data-timezone");
+    const location = clockElement.getAttribute("data-location");
+    const workIndicator = clockElement.querySelector(".work-indicator");
+    const offHoursIndicator = clockElement.querySelector(".off-hours-indicator");
+    
+    const isWorking = isWithinWorkHours(timezone, workHoursSettings, location, workingDays);
+    
+    if (workIndicator) {
+      workIndicator.style.display = isWorking ? "inline" : "none";
+    }
+    
+    if (offHoursIndicator) {
+      offHoursIndicator.style.display = isWorking ? "none" : "inline";
+    }
+  });
 }
 
 // Reference function to get all support time zones
