@@ -98,5 +98,25 @@
     "optionsLinkCheckboxLabel": {
         "message": "팝업에서 옵션 링크 표시 활성화",
         "description": "Label for the options link checkbox in options page"
+    },
+    "optionsPrimaryProjectColorLabel": {
+        "message": "주요 프로젝트 버튼 색상",
+        "description": "Label for primary project button color picker"
+    },
+    "optionsSecondaryProjectColorLabel": {
+        "message": "보조 프로젝트 버튼 색상",
+        "description": "Label for secondary project button color picker"
+    },
+    "optionsPrimaryProjectTextColorLabel": {
+        "message": "주요 프로젝트 텍스트 색상",
+        "description": "Label for primary project text color picker"
+    },
+    "optionsSecondaryProjectTextColorLabel": {
+        "message": "보조 프로젝트 텍스트 색상",
+        "description": "Label for secondary project text color picker"
+    },
+    "optionsResetColorsButton": {
+        "message": "기본 색상으로 재설정",
+        "description": "Text for the reset colors button"
     }
 }

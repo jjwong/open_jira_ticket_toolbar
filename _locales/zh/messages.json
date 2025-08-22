@@ -98,5 +98,25 @@
     "optionsLinkCheckboxLabel": {
         "message": "启用选项链接显示",
         "description": "Label for the options link checkbox in options page"
+    },
+    "optionsPrimaryProjectColorLabel": {
+        "message": "主要项目按钮颜色",
+        "description": "Label for primary project button color picker"
+    },
+    "optionsSecondaryProjectColorLabel": {
+        "message": "次要项目按钮颜色",
+        "description": "Label for secondary project button color picker"
+    },
+    "optionsPrimaryProjectTextColorLabel": {
+        "message": "主要项目文本颜色",
+        "description": "Label for primary project text color picker"
+    },
+    "optionsSecondaryProjectTextColorLabel": {
+        "message": "次要项目文本颜色",
+        "description": "Label for secondary project text color picker"
+    },
+    "optionsResetColorsButton": {
+        "message": "重置为默认颜色",
+        "description": "Text for the reset colors button"
     }
 }

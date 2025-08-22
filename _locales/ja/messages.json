@@ -98,5 +98,25 @@
     "optionsLinkCheckboxLabel": {
         "message": "オプションリンクの表示を有効化",
         "description": "Label for the options link checkbox in options page"
+    },
+    "optionsPrimaryProjectColorLabel": {
+        "message": "プライマリプロジェクトボタンの色",
+        "description": "Label for primary project button color picker"
+    },
+    "optionsSecondaryProjectColorLabel": {
+        "message": "セカンダリプロジェクトボタンの色",
+        "description": "Label for secondary project button color picker"
+    },
+    "optionsPrimaryProjectTextColorLabel": {
+        "message": "プライマリプロジェクトテキストの色",
+        "description": "Label for primary project text color picker"
+    },
+    "optionsSecondaryProjectTextColorLabel": {
+        "message": "セカンダリプロジェクトテキストの色",
+        "description": "Label for secondary project text color picker"
+    },
+    "optionsResetColorsButton": {
+        "message": "デフォルト色にリセット",
+        "description": "Text for the reset colors button"
     }
 }

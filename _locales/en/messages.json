@@ -98,5 +98,25 @@
     "optionsLinkCheckboxLabel": {
         "message": "Enable Options Link Display",
         "description": "Label for the options link checkbox in options page"
+    },
+    "optionsPrimaryProjectColorLabel": {
+        "message": "Primary Project Button Color",
+        "description": "Label for primary project button color picker"
+    },
+    "optionsSecondaryProjectColorLabel": {
+        "message": "Secondary Project Button Color",
+        "description": "Label for secondary project button color picker"
+    },
+    "optionsPrimaryProjectTextColorLabel": {
+        "message": "Primary Project Text Color",
+        "description": "Label for primary project text color picker"
+    },
+    "optionsSecondaryProjectTextColorLabel": {
+        "message": "Secondary Project Text Color",
+        "description": "Label for secondary project text color picker"
+    },
+    "optionsResetColorsButton": {
+        "message": "Reset to Default Colors",
+        "description": "Text for the reset colors button"
     }
 }

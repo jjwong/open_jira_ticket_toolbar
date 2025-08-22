@@ -55,6 +55,8 @@ function displayDefaultTicket() {
         displayError(ERROR_NO_DEFAULT_SET);
       } else {
         display.innerText = items.useDefaultProject;
+        display.className = "glow-on-hover primary-project";
+        loadButtonColors(); // Reload colors when switching to primary project
         let inputBox = document.getElementById("ticket");
         inputBox.placeholder = chrome.i18n.getMessage("enterTicketID");
       }
@@ -77,6 +79,8 @@ function displaySecondaryTicket() {
         displayError(ERROR_NO_DEFAULT_SET);
       } else {
         display.innerText = items.useSecondaryProject;
+        display.className = "glow-on-hover secondary-project";
+        loadButtonColors(); // Reload colors when switching to secondary project
         let inputBox = document.getElementById("ticket");
         inputBox.placeholder = chrome.i18n.getMessage("enterTicketID");
       }
@@ -162,6 +166,7 @@ window.addEventListener("load", function () {
   checkHistoryPreference();
   checkOptionsLinkPreference();
   initOptionsLink();
+  loadButtonColors();
 }); //load eventlistener end
 
 // Add keyboard arrow support
@@ -425,4 +430,29 @@ function initOptionsLink() {
       chrome.runtime.openOptionsPage();
     });
   }
+}
+
+function loadButtonColors() {
+  chrome.storage.sync.get(
+    {
+      usePrimaryProjectColor: "#ffffff",
+      useSecondaryProjectColor: "#2c3e50",
+      usePrimaryProjectTextColor: "#000000",
+      useSecondaryProjectTextColor: "#ffffff",
+    },
+    function (items) {
+      document.documentElement.style.setProperty('--primary-project-color', items.usePrimaryProjectColor);
+      document.documentElement.style.setProperty('--secondary-project-color', items.useSecondaryProjectColor);
+      document.documentElement.style.setProperty('--primary-project-text-color', items.usePrimaryProjectTextColor);
+      document.documentElement.style.setProperty('--secondary-project-text-color', items.useSecondaryProjectTextColor);
+      
+      // Debug logging
+      console.log('Loaded button colors:', {
+        primaryColor: items.usePrimaryProjectColor,
+        secondaryColor: items.useSecondaryProjectColor,
+        primaryTextColor: items.usePrimaryProjectTextColor,
+        secondaryTextColor: items.useSecondaryProjectTextColor
+      });
+    }
+  );
 }
