@@ -90,5 +90,33 @@
     "optionsAllowUnderscoresLabel": {
         "message": "Activer les tirets bas dans les IDs de projet",
         "description": "Label for the allow underscores feature"
+    },
+    "optionsLinkText": {
+        "message": "Options",
+        "description": "Text for the options link in the popup"
+    },
+    "optionsLinkCheckboxLabel": {
+        "message": "Activer l'affichage du lien des options",
+        "description": "Label for the options link checkbox in options page"
+    },
+    "optionsPrimaryProjectColorLabel": {
+        "message": "Couleur du bouton du projet principal",
+        "description": "Label for primary project button color picker"
+    },
+    "optionsSecondaryProjectColorLabel": {
+        "message": "Couleur du bouton du projet secondaire",
+        "description": "Label for secondary project button color picker"
+    },
+    "optionsPrimaryProjectTextColorLabel": {
+        "message": "Couleur du texte du projet principal",
+        "description": "Label for primary project text color picker"
+    },
+    "optionsSecondaryProjectTextColorLabel": {
+        "message": "Couleur du texte du projet secondaire",
+        "description": "Label for secondary project text color picker"
+    },
+    "optionsResetColorsButton": {
+        "message": "Réinitialiser aux couleurs par défaut",
+        "description": "Text for the reset colors button"
     }
 }

@@ -1,4 +1,7 @@
 # Changelog
+* 3.2.1
+	* Add options link display
+	* Add project button customization
 * 3.2.0
 	* Add underscore support for projects
 	* Revamp options styling

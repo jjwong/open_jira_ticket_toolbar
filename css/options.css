@@ -648,6 +648,15 @@ input[type="text"]::placeholder {
   .options-form h1 {
     font-size: 2rem;
   }
+  
+  .color-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .color-group {
+    flex: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -715,4 +724,79 @@ input:focus,
 button:focus {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
+}
+
+/* Color Picker Layout */
+.color-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 16px;
+  align-items: flex-end;
+}
+
+.color-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.color-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0;
+}
+
+/* Color Picker Styling */
+.color-picker {
+  width: 60px;
+  height: 40px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  background: none;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.color-picker:hover {
+  border-color: #3b82f6;
+  transform: scale(1.05);
+}
+
+.color-picker:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Reset Button Styling */
+.reset-button {
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.reset-button:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.reset-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.reset-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
 }

@@ -1,3 +1,8 @@
+body {
+  max-height: 550px;
+  overflow-y: auto;
+}
+
 div {
   width: 200px;
   margin: 10px;
@@ -11,7 +16,7 @@ ul {
 
 li {
   font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 0px solid #ccc;
 }
 
 li:last-child {
@@ -216,6 +221,51 @@ input {
   background-color: #ffffff;
 }
 
+/* Primary project button styling (light theme) */
+.glow-on-hover.primary-project {
+  color: var(--primary-project-text-color, #000000);
+  background: var(--primary-project-color, #ffffff);
+}
+
+.glow-on-hover.primary-project:after {
+  background: var(--primary-project-color, #ffffff);
+}
+
+.glow-on-hover.primary-project:active {
+  color: #ffffff;
+}
+
+/* Secondary project button styling (dark theme) */
+.glow-on-hover.secondary-project {
+  color: var(--secondary-project-text-color, #ffffff) !important;
+  background: var(--secondary-project-color, #2c3e50);
+}
+
+.glow-on-hover.secondary-project:after {
+  background: var(--secondary-project-color, #2c3e50);
+}
+
+.glow-on-hover.secondary-project:active {
+  color: #ffffff;
+}
+
+.glow-on-hover.secondary-project:focus {
+  outline: 3px solid hsla(201, 100%, 50%, 0.8);
+}
+
+.glow-on-hover.secondary-project:hover:before {
+  opacity: 1;
+}
+
+/* Ensure text colors are applied with higher specificity */
+#toggleProject.glow-on-hover.primary-project {
+  color: var(--primary-project-text-color, #000000) !important;
+}
+
+#toggleProject.glow-on-hover.secondary-project {
+  color: var(--secondary-project-text-color, #ffffff) !important;
+}
+
 @keyframes glowing {
   0% {
     background-position: 0 0;
@@ -226,4 +276,34 @@ input {
   100% {
     background-position: 0 0;
   }
+}
+
+#options-link-container {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.options-link {
+  font-size: 12px;
+  color: #666;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  display: block;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.options-link:hover {
+  color: #333;
+  background-color: #f0f0f0;
+  text-decoration: underline;
+}
+
+.options-link:focus {
+  outline: 2px solid #3c56e7;
+  outline-offset: 2px;
 }

@@ -55,6 +55,8 @@ function displayDefaultTicket() {
         displayError(ERROR_NO_DEFAULT_SET);
       } else {
         display.innerText = items.useDefaultProject;
+        display.className = "glow-on-hover primary-project";
+        loadButtonColors(); // Reload colors when switching to primary project
         let inputBox = document.getElementById("ticket");
         inputBox.placeholder = chrome.i18n.getMessage("enterTicketID");
       }
@@ -77,6 +79,8 @@ function displaySecondaryTicket() {
         displayError(ERROR_NO_DEFAULT_SET);
       } else {
         display.innerText = items.useSecondaryProject;
+        display.className = "glow-on-hover secondary-project";
+        loadButtonColors(); // Reload colors when switching to secondary project
         let inputBox = document.getElementById("ticket");
         inputBox.placeholder = chrome.i18n.getMessage("enterTicketID");
       }
@@ -160,6 +164,9 @@ window.addEventListener("load", function () {
   checkWorldClock();
   checkFiscalQuarter();
   checkHistoryPreference();
+  checkOptionsLinkPreference();
+  initOptionsLink();
+  loadButtonColors();
 }); //load eventlistener end
 
 // Add keyboard arrow support
@@ -396,5 +403,56 @@ function initDisplayProject() {
 function isEmpty(value) {
   return (
     value == null || (typeof value === "string" && value.trim().length === 0)
+  );
+}
+
+function checkOptionsLinkPreference() {
+  chrome.storage.sync.get(function (items) {
+    const OPTIONS_LINK_PREFERENCE = items.useOptionsLink;
+    // console.log(OPTIONS_LINK_PREFERENCE);
+
+    // For existing users, options link will be undefined, and we want it to show up by default.
+    // This will go away once they save options. This shouldn't occur for new users.
+    if (OPTIONS_LINK_PREFERENCE == true || OPTIONS_LINK_PREFERENCE == undefined) {
+      document.getElementById("options-link-container").hidden = false;
+    } else {
+      document.getElementById("options-link-container").hidden = true;
+    }
+  }); //end get sync
+} //end checkOptionsLinkPreference
+
+function initOptionsLink() {
+  // Add click event listener to open options page
+  const optionsLink = document.getElementById("options-link");
+  if (optionsLink) {
+    optionsLink.addEventListener("click", function(event) {
+      event.preventDefault();
+      chrome.runtime.openOptionsPage();
+    });
+  }
+}
+
+function loadButtonColors() {
+  chrome.storage.sync.get(
+    {
+      usePrimaryProjectColor: "#ffffff",
+      useSecondaryProjectColor: "#2c3e50",
+      usePrimaryProjectTextColor: "#000000",
+      useSecondaryProjectTextColor: "#ffffff",
+    },
+    function (items) {
+      document.documentElement.style.setProperty('--primary-project-color', items.usePrimaryProjectColor);
+      document.documentElement.style.setProperty('--secondary-project-color', items.useSecondaryProjectColor);
+      document.documentElement.style.setProperty('--primary-project-text-color', items.usePrimaryProjectTextColor);
+      document.documentElement.style.setProperty('--secondary-project-text-color', items.useSecondaryProjectTextColor);
+      
+      // Debug logging
+      console.log('Loaded button colors:', {
+        primaryColor: items.usePrimaryProjectColor,
+        secondaryColor: items.useSecondaryProjectColor,
+        primaryTextColor: items.usePrimaryProjectTextColor,
+        secondaryTextColor: items.useSecondaryProjectTextColor
+      });
+    }
   );
 }

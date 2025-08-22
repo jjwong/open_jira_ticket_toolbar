@@ -4,6 +4,7 @@
     <title>Open JIRA Ticket Toolbar</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="css/popup.css" />
+    <script type="text/javascript" src="js/localize.js"></script>
     <script type="module" src="js/popup.js"></script>
   </head>
   <body>
@@ -18,7 +19,9 @@
           tabindex="0"
           autocomplete="off"
         />
-        <button type="button" class="glow-on-hover" id="toggleProject">Toggle Project</button>
+        <button type="button" class="glow-on-hover" id="toggleProject">
+          Toggle Project
+        </button>
       </div>
     </form>
     <span id="status" hidden></span>
@@ -58,6 +61,16 @@
 
     <div id="previousSearches" style="padding: 0">
       <ul id="historyList"></ul>
+    </div>
+
+    <div id="options-link-container" hidden>
+      <a
+        href="#"
+        id="options-link"
+        class="options-link"
+        data-locale="optionsLinkText"
+        >Options</a
+      >
     </div>
   </body>
 </html>

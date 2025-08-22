@@ -220,6 +220,11 @@ function save_options() {
   let input_history_preference =
     document.getElementById("historyPreference").checked;
   let input_allow_underscores = document.getElementById("allowUnderscores").checked;
+  let input_options_link = document.getElementById("optionsLink").checked;
+  let input_primary_project_color = document.getElementById("primaryProjectColor").value;
+  let input_secondary_project_color = document.getElementById("secondaryProjectColor").value;
+  let input_primary_project_text_color = document.getElementById("primaryProjectTextColor").value;
+  let input_secondary_project_text_color = document.getElementById("secondaryProjectTextColor").value;
 
   // set tracker to 1 if either secondary option is empty
   if (input_secondary_url == null || input_secondary_project == null) {
@@ -237,6 +242,11 @@ function save_options() {
       useFiscalQuarter: input_fiscal_quarter,
       useHistoryPreference: input_history_preference,
       useAllowUnderscores: input_allow_underscores,
+      useOptionsLink: input_options_link,
+      usePrimaryProjectColor: input_primary_project_color,
+      useSecondaryProjectColor: input_secondary_project_color,
+      usePrimaryProjectTextColor: input_primary_project_text_color,
+      useSecondaryProjectTextColor: input_secondary_project_text_color,
       // useLanguage: input_language,
     },
     function () {
@@ -284,6 +294,11 @@ function restore_options() {
       useFiscalQuarter: false,
       useHistoryPreference: true,
       useAllowUnderscores: false,
+      useOptionsLink: true,
+      usePrimaryProjectColor: "#ffffff",
+      useSecondaryProjectColor: "#2c3e50",
+      usePrimaryProjectTextColor: "#000000",
+      useSecondaryProjectTextColor: "#ffffff",
       useSecondaryURL: "",
       useSecondaryProject: "",
       useProjectTracker: 1,
@@ -301,6 +316,11 @@ function restore_options() {
       document.getElementById("historyPreference").checked =
         items.useHistoryPreference;
       document.getElementById("allowUnderscores").checked = items.useAllowUnderscores;
+      document.getElementById("optionsLink").checked = items.useOptionsLink;
+      document.getElementById("primaryProjectColor").value = items.usePrimaryProjectColor;
+      document.getElementById("secondaryProjectColor").value = items.useSecondaryProjectColor;
+      document.getElementById("primaryProjectTextColor").value = items.usePrimaryProjectTextColor;
+      document.getElementById("secondaryProjectTextColor").value = items.useSecondaryProjectTextColor;
 
       // default project preview
       setTicketPreview(
@@ -389,6 +409,7 @@ function setRankDisplay(usage) {
 document.addEventListener("DOMContentLoaded", restore_options);
 window.onload = function () {
   document.getElementById("save").addEventListener("click", save_options);
+  document.getElementById("resetColors").addEventListener("click", resetColors);
   
   // Add event listeners to clear error highlighting when user starts typing
   const inputFields = [
@@ -467,4 +488,22 @@ function isNumberAtStart(string) {
   } else {
     return true;
   }
+}
+
+function resetColors() {
+  // Reset to default colors
+  document.getElementById("primaryProjectColor").value = "#ffffff";
+  document.getElementById("secondaryProjectColor").value = "#2c3e50";
+  document.getElementById("primaryProjectTextColor").value = "#000000";
+  document.getElementById("secondaryProjectTextColor").value = "#ffffff";
+  
+  // Save the reset colors immediately
+  chrome.storage.sync.set({
+    usePrimaryProjectColor: "#ffffff",
+    useSecondaryProjectColor: "#2c3e50",
+    usePrimaryProjectTextColor: "#000000",
+    useSecondaryProjectTextColor: "#ffffff"
+  }, function() {
+    showSuccessText();
+  });
 }

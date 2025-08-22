@@ -90,5 +90,33 @@
     "optionsAllowUnderscoresLabel": {
         "message": "Включить подчеркивания в ID проекта",
         "description": "Label for the allow underscores feature"
+    },
+    "optionsLinkText": {
+        "message": "Опции",
+        "description": "Text for the options link in the popup"
+    },
+    "optionsLinkCheckboxLabel": {
+        "message": "Включить отображение ссылки на опции",
+        "description": "Label for the options link checkbox in options page"
+    },
+    "optionsPrimaryProjectColorLabel": {
+        "message": "Цвет кнопки основного проекта",
+        "description": "Label for primary project button color picker"
+    },
+    "optionsSecondaryProjectColorLabel": {
+        "message": "Цвет кнопки вторичного проекта",
+        "description": "Label for secondary project button color picker"
+    },
+    "optionsPrimaryProjectTextColorLabel": {
+        "message": "Цвет текста основного проекта",
+        "description": "Label for primary project text color picker"
+    },
+    "optionsSecondaryProjectTextColorLabel": {
+        "message": "Цвет текста вторичного проекта",
+        "description": "Label for secondary project text color picker"
+    },
+    "optionsResetColorsButton": {
+        "message": "Сбросить к цветам по умолчанию",
+        "description": "Text for the reset colors button"
     }
 }
