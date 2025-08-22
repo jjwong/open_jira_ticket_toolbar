@@ -11,13 +11,16 @@
     <div class="container" id="container">
       <div class="form-container">
         <div class="options-form">
+          <div class="scroll-indicator" id="scrollIndicator">
+            <div class="scroll-arrow">↓</div>
+          </div>
           <h1 data-locale="optionsTitle">Open JIRA Ticket Options</h1>
           <span>Fill out the fields to start using the extension.</span>
 
           <!-- Primary JIRA Configuration -->
           <div class="form-section">
             <div class="section-title">Primary JIRA Configuration</div>
-            
+
             <div class="form-group">
               <label>JIRA URL</label>
               <input
@@ -26,9 +29,11 @@
                 placeholder="http://issues.jiraland.com"
               />
             </div>
-            
+
             <div class="form-group">
-              <label data-locale="optionsDefaultProjectLabel">Default Project</label>
+              <label data-locale="optionsDefaultProjectLabel"
+                >Default Project</label
+              >
               <input
                 type="text"
                 id="inputDefaultProject"
@@ -55,7 +60,7 @@
           <!-- Secondary JIRA Configuration -->
           <div class="form-section">
             <div class="section-title">Secondary JIRA Configuration</div>
-            
+
             <div class="form-group">
               <label>Second JIRA URL</label>
               <input
@@ -64,9 +69,11 @@
                 placeholder="http://issues2.jiraland.com"
               />
             </div>
-            
+
             <div class="form-group">
-              <label data-locale="optionsDefaultProjectLabel">Default Project</label>
+              <label data-locale="optionsDefaultProjectLabel"
+                >Default Project</label
+              >
               <input
                 type="text"
                 id="inputSecondaryProject"
@@ -95,24 +102,53 @@
             <div class="section-title">Features</div>
             <div class="checkbox-grid">
               <label class="checkbox-item" for="worldClock">
-                <input type="checkbox" id="worldClock" class="optionsCheckbox" value="worldClock" />
+                <input
+                  type="checkbox"
+                  id="worldClock"
+                  class="optionsCheckbox"
+                  value="worldClock"
+                />
                 <span>Enable World Clock</span>
               </label>
               <label class="checkbox-item" for="fiscalQuarter">
-                <input type="checkbox" id="fiscalQuarter" class="optionsCheckbox" value="fiscalQuarter" />
+                <input
+                  type="checkbox"
+                  id="fiscalQuarter"
+                  class="optionsCheckbox"
+                  value="fiscalQuarter"
+                />
                 <span>Enable Fiscal Quarters</span>
               </label>
               <label class="checkbox-item" for="historyPreference">
-                <input type="checkbox" id="historyPreference" class="optionsCheckbox" value="historyPreference" />
+                <input
+                  type="checkbox"
+                  id="historyPreference"
+                  class="optionsCheckbox"
+                  value="historyPreference"
+                />
                 <span>Enable History Display</span>
               </label>
               <label class="checkbox-item" for="allowUnderscores">
-                <input type="checkbox" id="allowUnderscores" class="optionsCheckbox" value="allowUnderscores" />
-                <span data-locale="optionsAllowUnderscoresLabel">Enable Underscores in Project IDs</span>
+                <input
+                  type="checkbox"
+                  id="allowUnderscores"
+                  class="optionsCheckbox"
+                  value="allowUnderscores"
+                />
+                <span data-locale="optionsAllowUnderscoresLabel"
+                  >Enable Underscores in Project IDs</span
+                >
               </label>
               <label class="checkbox-item" for="optionsLink">
-                <input type="checkbox" id="optionsLink" class="optionsCheckbox" value="optionsLink" />
-                <span data-locale="optionsLinkCheckboxLabel">Enable Options Link Display</span>
+                <input
+                  type="checkbox"
+                  id="optionsLink"
+                  class="optionsCheckbox"
+                  value="optionsLink"
+                />
+                <span data-locale="optionsLinkCheckboxLabel"
+                  >Enable Options Link Display</span
+                >
               </label>
             </div>
           </div>
@@ -120,10 +156,12 @@
           <!-- Button Color Configuration -->
           <div class="form-section">
             <div class="section-title">Project Button Colors</div>
-            
+
             <div class="color-row">
               <div class="color-group">
-                <label data-locale="optionsPrimaryProjectTextColorLabel">Primary Project Text Color</label>
+                <label data-locale="optionsPrimaryProjectTextColorLabel"
+                  >Primary Project Text Color</label
+                >
                 <input
                   type="color"
                   id="primaryProjectTextColor"
@@ -132,7 +170,9 @@
                 />
               </div>
               <div class="color-group">
-                <label data-locale="optionsPrimaryProjectColorLabel">Primary Project Button Color</label>
+                <label data-locale="optionsPrimaryProjectColorLabel"
+                  >Primary Project Button Color</label
+                >
                 <input
                   type="color"
                   id="primaryProjectColor"
@@ -141,10 +181,12 @@
                 />
               </div>
             </div>
-            
+
             <div class="color-row">
               <div class="color-group">
-                <label data-locale="optionsSecondaryProjectTextColorLabel">Secondary Project Text Color</label>
+                <label data-locale="optionsSecondaryProjectTextColorLabel"
+                  >Secondary Project Text Color</label
+                >
                 <input
                   type="color"
                   id="secondaryProjectTextColor"
@@ -153,7 +195,9 @@
                 />
               </div>
               <div class="color-group">
-                <label data-locale="optionsSecondaryProjectColorLabel">Secondary Project Button Color</label>
+                <label data-locale="optionsSecondaryProjectColorLabel"
+                  >Secondary Project Button Color</label
+                >
                 <input
                   type="color"
                   id="secondaryProjectColor"
@@ -162,9 +206,14 @@
                 />
               </div>
             </div>
-            
+
             <div class="form-group">
-              <button type="button" id="resetColors" class="reset-button" data-locale="optionsResetColorsButton">
+              <button
+                type="button"
+                id="resetColors"
+                class="reset-button"
+                data-locale="optionsResetColorsButton"
+              >
                 Reset to Default Colors
               </button>
             </div>
@@ -174,12 +223,16 @@
           <div class="language-section">
             <div class="section-title">Language Settings</div>
             <div class="language-info">
-              <span data-locale="optionsLanguageExplanation">Language based on browser settings. See `chrome://settings/languages`</span>
+              <span data-locale="optionsLanguageExplanation"
+                >Language based on browser settings. See
+                `chrome://settings/languages`</span
+              >
               <a
                 data-locale="optionsLanguageHelpLinkText"
                 href="https://developer.chrome.com/docs/extensions/reference/i18n/#how-to-set-browsers-locale"
                 target="_blank"
-              >Additional Help - How to set language locale in Chrome</a>
+                >Additional Help - How to set language locale in Chrome</a
+              >
             </div>
           </div>
 
@@ -187,14 +240,16 @@
           <button data-locale="optionsSaveButton" id="save">Save</button>
         </div>
       </div>
-      
+
       <!-- Right Side Panel -->
       <div class="overlay-container">
         <div class="overlay-panel">
           <h1 data-locale="optionsDonationHeader">Hello, Friend!</h1>
-          
+
           <div class="stats-section">
-            <div id="jiraSearchHeader" data-locale="jiraSearchHeader">Your number of JIRA searches</div>
+            <div id="jiraSearchHeader" data-locale="jiraSearchHeader">
+              Your number of JIRA searches
+            </div>
             <div id="usageNumber">0</div>
 
             <div id="rankHeader" data-locale="rankHeader">Rank</div>
@@ -204,9 +259,7 @@
           <div class="rating-section">
             <h3>Enjoying the extension?</h3>
             <p>Rate us 5 stars on the Chrome Web Store!</p>
-            <div class="stars">
-              ⭐⭐⭐⭐⭐
-            </div>
+            <div class="stars">⭐⭐⭐⭐⭐</div>
             <a href="#" class="rating-button" id="rateExtension">
               Rate Extension
             </a>
@@ -215,8 +268,12 @@
           <p data-locale="optionsDonationMessage">
             Please consider supporting the extension.
           </p>
-          
-          <a href="https://ko-fi.com/A0A3H3GR7" target="_blank" class="donation-button">
+
+          <a
+            href="https://ko-fi.com/A0A3H3GR7"
+            target="_blank"
+            class="donation-button"
+          >
             <img
               height="36"
               style="border: 0px; height: 36px"

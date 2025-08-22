@@ -22,7 +22,7 @@ const RANKS = [
   "Kanban Commander",
   "JIRA Overlord",
   "Chief Ticket Alchemist",
-  "Legendary Agile Archmage"
+  "Legendary Agile Archmage",
 ];
 
 function showErrorText(string, project_tracker_id) {
@@ -102,12 +102,12 @@ function setPreviewError(error_display_id, preview_id) {
   var badOptionsText = document.getElementById(error_display_id);
   badOptionsText.classList.remove("hidden");
   setTicketPreview("N/A", "red", preview_id);
-  
+
   // Update preview section styling
   if (preview_id === "ticketPreview") {
-    document.querySelector('.preview-section').classList.add("error");
+    document.querySelector(".preview-section").classList.add("error");
   } else if (preview_id === "ticketSecondaryPreview") {
-    document.querySelectorAll('.preview-section')[1].classList.add("error");
+    document.querySelectorAll(".preview-section")[1].classList.add("error");
   }
 }
 
@@ -115,15 +115,17 @@ function setTicketPreview(string, color, element_id) {
   var ticketPreview = document.getElementById(element_id);
   ticketPreview.style.color = color;
   ticketPreview.innerText = string;
-  
+
   // Clear error messages and styling when preview is valid
   if (color === "green") {
     if (element_id === "ticketPreview") {
       document.getElementById("badOptions").classList.add("hidden");
-      document.querySelector('.preview-section').classList.remove("error");
+      document.querySelector(".preview-section").classList.remove("error");
     } else if (element_id === "ticketSecondaryPreview") {
       document.getElementById("badSecondaryOptions").classList.add("hidden");
-      document.querySelectorAll('.preview-section')[1].classList.remove("error");
+      document
+        .querySelectorAll(".preview-section")[1]
+        .classList.remove("error");
     }
   }
 }
@@ -177,10 +179,10 @@ function sanitizeProject(element_id, project_tracker_id) {
     }
 
     // Use different regex based on underscore setting
-    var only_text_regex = allow_underscores ? 
-      new RegExp("[a-z0-9_]+", "i") : 
-      new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
-    
+    var only_text_regex = allow_underscores
+      ? new RegExp("[a-z0-9_]+", "i")
+      : new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+
     var sanitized_project = input_default_project.match(only_text_regex);
     return sanitized_project[0].toUpperCase();
   }
@@ -192,10 +194,10 @@ function sanitizeProject(element_id, project_tracker_id) {
     }
 
     // Use different regex based on underscore setting
-    var only_text_regex = allow_underscores ? 
-      new RegExp("[a-z0-9_]+", "i") : 
-      new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
-    
+    var only_text_regex = allow_underscores
+      ? new RegExp("[a-z0-9_]+", "i")
+      : new RegExp("[a-z]+\\d*[a-z]*\\d*", "i");
+
     var sanitized_project = input_default_project.match(only_text_regex);
     return sanitized_project[0].toUpperCase();
   } else if (isBlank(input_default_project)) {
@@ -219,12 +221,21 @@ function save_options() {
   let input_fiscal_quarter = document.getElementById("fiscalQuarter").checked;
   let input_history_preference =
     document.getElementById("historyPreference").checked;
-  let input_allow_underscores = document.getElementById("allowUnderscores").checked;
+  let input_allow_underscores =
+    document.getElementById("allowUnderscores").checked;
   let input_options_link = document.getElementById("optionsLink").checked;
-  let input_primary_project_color = document.getElementById("primaryProjectColor").value;
-  let input_secondary_project_color = document.getElementById("secondaryProjectColor").value;
-  let input_primary_project_text_color = document.getElementById("primaryProjectTextColor").value;
-  let input_secondary_project_text_color = document.getElementById("secondaryProjectTextColor").value;
+  let input_primary_project_color = document.getElementById(
+    "primaryProjectColor"
+  ).value;
+  let input_secondary_project_color = document.getElementById(
+    "secondaryProjectColor"
+  ).value;
+  let input_primary_project_text_color = document.getElementById(
+    "primaryProjectTextColor"
+  ).value;
+  let input_secondary_project_text_color = document.getElementById(
+    "secondaryProjectTextColor"
+  ).value;
 
   // set tracker to 1 if either secondary option is empty
   if (input_secondary_url == null || input_secondary_project == null) {
@@ -265,21 +276,21 @@ function restore_options() {
   var badSecondaryOptionsText = document.getElementById("badSecondaryOptions");
   badOptionsText.classList.add("hidden");
   badSecondaryOptionsText.classList.add("hidden");
-  
+
   // Clear error styling from preview sections
-  document.querySelectorAll('.preview-section').forEach(section => {
+  document.querySelectorAll(".preview-section").forEach((section) => {
     section.classList.remove("error");
   });
-  
+
   // Clear error highlighting from input fields
   const inputFields = [
     "inputURL",
-    "inputDefaultProject", 
+    "inputDefaultProject",
     "inputSecondaryURL",
-    "inputSecondaryProject"
+    "inputSecondaryProject",
   ];
-  
-  inputFields.forEach(fieldId => {
+
+  inputFields.forEach((fieldId) => {
     const field = document.getElementById(fieldId);
     if (field) {
       field.classList.remove("error");
@@ -315,12 +326,17 @@ function restore_options() {
       document.getElementById("fiscalQuarter").checked = items.useFiscalQuarter;
       document.getElementById("historyPreference").checked =
         items.useHistoryPreference;
-      document.getElementById("allowUnderscores").checked = items.useAllowUnderscores;
+      document.getElementById("allowUnderscores").checked =
+        items.useAllowUnderscores;
       document.getElementById("optionsLink").checked = items.useOptionsLink;
-      document.getElementById("primaryProjectColor").value = items.usePrimaryProjectColor;
-      document.getElementById("secondaryProjectColor").value = items.useSecondaryProjectColor;
-      document.getElementById("primaryProjectTextColor").value = items.usePrimaryProjectTextColor;
-      document.getElementById("secondaryProjectTextColor").value = items.useSecondaryProjectTextColor;
+      document.getElementById("primaryProjectColor").value =
+        items.usePrimaryProjectColor;
+      document.getElementById("secondaryProjectColor").value =
+        items.useSecondaryProjectColor;
+      document.getElementById("primaryProjectTextColor").value =
+        items.usePrimaryProjectTextColor;
+      document.getElementById("secondaryProjectTextColor").value =
+        items.useSecondaryProjectTextColor;
 
       // default project preview
       setTicketPreview(
@@ -410,46 +426,50 @@ document.addEventListener("DOMContentLoaded", restore_options);
 window.onload = function () {
   document.getElementById("save").addEventListener("click", save_options);
   document.getElementById("resetColors").addEventListener("click", resetColors);
-  
+  initScrollIndicator();
+
   // Add event listeners to clear error highlighting when user starts typing
   const inputFields = [
     "inputURL",
-    "inputDefaultProject", 
+    "inputDefaultProject",
     "inputSecondaryURL",
-    "inputSecondaryProject"
+    "inputSecondaryProject",
   ];
-  
-  inputFields.forEach(fieldId => {
+
+  inputFields.forEach((fieldId) => {
     const field = document.getElementById(fieldId);
     if (field) {
-      field.addEventListener("input", function() {
+      field.addEventListener("input", function () {
         this.classList.remove("error");
       });
-      field.addEventListener("focus", function() {
+      field.addEventListener("focus", function () {
         this.classList.remove("error");
       });
     }
   });
-  
+
   // Add rating button functionality with browser detection
   const ratingButton = document.getElementById("rateExtension");
   const ratingText = document.querySelector(".rating-section p");
   const ratingTitle = document.querySelector(".rating-section h3");
-  
+
   if (ratingButton && ratingText && ratingTitle) {
     // Detect browser
     const isEdge = navigator.userAgent.includes("Edg");
-    const isChrome = navigator.userAgent.includes("Chrome") && !navigator.userAgent.includes("Edg");
-    
+    const isChrome =
+      navigator.userAgent.includes("Chrome") &&
+      !navigator.userAgent.includes("Edg");
+
     if (isEdge) {
       // Edge Add-ons store
       ratingTitle.textContent = "Enjoying the extension?";
-      ratingText.textContent = "Rate us 5 stars on the Microsoft Edge Add-ons store!";
+      ratingText.textContent =
+        "Rate us 5 stars on the Microsoft Edge Add-ons store!";
       ratingButton.textContent = "Rate on Edge Add-ons";
-      ratingButton.addEventListener("click", function(e) {
+      ratingButton.addEventListener("click", function (e) {
         e.preventDefault();
         chrome.tabs.create({
-          url: "https://microsoftedge.microsoft.com/addons/detail/open-jira-ticket/mcgalgcbedknfbohhhnngnbofngoifkm"
+          url: "https://microsoftedge.microsoft.com/addons/detail/open-jira-ticket/mcgalgcbedknfbohhhnngnbofngoifkm",
         });
       });
     } else if (isChrome) {
@@ -457,10 +477,10 @@ window.onload = function () {
       ratingTitle.textContent = "Enjoying the extension?";
       ratingText.textContent = "Rate us 5 stars on the Chrome Web Store!";
       ratingButton.textContent = "Rate on Chrome Web Store";
-      ratingButton.addEventListener("click", function(e) {
+      ratingButton.addEventListener("click", function (e) {
         e.preventDefault();
         chrome.tabs.create({
-          url: "https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci"
+          url: "https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci",
         });
       });
     } else {
@@ -468,10 +488,10 @@ window.onload = function () {
       ratingTitle.textContent = "Enjoying the extension?";
       ratingText.textContent = "Rate us 5 stars on the Chrome Web Store!";
       ratingButton.textContent = "Rate Extension";
-      ratingButton.addEventListener("click", function(e) {
+      ratingButton.addEventListener("click", function (e) {
         e.preventDefault();
         chrome.tabs.create({
-          url: "https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci"
+          url: "https://chrome.google.com/webstore/detail/open-jira-ticket/blblhnpjhhjdbgbcgmmldohpalmbedci",
         });
       });
     }
@@ -496,14 +516,45 @@ function resetColors() {
   document.getElementById("secondaryProjectColor").value = "#2c3e50";
   document.getElementById("primaryProjectTextColor").value = "#000000";
   document.getElementById("secondaryProjectTextColor").value = "#ffffff";
-  
+
   // Save the reset colors immediately
-  chrome.storage.sync.set({
-    usePrimaryProjectColor: "#ffffff",
-    useSecondaryProjectColor: "#2c3e50",
-    usePrimaryProjectTextColor: "#000000",
-    useSecondaryProjectTextColor: "#ffffff"
-  }, function() {
-    showSuccessText();
-  });
+  chrome.storage.sync.set(
+    {
+      usePrimaryProjectColor: "#ffffff",
+      useSecondaryProjectColor: "#2c3e50",
+      usePrimaryProjectTextColor: "#000000",
+      useSecondaryProjectTextColor: "#ffffff",
+    },
+    function () {
+      showSuccessText();
+    }
+  );
+}
+
+function initScrollIndicator() {
+  const formContainer = document.querySelector(".form-container");
+  const scrollIndicator = document.getElementById("scrollIndicator");
+
+  if (!formContainer || !scrollIndicator) return;
+
+  function checkScroll() {
+    const { scrollTop, scrollHeight, clientHeight } = formContainer;
+    const maxScroll = scrollHeight - clientHeight;
+
+    // Show indicator if there's more content to scroll and we're not at the bottom
+    if (scrollHeight > clientHeight && scrollTop < maxScroll - 50) {
+      scrollIndicator.classList.add("show");
+    } else {
+      scrollIndicator.classList.remove("show");
+    }
+  }
+
+  // Check on load
+  checkScroll();
+
+  // Check on scroll
+  formContainer.addEventListener("scroll", checkScroll);
+
+  // Check on window resize
+  window.addEventListener("resize", checkScroll);
 }
