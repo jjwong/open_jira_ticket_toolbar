@@ -118,5 +118,17 @@
     "optionsResetColorsButton": {
         "message": "重置为默认颜色",
         "description": "Text for the reset colors button"
+    },
+    "optionsWorkHoursLabel": {
+        "message": "启用工作时间",
+        "description": "Label for the work hours feature checkbox"
+    },
+    "optionsWorkHoursExplanation": {
+        "message": "为每个时区设置工作时间。当工作时间处于活动状态时，时间旁边会显示办公楼表情符号（🏢）。在非工作时间，将显示睡眠表情符号（😴）。",
+        "description": "Explanation text for the work hours feature"
+    },
+    "optionsResetButton": {
+        "message": "重置",
+        "description": "工作时间设置中重置按钮的文本"
     }
 }

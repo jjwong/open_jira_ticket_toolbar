@@ -127,6 +127,16 @@ input {
 .clock {
   margin-top: 3px;
   margin-bottom: 2px;
+  font-size: 12px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.clock span {
+  display: inline-block;
+  min-width: 45px;
+  text-align: center;
 }
 
 #quarter-container {
@@ -306,4 +316,28 @@ input {
 .options-link:focus {
   outline: 2px solid #3c56e7;
   outline-offset: 2px;
+}
+
+/* Work Hours Indicator Styling */
+.work-indicator {
+  margin-left: 4px;
+  font-size: 14px;
+  animation: workPulse 2s ease-in-out infinite;
+}
+
+.off-hours-indicator {
+  margin-left: 4px;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+@keyframes workPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
 }

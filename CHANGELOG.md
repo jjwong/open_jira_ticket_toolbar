@@ -1,4 +1,9 @@
 # Changelog
+* 3.3.0
+	* Add work hours feature
+	* Add options scrollbar arrow
+	* Fix readme
+	* Reduce build size
 * 3.2.1
 	* Add options link display
 	* Add project button customization

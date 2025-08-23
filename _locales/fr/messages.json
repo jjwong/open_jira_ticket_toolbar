@@ -118,5 +118,17 @@
     "optionsResetColorsButton": {
         "message": "Réinitialiser aux couleurs par défaut",
         "description": "Text for the reset colors button"
+    },
+    "optionsWorkHoursLabel": {
+        "message": "Activer les heures de travail",
+        "description": "Label pour la case à cocher de la fonctionnalité des heures de travail"
+    },
+    "optionsWorkHoursExplanation": {
+        "message": "Définir les heures de travail pour chaque fuseau horaire. Lorsque les heures de travail sont actives, un emoji de bâtiment de bureau (🏢) apparaîtra à côté de l'heure. Pendant les heures non travaillées, un emoji de sommeil (😴) sera affiché.",
+        "description": "Texte d'explication pour la fonctionnalité des heures de travail"
+    },
+    "optionsResetButton": {
+        "message": "Réinitialiser",
+        "description": "Texte pour le bouton de réinitialisation dans la configuration des heures de travail"
     }
 }

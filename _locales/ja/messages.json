@@ -118,5 +118,17 @@
     "optionsResetColorsButton": {
         "message": "デフォルト色にリセット",
         "description": "Text for the reset colors button"
+    },
+    "optionsWorkHoursLabel": {
+        "message": "勤務時間を有効にする",
+        "description": "Label for the work hours feature checkbox"
+    },
+    "optionsWorkHoursExplanation": {
+        "message": "各タイムゾーンの勤務時間を設定します。勤務時間がアクティブな場合、時刻の横にオフィスビルの絵文字（🏢）が表示されます。勤務時間外は、睡眠の絵文字（😴）が表示されます。",
+        "description": "Explanation text for the work hours feature"
+    },
+    "optionsResetButton": {
+        "message": "リセット",
+        "description": "勤務時間設定のリセットボタンのテキスト"
     }
 }
