@@ -711,6 +711,18 @@ input[type="text"]::placeholder {
     font-size: 0.75rem;
     padding: 4px 6px;
   }
+
+  .timezone-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .reset-timezone-btn {
+    align-self: flex-end;
+    font-size: 0.7rem;
+    padding: 3px 6px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -957,12 +969,39 @@ button:focus {
   transform: translateY(-2px);
 }
 
-.work-hour-item label {
-  display: block;
+.timezone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.timezone-header label {
   font-weight: 600;
   color: #1a1a1a;
-  margin-bottom: 12px;
   font-size: 1rem;
+  margin: 0;
+}
+
+.reset-timezone-btn {
+  background: #6b7280;
+  color: #ffffff;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-timezone-btn:hover {
+  background: #4b5563;
+  transform: translateY(-1px);
+}
+
+.reset-timezone-btn:active {
+  transform: translateY(0);
 }
 
 .time-inputs {

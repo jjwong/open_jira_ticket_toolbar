@@ -126,5 +126,9 @@
     "optionsWorkHoursExplanation": {
         "message": "Set work hours for each timezone. When work hours are active, an office building emoji (🏢) will appear next to the time. During off hours, a snooze emoji (😴) will be shown.",
         "description": "Explanation text for the work hours feature"
+    },
+    "optionsResetButton": {
+        "message": "Reset",
+        "description": "Text for the reset button in work hours configuration"
     }
 }

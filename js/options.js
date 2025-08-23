@@ -669,6 +669,15 @@ function initScrollIndicator() {
       }
     });
   }
+
+  // Add reset timezone buttons functionality
+  const resetButtons = document.querySelectorAll(".reset-timezone-btn");
+  resetButtons.forEach(button => {
+    button.addEventListener("click", function() {
+      const timezone = this.getAttribute("data-timezone");
+      resetTimezoneHours(timezone);
+    });
+  });
 }
 
 // Function to update work hours visibility based on world clock setting
@@ -691,5 +700,25 @@ function updateWorkHoursVisibility(worldClockEnabled) {
     workHoursCheckbox.checked = false;
     workHoursLabel.classList.add("disabled");
     workHoursSection.style.display = "none";
+  }
+}
+
+// Function to reset timezone hours to default (9 AM to 5 PM)
+function resetTimezoneHours(timezone) {
+  const startInput = document.getElementById(`workHours${timezone}Start`);
+  const endInput = document.getElementById(`workHours${timezone}End`);
+  
+  if (startInput && endInput) {
+    startInput.value = "09:00";
+    endInput.value = "17:00";
+    
+    // Add a brief visual feedback
+    startInput.style.backgroundColor = "#f0f9ff";
+    endInput.style.backgroundColor = "#f0f9ff";
+    
+    setTimeout(() => {
+      startInput.style.backgroundColor = "#ffffff";
+      endInput.style.backgroundColor = "#ffffff";
+    }, 500);
   }
 }

@@ -126,5 +126,9 @@
     "optionsWorkHoursExplanation": {
         "message": "Arbeitszeiten für jede Zeitzone festlegen. Wenn Arbeitszeiten aktiv sind, wird ein Bürogebäude-Emoji (🏢) neben der Zeit angezeigt. Außerhalb der Arbeitszeiten wird ein Schlaf-Emoji (😴) angezeigt.",
         "description": "Erklärungstext für die Arbeitszeiten-Funktion"
+    },
+    "optionsResetButton": {
+        "message": "Zurücksetzen",
+        "description": "Text für den Reset-Button in der Arbeitszeiten-Konfiguration"
     }
 }

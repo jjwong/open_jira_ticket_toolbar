@@ -124,7 +124,11 @@
         "description": "Label for the work hours feature checkbox"
     },
     "optionsWorkHoursExplanation": {
-        "message": "각 시간대의 근무 시간을 설정합니다. 근무 시간이 활성화되면 시간 옆에 사무실 건물 이모지(🏢)가 표시됩니다.",
+        "message": "각 시간대의 근무 시간을 설정합니다. 근무 시간이 활성화되면 시간 옆에 사무실 건물 이모지(🏢)가 표시됩니다. 근무 시간 외에는 수면 이모지(😴)가 표시됩니다.",
         "description": "Explanation text for the work hours feature"
+    },
+    "optionsResetButton": {
+        "message": "재설정",
+        "description": "근무 시간 설정의 재설정 버튼 텍스트"
     }
 }
