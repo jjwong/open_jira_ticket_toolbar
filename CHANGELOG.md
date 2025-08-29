@@ -1,4 +1,6 @@
 # Changelog
+* 3.3.1
+	* Add opera support
 * 3.3.0
 	* Add work hours feature
 	* Add options scrollbar arrow
