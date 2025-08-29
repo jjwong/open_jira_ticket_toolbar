@@ -548,9 +548,12 @@ window.onload = function () {
   if (ratingButton && ratingText && ratingTitle) {
     // Detect browser
     const isEdge = navigator.userAgent.includes("Edg");
+    const isOpera = navigator.userAgent.includes("OPR") || navigator.userAgent.includes("Opera");
     const isChrome =
       navigator.userAgent.includes("Chrome") &&
-      !navigator.userAgent.includes("Edg");
+      !navigator.userAgent.includes("Edg") &&
+      !navigator.userAgent.includes("OPR") &&
+      !navigator.userAgent.includes("Opera");
 
     if (isEdge) {
       // Edge Add-ons store
@@ -562,6 +565,17 @@ window.onload = function () {
         e.preventDefault();
         chrome.tabs.create({
           url: "https://microsoftedge.microsoft.com/addons/detail/open-jira-ticket/mcgalgcbedknfbohhhnngnbofngoifkm",
+        });
+      });
+    } else if (isOpera) {
+      // Opera Add-ons store
+      ratingTitle.textContent = "Enjoying the extension?";
+      ratingText.textContent = "Rate us 5 stars on the Opera Add-ons store!";
+      ratingButton.textContent = "Rate on Opera Add-ons";
+      ratingButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        chrome.tabs.create({
+          url: "https://addons.opera.com/en/extensions/details/open-jira-ticket/",
         });
       });
     } else if (isChrome) {
